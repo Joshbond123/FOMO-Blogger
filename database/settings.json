@@ -1,0 +1,463 @@
+{
+  "geminiApiKeys": [],
+  "cerebrasApiKeys": [
+    {
+      "id": "1cbebf5e-7ed6-4231-8779-54efae23efda",
+      "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
+      "createdAt": "2025-12-07T00:33:46.901Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T11:19:00.588Z"
+    },
+    {
+      "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
+      "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
+      "createdAt": "2025-12-07T00:33:52.645Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T11:19:02.095Z"
+    },
+    {
+      "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
+      "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
+      "createdAt": "2025-12-07T00:33:57.035Z",
+      "isActive": true,
+      "lastUsed": "2025-12-07T17:27:00.831Z"
+    },
+    {
+      "id": "b68be842-283b-4c83-b832-d9e593218dd3",
+      "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
+      "createdAt": "2025-12-07T00:34:01.357Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T10:41:00.395Z"
+    },
+    {
+      "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
+      "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
+      "createdAt": "2025-12-07T00:34:05.032Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T10:41:01.208Z"
+    },
+    {
+      "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
+      "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
+      "createdAt": "2025-12-07T00:34:33.690Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T11:02:00.476Z"
+    },
+    {
+      "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
+      "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
+      "createdAt": "2025-12-07T00:35:10.597Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T11:02:03.751Z"
+    }
+  ],
+  "huggingfaceApiKeys": [
+    {
+      "id": "30cae0a2-d856-42d7-aa2a-38d8938a9eed",
+      "key": "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",
+      "createdAt": "2025-12-05T22:48:56.485Z",
+      "isActive": true,
+      "lastUsed": "2025-12-06T10:38:58.454Z"
+    }
+  ],
+  "imgbbApiKeys": [
+    {
+      "id": "26fe435f-7424-41cf-872a-582ebff4fa07",
+      "key": "8a253fbc3d3fe346b4bbac4b664345c3",
+      "createdAt": "2025-12-06T10:00:47.887Z",
+      "isActive": true,
+      "lastUsed": "2025-12-08T11:19:14.113Z"
+    }
+  ],
+  "blogger": {
+    "isConnected": false
+  },
+  "bloggerAccounts": [
+    {
+      "name": "ShadowCase Files",
+      "blogId": "891743545610802329",
+      "nicheId": "scary-mysterious",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
+      "createdAt": "2025-12-07T01:28:05.271Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA9iclgxqUp1xdO6_rGCSt_fOeOJ3p35IMy88AOy4oQ6oe9J8HG2MYjvjPCNJjJRof8vHKXOuvpAPzMinnDt-DMBHgvOYhuen1_6ksRC5__MsrZsnWPUpSAel2pDoXEoQWb6ZqSyw75ltAcMBx2accD4UO2wdSYZtn4OS8dOMNV7ectJPg1WrYTXZVtAJi2tZYbmaCgYKAUYSARISFQHGX2Mi_4H6Tx5ma02TO6bjneXwhg0207",
+      "tokenExpiry": "2025-12-07T18:05:44.206Z",
+      "blogName": "ShadowCase Files",
+      "blogUrl": "http://shadowcasefile.blogspot.com/",
+      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
+      "popunderAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b6/6b/bd/b66bbdcbccc35396ecd76e64604f7009.js\"\n></script>"
+    },
+    {
+      "name": "AIGenius Hub",
+      "blogId": "1842046339975980799",
+      "nicheId": "ai-tools",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "9579e08e-449c-4006-a45f-3ce4d224353a",
+      "createdAt": "2025-12-07T01:29:03.542Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA8dL83wtkja0PCqPVeKjKNu8U29Cijd0Z17F4MB8XEk_kGxoAG1ei8vO-dSmlotWz_D53iTiWdhDKHgkOQAQIMZnAhMNr_Mx4YaEjcdYylFXFIqBAAamKqe4WmGUBDRdFmywltYN5yJjh2yRPh4wYxp2IAjDsfqFZVJtw5SGnwpF2nZ9Cd84JuI3YQ3RAU1lkpbaCgYKAQQSARISFQHGX2MirBQz1qULq1XB4U6Xti6m1A0207",
+      "tokenExpiry": "2025-12-07T18:06:50.510Z",
+      "blogName": "AIGenius Hub",
+      "blogUrl": "http://aigeniushub0.blogspot.com/",
+      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '55ef161ca9e138ca3500533973fddb48',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/55ef161ca9e138ca3500533973fddb48/invoke.js\"\n></script>",
+      "popunderAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/10/a3/78/10a37817eee3cd2f482f8f3bd86dc2b9.js\"\n></script>"
+    },
+    {
+      "name": "FactShock World",
+      "blogId": "4816005932737801153",
+      "nicheId": "weird-facts",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
+      "createdAt": "2025-12-07T01:30:38.846Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA8nffS_yapK8aZHxdrxqlLcIhF32MIyaF8dbaHHEgh_WDsHjzxs_OQ_mZIopAcRG5RMAZrvUbuQJjAUzloe4Me6QpNqT1eBaJV6i6xWM_DsMbGGuyo7Ef38er6nhr2RxwUJdQs_gZQUiplJIIA193j9mK4Q5ns4Fw3KSGAAxKVSg-8Yvs59phxWHXgiL6b9r3OVaCgYKAdsSARISFQHGX2MiXWQfrwIU-Zko_wGz6a9tZQ0207",
+      "tokenExpiry": "2025-12-07T18:10:05.139Z",
+      "blogName": "FactShock World",
+      "blogUrl": "http://factshockworld.blogspot.com/",
+      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
+      "popunderAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/4e/74/18/4e7418bdc40fa43ec2d88b9c2b68aead.js\"\n></script>"
+    },
+    {
+      "name": "DailyHack Mastery",
+      "blogId": "2707774515244441664",
+      "nicheId": "life-hacks",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "56cf1820-0eac-469e-ae3c-8505bbb245f4",
+      "createdAt": "2025-12-07T01:32:19.998Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA_ci-v-PqW8A90cBlZZ9PBx6oDGVTOs7uLNBGNu-0DFCsCL8IoGMRPj9uztRg3icMe4gPKaO4xotsyuWbXmur4EonXVv0ny6qI2iBbDnPAc-B9uWlfIcvsF6PUVaiRC5kzmeCMxDhQZFaEobMeIPg4RHdOOqX4HGUZy10VP0yikC_uUXUn9h8A_Yak0ySHecaNbaCgYKAacSARISFQHGX2MiHFIViZq60qIDQwjC4bzi2Q0207",
+      "tokenExpiry": "2025-12-07T18:13:15.924Z",
+      "blogName": "DailyHack Mastery",
+      "blogUrl": "http://dailyhackmastery.blogspot.com/",
+      "bannerAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/10/a3/78/10a37817eee3cd2f482f8f3bd86dc2b9.js\"\n></script>",
+      "popunderAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b676236be1e927ef97afad475b1a0f22',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b676236be1e927ef97afad475b1a0f22/invoke.js\"\n></script>"
+    },
+    {
+      "name": "HealthLabz",
+      "blogId": "2648912725309771064",
+      "nicheId": "health-hacks",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb",
+      "createdAt": "2025-12-07T01:42:24.483Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA9StzI0EMDy7vBT5JKEcDIGsURgz2w8_Tlqvx-oHPx3zTbPp3XEPuSHGnyP0gXARib2GEFFUOE4JJ6RvF2LBy-p5I9n_N_z5FJrv67Wbwz6cTzxMpKoro9f0z18FmrzPoxTosTM20wblIh1z_jASaWHXIrU_iAapWrserppJzE9ipFb5KzyX6WMXwni87iRHwgqaCgYKAVsSARISFQHGX2MiB-GwmUWCsBMGRxwsU3qGrg0207",
+      "tokenExpiry": "2025-12-07T18:16:12.179Z",
+      "blogName": "HealthLabz",
+      "blogUrl": "http://healthlabz4.blogspot.com/",
+      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '7c07d4c5a00b61af00d1893d0f1ea8ec',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/7c07d4c5a00b61af00d1893d0f1ea8ec/invoke.js\"\n></script>",
+      "popunderAdsCode": ""
+    },
+    {
+      "name": "TrendWave Media",
+      "blogId": "4864970375408580592",
+      "nicheId": "viral-entertainment",
+      "clientId": "677480586495-joo51q4u292ps39ike0s41gh29dvic1d.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//058XWw-5GMsdGCgYIARAAGAUSNwF-L9Ir3Iz2rKBunNZ8x_lydqH7lqjNLWovBv1v9FeWuTKyFy6xTo6SjXioBPNI3rgMKkiGTqc",
+      "id": "6dc72eae-ef94-4690-8e86-bb5cbd678482",
+      "createdAt": "2025-12-08T06:43:31.811Z",
+      "isConnected": true,
+      "accessToken": "ya29.a0Aa7pCA_R2qSkkUoXsArfk3NBWcneRWY-m-c_VQENbQwUF3FNVlVO5GUopvTNM4fPs9ClDrrBMQ7ndpvN2-tsoNgTasyRUeIudc3vP71tKG3GIYwopdg57cxqbHKyLGHe8VuLz9mE5runPO6qga1yLeBMO6vK8ZbX6KtE738i32fKOQdrR3TPeV_-Z7q8Rck6R9XZ5eeraCgYKAUwSARISFQHGX2Mix5RPzB3asnZuetA3DMBvmw0207",
+      "tokenExpiry": "2025-12-08T11:41:14.096Z",
+      "blogName": "TrendWave Media",
+      "blogUrl": "http://trendwavemedia3.blogspot.com/"
+    }
+  ],
+  "schedules": [
+    {
+      "id": "04cc30e0-d9ef-4267-bfc1-72439a19b2d6",
+      "time": "09:05",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "5ac800bf-2d5c-4c0f-a189-09e35049ab97",
+      "time": "09:10",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "b9a81174-bba6-45c4-a1cd-441cadc90de0",
+      "time": "09:15",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "083609bf-b932-4e39-be5b-0b5339d08ace",
+      "time": "09:17",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "acfa1051-d16c-4554-8efc-5e4d01942a74",
+      "time": "09:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "1ef872ed-0e87-4e37-bc49-2d9a2367ac32",
+      "time": "11:03",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "3a58c010-cdfd-4495-971f-2830dda8fba0",
+      "time": "11:06",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "50ed245b-2717-4c15-a690-d2b191dc932d",
+      "time": "11:10",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "011e7170-c2b9-4713-a854-e360dc1af308",
+      "time": "11:13",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "25d4b2e4-beef-4072-a569-12ddeed0bdf3",
+      "time": "11:16",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "322f47e2-6812-40f5-a883-4b8325b9501d",
+      "time": "13:03",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "bedaa265-d772-4614-bde4-eae8861a3439",
+      "time": "13:06",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "3d9944c6-2376-4183-8827-c3e24599ba0c",
+      "time": "13:10",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "ca2226a3-ba6b-4624-b947-4d0775fa8820",
+      "time": "13:13",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "8af52cc3-8a25-431c-9c69-7e770a33e113",
+      "time": "13:16",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "74af6627-78a1-41ed-9b1d-af07f13f75be",
+      "time": "15:03",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "8e279003-041a-4c1a-b7b5-07de8943fba5",
+      "time": "15:06",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "4300b342-7349-424a-8b00-9d1cd26f9e65",
+      "time": "15:10",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "e221e80f-3a8a-4611-9886-570f43e13bfd",
+      "time": "15:14",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "a5290db3-4036-4777-8a07-89469a74c3e9",
+      "time": "15:18",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "eaf2e2c4-fbb8-4167-bfb1-f942335a0a99",
+      "time": "18:03",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "ef4270dc-2371-4b9f-a7b4-ccf84a51ee12",
+      "time": "18:06",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "905c3248-d1a1-4175-801e-7a78a7878fdc",
+      "time": "18:10",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "c4a08585-1b4a-429a-bc1e-a667b8e240c8",
+      "time": "18:13",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "0ee1994e-a5db-4ed4-8800-b145a61ed4ab",
+      "time": "18:16",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "be3459a0-eb24-4074-9ec4-cad67b1c5b09",
+      "time": "18:27",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "bb96b18b-7e0f-405d-a927-63366c986e69",
+      "time": "11:41",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "143e0024-053e-4ef2-8e70-8a33b52c19c8",
+      "time": "12:02",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "c5bd09d1-eae0-44ce-b511-2a9a5822a5d0",
+      "time": "12:19",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    }
+  ],
+  "currentGeminiKeyIndex": 0,
+  "currentCerebrasKeyIndex": 2,
+  "currentHuggingfaceKeyIndex": 0,
+  "currentImgbbKeyIndex": 0,
+  "usedTopics": [
+    "the autonomous ai agent revolution: stop prompting, start automating your entire workflow",
+    "unlock desktop superpowers: the multimodal ai tools you need to master now for unprecedented productivity",
+    "stop missing out: why seamless ai integration into your core business apps is non-negotiable",
+    "digital deceptions: the alarming rise of ai-generated unexplained phenomena and 'deepfake' hauntings",
+    "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
+    "autonomous ai agents: the secret weapon redefining personal and professional productivity",
+    "the ghost in the genes: how new dna tech is suddenly solving decades-old unsolved mysteries",
+    "the unsettling true story behind 'baby reindeer': why netflix's hit is more terrifying than fiction",
+    "the sneaky supermarket scams: how to beat shrinkflation & skimpflation and save big on groceries",
+    "forget everything you knew: the ancient hominin discovery rewriting our evolutionary story right now",
+    "beyond prompts: are you harnessing the proactive ai assistants that are already redefining workflow automation?",
+    "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
+    "amazing ai image generation technology",
+    "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
+    "dragon wars online: how house of the dragon season 2 is dominating your feed and why you can't afford to miss it",
+    "tiktok detectives: the unsettling rise of amateur sleuths and the cases you can't afford to miss",
+    "your voice, their crime: the terrifying rise of ai voice cloning in modern true crime",
+    "the dark unraveling of diddy's empire: why the federal raids are just the beginning of a chilling true crime saga",
+    "the bizarre science of sleep paralysis: uncovering the dark side of rem",
+    "the bizarre disappearance of the sodder children: uncovering new clues in a 75-year-old unsolved mystery",
+    "unpacking the barbie movie hype: how social media is fueling the film's viral frenzy",
+    "unlocking the power of circadian rhythm: how synchronizing your body's internal clock can revolutionize your health and wellness",
+    "the taylor swift eras tour social media takeover: how swifties are redefining fandom in the digital age",
+    "the mysterious case of the dyatlov pass incident: new evidence and theories emerge",
+    "revolutionizing workflows with ai-powered low-code automation: the future of productivity",
+    "unveiling the mysterious zone of silence: recent discoveries in mexico's mapimí silent zone",
+    "10 morning routine hacks to boost productivity and save time",
+    "the rise of personalized nutrition: how genetic testing can revolutionize your diet and wellness",
+    "15 simple swaps to reduce household expenses and increase savings",
+    "the minecraft youtuber takeover: how streamers are revolutionizing the gaming industry",
+    "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
+    "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health"
+  ],
+  "usedTopicsByNiche": {
+    "scary-mysterious": [
+      "digital deceptions: the alarming rise of ai-generated unexplained phenomena and 'deepfake' hauntings",
+      "the ghost in the genes: how new dna tech is suddenly solving decades-old unsolved mysteries",
+      "the unsettling true story behind 'baby reindeer': why netflix's hit is more terrifying than fiction",
+      "tiktok detectives: the unsettling rise of amateur sleuths and the cases you can't afford to miss",
+      "your voice, their crime: the terrifying rise of ai voice cloning in modern true crime",
+      "the dark unraveling of diddy's empire: why the federal raids are just the beginning of a chilling true crime saga",
+      "the bizarre disappearance of the sodder children: uncovering new clues in a 75-year-old unsolved mystery",
+      "the mysterious case of the dyatlov pass incident: new evidence and theories emerge"
+    ],
+    "ai-tools": [
+      "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
+      "autonomous ai agents: the secret weapon redefining personal and professional productivity",
+      "beyond prompts: are you harnessing the proactive ai assistants that are already redefining workflow automation?",
+      "amazing ai image generation technology",
+      "revolutionizing workflows with ai-powered low-code automation: the future of productivity"
+    ],
+    "life-hacks": [
+      "the sneaky supermarket scams: how to beat shrinkflation & skimpflation and save big on groceries",
+      "10 morning routine hacks to boost productivity and save time",
+      "15 simple swaps to reduce household expenses and increase savings"
+    ],
+    "weird-facts": [
+      "forget everything you knew: the ancient hominin discovery rewriting our evolutionary story right now",
+      "the bizarre science of sleep paralysis: uncovering the dark side of rem",
+      "unveiling the mysterious zone of silence: recent discoveries in mexico's mapimí silent zone"
+    ],
+    "viral-entertainment": [
+      "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
+      "dragon wars online: how house of the dragon season 2 is dominating your feed and why you can't afford to miss it",
+      "unpacking the barbie movie hype: how social media is fueling the film's viral frenzy",
+      "the taylor swift eras tour social media takeover: how swifties are redefining fandom in the digital age",
+      "the minecraft youtuber takeover: how streamers are revolutionizing the gaming industry",
+      "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
+      "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health"
+    ],
+    "health-hacks": [
+      "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
+      "unlocking the power of circadian rhythm: how synchronizing your body's internal clock can revolutionize your health and wellness",
+      "the rise of personalized nutrition: how genetic testing can revolutionize your diet and wellness"
+    ]
+  }
+}
