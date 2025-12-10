@@ -1,5 +1,5 @@
 import { storage } from "../storage";
-import type { GeneratedContent, NicheId, ApiKey } from "@shared/schema";
+import type { GeneratedContent, NicheId, ApiKey, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
 
 const CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions";
@@ -359,4 +359,92 @@ TONE: Friendly and helpful. Like a knowledgeable friend sharing useful info.
 - Include real examples and practical advice
 - Focus on what readers can actually use
 - Be engaging without being pushy`;
+}
+
+export async function generateTrendingResearch(nicheId: NicheId): Promise<InsertTrendingResearch> {
+  const niche = getNicheById(nicheId);
+  const nicheName = niche?.name || "General Topics";
+  
+  const settings = await storage.getSettings();
+  const usedTopicsForNiche = nicheId && settings.usedTopicsByNiche[nicheId] 
+    ? settings.usedTopicsByNiche[nicheId].slice(-50)
+    : [];
+  
+  const usedTopicsContext = usedTopicsForNiche.length > 0 
+    ? `\n\nAVOID THESE ALREADY COVERED TOPICS:\n${usedTopicsForNiche.map((t, i) => `${i + 1}. ${t}`).join("\n")}`
+    : "";
+
+  const prompt = `You are a research analyst who identifies REAL trending topics from the internet. Your job is to find what's ACTUALLY trending right now in the "${nicheName}" niche.
+
+IMPORTANT: You must identify a REAL trending topic that people are actually searching for and discussing online. Base your research on:
+- Recent news articles and reports
+- Social media trends and discussions
+- Search trends and popular queries
+- Forums and community discussions
+- Recent events and announcements
+
+For the "${nicheName}" niche, focus on topics related to: ${niche?.promptContext || "general interest topics"}
+Keywords to consider: ${niche?.keywords.join(", ") || "trending, viral, popular"}
+${usedTopicsContext}
+
+Generate a detailed research report for ONE trending topic. Include:
+
+1. The trending topic title (specific and current)
+2. A short description (2-3 sentences)
+3. Full research summary (detailed analysis, 3-4 paragraphs)
+4. AI analysis of the topic (insights, predictions, implications)
+5. Why this topic is trending (what events or factors made it popular)
+6. 3-5 sources with titles, URLs, and snippets (generate realistic news/blog sources)
+7. Search queries that would find this topic
+
+Respond with ONLY valid JSON:
+{
+  "title": "Specific trending topic title",
+  "shortDescription": "Brief 2-3 sentence overview",
+  "fullSummary": "Detailed research summary with multiple paragraphs. Include facts, statistics, and context.",
+  "aiAnalysis": "AI-generated analysis of implications, predictions, and insights about this trend",
+  "whyTrending": "Explanation of why this topic is currently trending - what triggered the interest",
+  "sources": [
+    {
+      "title": "Source article title",
+      "url": "https://example.com/article",
+      "snippet": "Key excerpt from the source"
+    }
+  ],
+  "searchQueries": ["query 1", "query 2", "query 3"]
+}`;
+
+  const response = await callCerebrasWithRotation(
+    [{ role: "user", content: prompt }],
+    true
+  );
+
+  const text = extractContent(response);
+  try {
+    const parsed = JSON.parse(text);
+    
+    return {
+      title: parsed.title || `Trending in ${nicheName}`,
+      shortDescription: parsed.shortDescription || `Latest trending topic in the ${nicheName.toLowerCase()} space.`,
+      fullSummary: parsed.fullSummary || "Research summary not available.",
+      aiAnalysis: parsed.aiAnalysis || "AI analysis not available.",
+      whyTrending: parsed.whyTrending || "This topic is currently generating significant online interest.",
+      sources: parsed.sources || [],
+      nicheId,
+      nicheName,
+      searchQueries: parsed.searchQueries || [],
+    };
+  } catch {
+    return {
+      title: `Trending Topic in ${nicheName}`,
+      shortDescription: `A current trending topic in the ${nicheName.toLowerCase()} niche.`,
+      fullSummary: "Unable to generate detailed research summary at this time.",
+      aiAnalysis: "Analysis unavailable.",
+      whyTrending: "This topic is currently popular in online discussions.",
+      sources: [],
+      nicheId,
+      nicheName,
+      searchQueries: [],
+    };
+  }
 }

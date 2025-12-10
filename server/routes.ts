@@ -1,7 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage, getImagePath } from "./storage";
-import { testCerebrasConnection, generateTrendingTopic, generateBlogPost } from "./services/cerebras";
+import { testCerebrasConnection, generateTrendingTopic, generateBlogPost, generateTrendingResearch } from "./services/cerebras";
 import { testImageGeneratorConnection, generateBlogImage } from "./services/imageGenerator";
 import { testImgbbConnection } from "./services/imgbb";
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
@@ -661,6 +661,99 @@ export async function registerRoutes(
           errorMessage: result.message,
         });
         res.status(400).json({ success: false, error: result.message });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
+    }
+  });
+
+  // Trending Research endpoints
+  app.get("/api/research", async (_req: Request, res: Response) => {
+    try {
+      const research = await storage.getTrendingResearch();
+      res.json(research);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get research data" });
+    }
+  });
+
+  app.get("/api/research/:id", async (req: Request, res: Response) => {
+    try {
+      const research = await storage.getTrendingResearchById(req.params.id);
+      if (!research) {
+        return res.status(404).json({ error: "Research not found" });
+      }
+      res.json(research);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get research" });
+    }
+  });
+
+  app.delete("/api/research/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.deleteTrendingResearch(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete research" });
+    }
+  });
+
+  // Generate new research for a niche and optionally create a post
+  app.post("/api/research/generate", async (req: Request, res: Response) => {
+    try {
+      const { nicheId, createPost, accountId } = req.body;
+      
+      if (!nicheId) {
+        return res.status(400).json({ error: "Niche ID is required" });
+      }
+
+      // Generate trending research
+      const researchData = await generateTrendingResearch(nicheId as NicheId);
+      
+      // Save the research
+      let research = await storage.createTrendingResearch(researchData);
+
+      // Optionally create a blog post from this research
+      if (createPost) {
+        const content = await generateBlogPost(research.title, undefined, nicheId as NicheId);
+        
+        let imageUrl: string | undefined;
+        const image = await generateBlogImage(content.imagePrompt);
+        if (image) {
+          imageUrl = image;
+        }
+
+        const account = accountId ? await storage.getBloggerAccount(accountId) : undefined;
+
+        const post = await storage.createPost({
+          title: content.title,
+          content: content.content,
+          excerpt: content.excerpt,
+          topic: research.title,
+          nicheId,
+          accountId,
+          accountName: account?.name,
+          imageUrl,
+          status: "draft",
+          labels: content.labels,
+        });
+
+        // Update research with post info
+        const updatedResearch = await storage.getTrendingResearchById(research.id);
+        if (updatedResearch) {
+          research = {
+            ...updatedResearch,
+            postId: post.id,
+            postTitle: post.title,
+          };
+        }
+
+        await storage.addUsedTopic(research.title, nicheId);
+
+        res.json({ success: true, data: { research, post } });
+      } else {
+        res.json({ success: true, data: { research } });
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
