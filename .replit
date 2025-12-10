@@ -15,10 +15,6 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 33967
-externalPort = 8008
-
-[[ports]]
 localPort = 34253
 externalPort = 4200
 
@@ -97,6 +93,9 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
 
 [agent]
 integrations = ["javascript_gemini:1.0.0"]
