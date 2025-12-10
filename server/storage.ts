@@ -13,6 +13,8 @@ import type {
   BloggerAccount,
   InsertBloggerAccount,
   UserCredentials,
+  TrendingResearch,
+  InsertTrendingResearch,
 } from "@shared/schema";
 
 const DATABASE_DIR = path.join(process.cwd(), "database");
@@ -20,6 +22,7 @@ const SETTINGS_FILE = path.join(DATABASE_DIR, "settings.json");
 const POSTS_FILE = path.join(DATABASE_DIR, "posts.json");
 const ACCOUNTS_FILE = path.join(DATABASE_DIR, "accounts.json");
 const USER_FILE = path.join(DATABASE_DIR, "user.json");
+const RESEARCH_FILE = path.join(DATABASE_DIR, "research.json");
 
 const STORAGE_DIR = path.join(process.cwd(), "storage");
 const CONFIG_FILE = path.join(STORAGE_DIR, "config.json");
@@ -178,6 +181,12 @@ export interface IStorage {
   getUserCredentials(): Promise<UserCredentials>;
   saveUserCredentials(credentials: UserCredentials): Promise<void>;
   validateUser(email: string, password: string): Promise<boolean>;
+  
+  // Trending Research
+  getTrendingResearch(): Promise<TrendingResearch[]>;
+  getTrendingResearchById(id: string): Promise<TrendingResearch | undefined>;
+  createTrendingResearch(research: InsertTrendingResearch): Promise<TrendingResearch>;
+  deleteTrendingResearch(id: string): Promise<void>;
 }
 
 export class FileStorage implements IStorage {
@@ -692,6 +701,41 @@ export class FileStorage implements IStorage {
     }
     // For legacy unhashed passwords, compare directly and hash on next save
     return credentials.password === password;
+  }
+
+  async getTrendingResearch(): Promise<TrendingResearch[]> {
+    const research = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
+    // Sort by createdAt descending and limit to 10 most recent
+    return research
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 10);
+  }
+
+  async getTrendingResearchById(id: string): Promise<TrendingResearch | undefined> {
+    const research = await this.getTrendingResearch();
+    return research.find((r) => r.id === id);
+  }
+
+  async createTrendingResearch(researchData: InsertTrendingResearch): Promise<TrendingResearch> {
+    const allResearch = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
+    const research: TrendingResearch = {
+      ...researchData,
+      id: randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    allResearch.push(research);
+    // Keep only the 10 most recent
+    const sortedResearch = allResearch
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 10);
+    writeJsonFile(RESEARCH_FILE, sortedResearch);
+    return research;
+  }
+
+  async deleteTrendingResearch(id: string): Promise<void> {
+    const research = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
+    const filtered = research.filter((r) => r.id !== id);
+    writeJsonFile(RESEARCH_FILE, filtered);
   }
 }
 

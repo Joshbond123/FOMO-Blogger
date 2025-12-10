@@ -278,3 +278,29 @@ export const userCredentialsSchema = z.object({
 });
 
 export type UserCredentials = z.infer<typeof userCredentialsSchema>;
+
+// Trending Research schema - stores AI research on trending topics
+export const trendingResearchSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  shortDescription: z.string(),
+  fullSummary: z.string(),
+  aiAnalysis: z.string(),
+  whyTrending: z.string(),
+  sources: z.array(z.object({
+    title: z.string(),
+    url: z.string(),
+    snippet: z.string(),
+  })),
+  nicheId: z.string(),
+  nicheName: z.string(),
+  searchQueries: z.array(z.string()),
+  postId: z.string().optional(),
+  postTitle: z.string().optional(),
+  createdAt: z.string(),
+});
+
+export type TrendingResearch = z.infer<typeof trendingResearchSchema>;
+
+export const insertTrendingResearchSchema = trendingResearchSchema.omit({ id: true, createdAt: true });
+export type InsertTrendingResearch = z.infer<typeof insertTrendingResearchSchema>;
