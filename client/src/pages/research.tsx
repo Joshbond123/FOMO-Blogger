@@ -1,19 +1,9 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { queryClient, apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -21,57 +11,32 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { 
-  Search, 
   ExternalLink, 
-  RefreshCw, 
-  Trash2, 
+  RefreshCw,
   Eye,
   Brain,
-  TrendingUp,
-  Link2,
   FileText,
-  Sparkles,
-  Clock
+  Clock,
+  CheckCircle2,
+  Globe
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
-import { NICHES, type TrendingResearch } from "@shared/schema";
+import { NICHES, type Post } from "@shared/schema";
 
 export default function ResearchTransparency() {
-  const { toast } = useToast();
-  const [selectedResearch, setSelectedResearch] = useState<TrendingResearch | null>(null);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [selectedNiche, setSelectedNiche] = useState<string>("all");
 
-  const { data: research = [], isLoading, refetch } = useQuery<TrendingResearch[]>({
-    queryKey: ["/api/research"],
+  const { data: posts = [], isLoading } = useQuery<Post[]>({
+    queryKey: ["/api/posts"],
   });
 
-  const deleteResearch = useMutation({
-    mutationFn: async (id: string) => {
-      return apiRequest("DELETE", `/api/research/${id}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/research"] });
-      toast({ title: "Research deleted" });
-    },
-    onError: (error: Error) => {
-      toast({ title: "Failed to delete research", description: error.message, variant: "destructive" });
-    },
-  });
-
-  const generateResearch = useMutation({
-    mutationFn: async (nicheId: string) => {
-      return apiRequest("POST", "/api/research/generate", { nicheId, createPost: false });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/research"] });
-      toast({ title: "New trending research generated!" });
-    },
-    onError: (error: Error) => {
-      toast({ title: "Failed to generate research", description: error.message, variant: "destructive" });
-    },
-  });
+  const publishedPosts = posts
+    .filter(p => p.status === "published")
+    .sort((a, b) => new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime())
+    .slice(0, 10);
 
   const getNicheBadge = (nicheId?: string) => {
     if (!nicheId) return null;
@@ -88,92 +53,21 @@ export default function ResearchTransparency() {
     };
   };
 
-  // Filter and limit to 10 most recent
-  const filteredResearch = research
-    .filter(r => selectedNiche === "all" || r.nicheId === selectedNiche)
-    .slice(0, 10);
-
-  const openDetails = (item: TrendingResearch) => {
-    setSelectedResearch(item);
+  const openDetails = (post: Post) => {
+    setSelectedPost(post);
     setDetailsOpen(true);
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        <div>
-          <h1 className="text-2xl font-bold" data-testid="text-page-title">Research Transparency</h1>
-          <p className="text-muted-foreground">
-            View the 10 most recent trending topics researched by the AI
-          </p>
-        </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          <Select value={selectedNiche} onValueChange={setSelectedNiche}>
-            <SelectTrigger className="w-[180px]" data-testid="select-niche-filter">
-              <SelectValue placeholder="Filter by niche" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Niches</SelectItem>
-              {NICHES.map(niche => (
-                <SelectItem key={niche.id} value={niche.id}>{niche.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={() => refetch()}
-            data-testid="button-refresh"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
-          </Button>
-        </div>
-      </div>
-
-      {/* Generate Research Card */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            Generate New Research
-          </CardTitle>
-          <CardDescription>
-            Search for real trending topics in a specific niche
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-3 flex-wrap">
-            {NICHES.slice(0, 3).map(niche => (
-              <Button
-                key={niche.id}
-                variant="outline"
-                size="sm"
-                onClick={() => generateResearch.mutate(niche.id)}
-                disabled={generateResearch.isPending}
-                data-testid={`button-generate-${niche.id}`}
-              >
-                {generateResearch.isPending ? (
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <Search className="h-4 w-4 mr-2" />
-                )}
-                {niche.name}
-              </Button>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Research List */}
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5" />
-            Recent Trending Research
+            Research Transparency
           </CardTitle>
           <CardDescription>
-            Showing {filteredResearch.length} most recent research entries
+            Showing the {publishedPosts.length} most recent AI-generated and published posts
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -181,73 +75,85 @@ export default function ResearchTransparency() {
             <div className="flex items-center justify-center py-8">
               <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
             </div>
-          ) : filteredResearch.length === 0 ? (
+          ) : publishedPosts.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No research data yet</p>
-              <p className="text-sm">Generate research for a niche to get started</p>
+              <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p data-testid="text-empty-state">No published posts yet</p>
+              <p className="text-sm">Posts will appear here after the AI publishes them at scheduled times</p>
             </div>
           ) : (
             <div className="space-y-4">
-              {filteredResearch.map((item) => (
+              {publishedPosts.map((post, index) => (
                 <div 
-                  key={item.id}
+                  key={post.id}
                   className="p-4 border rounded-md hover-elevate cursor-pointer"
-                  onClick={() => openDetails(item)}
-                  data-testid={`research-item-${item.id}`}
+                  onClick={() => openDetails(post)}
+                  data-testid={`post-item-${post.id}`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-2">
-                        <Badge variant="secondary" className="text-xs">
-                          {getNicheBadge(item.nicheId)}
+                        <Badge variant="secondary" className="text-xs flex items-center gap-1">
+                          <CheckCircle2 className="h-3 w-3" />
+                          Published
                         </Badge>
+                        {post.nicheId && (
+                          <Badge variant="outline" className="text-xs">
+                            {getNicheBadge(post.nicheId)}
+                          </Badge>
+                        )}
+                        {post.accountName && (
+                          <Badge variant="outline" className="text-xs flex items-center gap-1">
+                            <Globe className="h-3 w-3" />
+                            {post.accountName}
+                          </Badge>
+                        )}
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
                           <Clock className="h-3 w-3" />
-                          {formatDate(item.createdAt).relative}
+                          {formatDate(post.publishedAt || post.createdAt).relative}
                         </span>
                       </div>
-                      <h3 className="font-semibold mb-1 line-clamp-1" data-testid={`text-research-title-${item.id}`}>
-                        {item.title}
+                      <h3 className="font-semibold mb-1 line-clamp-1" data-testid={`text-post-title-${post.id}`}>
+                        {post.title}
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">
-                        {item.shortDescription}
+                        {post.excerpt || post.topic}
                       </p>
                       <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <Link2 className="h-3 w-3" />
-                          {item.sources?.length || 0} sources
+                          <FileText className="h-3 w-3" />
+                          Research Topic: {post.topic}
                         </span>
-                        {item.postId && (
-                          <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
-                            <FileText className="h-3 w-3" />
-                            Post created
-                          </span>
-                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      {post.bloggerPostUrl && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          asChild
+                          onClick={(e) => e.stopPropagation()}
+                          data-testid={`button-external-${post.id}`}
+                        >
+                          <a 
+                            href={post.bloggerPostUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={(e) => {
                           e.stopPropagation();
-                          openDetails(item);
+                          openDetails(post);
                         }}
-                        data-testid={`button-view-${item.id}`}
+                        data-testid={`button-view-${post.id}`}
                       >
                         <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteResearch.mutate(item.id);
-                        }}
-                        data-testid={`button-delete-${item.id}`}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
                       </Button>
                     </div>
                   </div>
@@ -258,18 +164,23 @@ export default function ResearchTransparency() {
         </CardContent>
       </Card>
 
-      {/* Details Dialog */}
       <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
         <DialogContent className="max-w-3xl max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader>
-            <DialogTitle className="pr-8">{selectedResearch?.title}</DialogTitle>
+            <DialogTitle className="pr-8">{selectedPost?.title}</DialogTitle>
             <DialogDescription className="flex items-center gap-2 flex-wrap">
-              {selectedResearch?.nicheName && (
-                <Badge variant="secondary">{selectedResearch.nicheName}</Badge>
+              {selectedPost?.nicheId && (
+                <Badge variant="secondary">{getNicheBadge(selectedPost.nicheId)}</Badge>
               )}
-              {selectedResearch?.createdAt && (
+              {selectedPost?.accountName && (
+                <Badge variant="outline" className="flex items-center gap-1">
+                  <Globe className="h-3 w-3" />
+                  {selectedPost.accountName}
+                </Badge>
+              )}
+              {selectedPost?.publishedAt && (
                 <span className="text-xs">
-                  Researched {formatDate(selectedResearch.createdAt).relative}
+                  Published {formatDate(selectedPost.publishedAt).relative}
                 </span>
               )}
             </DialogDescription>
@@ -277,115 +188,85 @@ export default function ResearchTransparency() {
           
           <ScrollArea className="flex-1 pr-4">
             <div className="space-y-6">
-              {/* Short Description */}
+              <div>
+                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                  <Brain className="h-4 w-4" />
+                  Research Topic
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  {selectedPost?.topic}
+                </p>
+              </div>
+
+              <Separator />
+
               <div>
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <FileText className="h-4 w-4" />
                   Summary
                 </h4>
-                <p className="text-sm text-muted-foreground">
-                  {selectedResearch?.shortDescription}
-                </p>
-              </div>
-
-              <Separator />
-
-              {/* Why Trending */}
-              <div>
-                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-green-500" />
-                  Why This is Trending
-                </h4>
                 <p className="text-sm">
-                  {selectedResearch?.whyTrending}
+                  {selectedPost?.excerpt}
                 </p>
               </div>
 
               <Separator />
 
-              {/* Full Summary */}
               <div>
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Brain className="h-4 w-4" />
-                  Full Research Summary
+                  <Clock className="h-4 w-4" />
+                  Posting Details
                 </h4>
-                <div className="text-sm whitespace-pre-wrap bg-muted/50 p-4 rounded-md">
-                  {selectedResearch?.fullSummary}
+                <div className="text-sm space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">Created:</span>
+                    <span>{selectedPost?.createdAt && formatDate(selectedPost.createdAt).display} at {selectedPost?.createdAt && formatDate(selectedPost.createdAt).time}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">Published:</span>
+                    <span>{selectedPost?.publishedAt && formatDate(selectedPost.publishedAt).display} at {selectedPost?.publishedAt && formatDate(selectedPost.publishedAt).time}</span>
+                  </div>
+                  {selectedPost?.bloggerPostUrl && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">Blog URL:</span>
+                      <a 
+                        href={selectedPost.bloggerPostUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary underline"
+                      >
+                        View on Blogger
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
 
+              {selectedPost?.labels && selectedPost.labels.length > 0 && (
+                <>
+                  <Separator />
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">Labels</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedPost.labels.map((label, index) => (
+                        <Badge key={index} variant="outline" className="text-xs">
+                          {label}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
               <Separator />
 
-              {/* AI Analysis */}
               <div>
-                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" />
-                  AI Analysis
-                </h4>
-                <div className="text-sm bg-primary/5 p-4 rounded-md border border-primary/10">
-                  {selectedResearch?.aiAnalysis}
-                </div>
+                <h4 className="text-sm font-semibold mb-2">Full Content</h4>
+                <div 
+                  className="prose prose-sm dark:prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{ __html: selectedPost?.content || "" }}
+                />
               </div>
-
-              <Separator />
-
-              {/* Sources */}
-              {selectedResearch?.sources && selectedResearch.sources.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                    <Link2 className="h-4 w-4" />
-                    Sources ({selectedResearch.sources.length})
-                  </h4>
-                  <div className="space-y-3">
-                    {selectedResearch.sources.map((source, index) => (
-                      <div key={index} className="p-3 border rounded-md bg-card">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1 min-w-0">
-                            <h5 className="font-medium text-sm line-clamp-1">
-                              {source.title}
-                            </h5>
-                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                              {source.snippet}
-                            </p>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            asChild
-                            className="shrink-0"
-                          >
-                            <a 
-                              href={source.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Search Queries */}
-              {selectedResearch?.searchQueries && selectedResearch.searchQueries.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                    <Search className="h-4 w-4" />
-                    Related Search Queries
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedResearch.searchQueries.map((query, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
-                        {query}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </ScrollArea>
         </DialogContent>
