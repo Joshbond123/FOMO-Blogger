@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import Home from "@/pages/home";
 import Automation from "@/pages/automation";
 import Posts from "@/pages/posts";
+import Research from "@/pages/research";
 import Settings from "@/pages/settings";
 import NotFound from "@/pages/not-found";
 
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/automation" component={Automation} />
       <Route path="/posts" component={Posts} />
+      <Route path="/research" component={Research} />
       <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>

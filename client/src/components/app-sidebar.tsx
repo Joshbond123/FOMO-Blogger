@@ -17,7 +17,8 @@ import {
   Zap, 
   Clock, 
   FileText,
-  Database
+  Database,
+  Search
 } from "lucide-react";
 
 const menuItems = [
@@ -35,6 +36,11 @@ const menuItems = [
     title: "Posts",
     url: "/posts",
     icon: FileText,
+  },
+  {
+    title: "Research",
+    url: "/research",
+    icon: Search,
   },
   {
     title: "Settings",
