@@ -154,8 +154,18 @@ npm run build   # Build for production
 - If image generation fails, posts will be created without featured images
 - Consider adding multiple HuggingFace API keys for higher throughput
 
+## Pages
+
+### Research Transparency Page
+- Shows only the 10 most recent AI-generated and published posts
+- Read-only view focused on transparency of what the AI has published
+- Each entry shows: research topic, summary, niche, account name, publishing details
+- Click on any post to view full details including content and blog URL
+- No manual controls - posts only appear after the AI publishes them at scheduled times
+
 ## Recent Updates
 
+- Simplified Research Transparency page to show only published posts (removed niche selection, research buttons, topic lists)
 - Fixed scheduler to properly await async operations
 - Added Switch toggle for schedule active/inactive state
 - Added token expiry checking for Blogger publishing
