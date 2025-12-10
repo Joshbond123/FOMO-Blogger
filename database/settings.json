@@ -20,28 +20,28 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-07T17:27:00.831Z"
+      "lastUsed": "2025-12-10T18:07:00.536Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T10:41:00.395Z"
+      "lastUsed": "2025-12-10T18:07:02.418Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T10:41:01.208Z"
+      "lastUsed": "2025-12-10T18:10:15.366Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T11:02:00.476Z"
+      "lastUsed": "2025-12-10T18:11:03.612Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T11:19:14.113Z"
+      "lastUsed": "2025-12-10T18:07:13.337Z"
     }
   ],
   "blogger": {
@@ -83,8 +83,8 @@
       "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
       "createdAt": "2025-12-07T01:28:05.271Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9iclgxqUp1xdO6_rGCSt_fOeOJ3p35IMy88AOy4oQ6oe9J8HG2MYjvjPCNJjJRof8vHKXOuvpAPzMinnDt-DMBHgvOYhuen1_6ksRC5__MsrZsnWPUpSAel2pDoXEoQWb6ZqSyw75ltAcMBx2accD4UO2wdSYZtn4OS8dOMNV7ectJPg1WrYTXZVtAJi2tZYbmaCgYKAUYSARISFQHGX2Mi_4H6Tx5ma02TO6bjneXwhg0207",
-      "tokenExpiry": "2025-12-07T18:05:44.206Z",
+      "accessToken": "ya29.a0Aa7pCA8Q5jDz_ErGQ1ncdScxiOfUxPz1vuqw4Ns7Si31H2o-h3EgWWcy2DFUiVaLhT5gdSKPe1iXxEDqBzr7JvBmVt1MVZh_cLdBRi-cdn1JbHfrdBkh9-66iQhXJwPBYhIwBO8U_S4e4QHYKLNr9ESgc8GPYNHugK3hpGEWRLQYO_yJlg2rUuBHHHfwdHkhJh7j9ds9aCgYKAaMSARISFQHGX2MirpW3qh7h0SsiHZwIUae_Aw0207",
+      "tokenExpiry": "2025-12-10T19:07:13.342Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
@@ -377,10 +377,17 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "61b41a49-a028-43ab-a694-57262bd0c938",
+      "time": "19:07",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 2,
+  "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "usedTopics": [
@@ -415,7 +422,8 @@
     "15 simple swaps to reduce household expenses and increase savings",
     "the minecraft youtuber takeover: how streamers are revolutionizing the gaming industry",
     "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
-    "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health"
+    "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
+    "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -426,7 +434,8 @@
       "your voice, their crime: the terrifying rise of ai voice cloning in modern true crime",
       "the dark unraveling of diddy's empire: why the federal raids are just the beginning of a chilling true crime saga",
       "the bizarre disappearance of the sodder children: uncovering new clues in a 75-year-old unsolved mystery",
-      "the mysterious case of the dyatlov pass incident: new evidence and theories emerge"
+      "the mysterious case of the dyatlov pass incident: new evidence and theories emerge",
+      "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
