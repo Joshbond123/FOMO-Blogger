@@ -312,29 +312,36 @@ export async function generateBlogPost(topic: string, fomoHook?: string, nicheId
   const nicheWritingStyle = niche ? getNicheWritingStyle(niche.id) : getDefaultWritingStyle();
 
   const researchContext = research ? `
-IMPORTANT - USE THIS RESEARCH DATA IN YOUR ARTICLE:
-This is real information from web research. Include these facts and details in your article:
+IMPORTANT - USE THIS RESEARCH DATA TO SUPPORT YOUR ARTICLE:
+This is real information from web research about the SINGLE topic above. Use these facts to enrich your article:
 
-Summary: ${research.summary}
+Topic Summary: ${research.summary}
 
-Key Facts (USE THESE):
+Supporting Facts (use these to support your main topic):
 ${research.facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
 
-Sources Referenced:
+Reference Sources:
 ${research.sources.slice(0, 5).map(s => `- ${s.title}: ${s.snippet}`).join("\n")}
 
-Write about these REAL facts and information. Do not make up statistics or claims. Base your content on this research.
+Use these facts to support your ONE main topic. Do not make up statistics or claims. All content should relate back to the single topic: "${topic}"
 ` : "";
 
   const prompt = `You are a skilled blogger who writes like a real person - not like AI. Your writing should feel authentic, warm, and easy to read.
 
-Write a complete blog post about: "${topic}"
+Write a complete blog post about THIS SINGLE TOPIC ONLY: "${topic}"
 ${fomoHook ? `\nHook to inspire your intro: "${fomoHook}"` : ""}
 ${researchContext}
 
 ${nicheWritingStyle}
 
-WRITING RULES (CRITICAL - FOLLOW EXACTLY):
+CRITICAL - SINGLE TOPIC FOCUS:
+- Write ONLY about "${topic}" - do NOT cover multiple topics or switch between different subjects
+- Every section of your blog must relate directly to this one main topic
+- Do NOT create a "round-up" or "listicle" covering multiple unrelated topics
+- The entire blog post should be a deep dive into this ONE specific topic
+- All facts and research should support this single main topic
+
+WRITING RULES (FOLLOW EXACTLY):
 1. Write like you're talking to a friend - casual, warm, and real
 2. Keep sentences readable - avoid long run-on sentences
 3. Keep paragraphs digestible - don't write walls of text
@@ -344,7 +351,7 @@ WRITING RULES (CRITICAL - FOLLOW EXACTLY):
 7. Use contractions (don't, won't, can't, it's)
 8. Ask questions to engage readers
 9. Use "you" and "your" often to speak directly to readers
-10. INCLUDE SPECIFIC FACTS from the research provided above
+10. INCLUDE SPECIFIC FACTS from the research provided above to support your main topic
 
 BANNED AI WORDS AND PHRASES - NEVER USE THESE:
 - "delve", "landscape", "leverage", "utilize", "plethora", "myriad", "realm", "tapestry"
@@ -365,14 +372,15 @@ USE THESE NATURAL ALTERNATIVES INSTEAD:
 - "Here's the thing," "Look," "The cool part is" for transitions
 
 STRUCTURE:
-1. TITLE: Catchy but simple - something you'd actually click on
-2. INTRO: Hook the reader right away. Reference the real facts from research.
-3. BODY: 6-8 sections with clear H2 headings
-   - Include the REAL facts and statistics from the research
+1. TITLE: Catchy but simple - something you'd actually click on. Title must be about the ONE topic only.
+2. INTRO: Hook the reader right away. Introduce the ONE main topic clearly.
+3. BODY: 6-8 sections with clear H2 headings - ALL sections must explore different aspects of the SAME topic
+   - Each section dives deeper into the main topic from a different angle
+   - Include the REAL facts and statistics from the research to support the main topic
    - Mix paragraphs with bullet points and numbered lists
-   - Include real examples and practical tips
+   - Include real examples and practical tips related to the main topic
    - Keep it informative but easy to skim
-4. CONCLUSION: Quick summary + encourage comments/shares
+4. CONCLUSION: Summarize the main topic + encourage comments/shares
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
 LENGTH: 1,200-1,800 words. Quality content based on real research.
@@ -535,6 +543,7 @@ Respond with ONLY valid JSON:
     const parsed = JSON.parse(text);
     
     return {
+      status: "generated" as const,
       title: parsed.title || `Trending in ${nicheName}`,
       shortDescription: parsed.shortDescription || `Latest trending topic in the ${nicheName.toLowerCase()} space.`,
       fullSummary: parsed.fullSummary || "Research summary not available.",
@@ -547,6 +556,7 @@ Respond with ONLY valid JSON:
     };
   } catch {
     return {
+      status: "generated" as const,
       title: `Trending Topic in ${nicheName}`,
       shortDescription: `A current trending topic in the ${nicheName.toLowerCase()} niche.`,
       fullSummary: "Unable to generate detailed research summary at this time.",
