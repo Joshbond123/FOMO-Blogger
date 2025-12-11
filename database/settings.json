@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:16:55.329Z"
+      "lastUsed": "2025-12-11T21:02:03.374Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -66,7 +66,15 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T16:34:06.009Z"
+      "lastUsed": "2025-12-11T21:02:06.864Z"
+    }
+  ],
+  "serperApiKeys": [
+    {
+      "id": "8aacdaaf-44f4-46e0-85b9-7d4f7a5fa16b",
+      "key": "a542801e6e57e08a9328362ebeba0eb5639c315b",
+      "createdAt": "2025-12-11T21:00:50.923Z",
+      "isActive": true
     }
   ],
   "blogger": {
@@ -117,8 +125,8 @@
       "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
       "createdAt": "2025-12-07T01:30:38.846Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9G3JTw_kGkGpCpS8L9oLKEEzUfldiBC-FgdoS2VwGMQBwN8DeR4JFS-bSAPkOTAWVcxpL6dl9AJcVtGKLB8TmRgHWkJTPt4JT5VH8ShqNKzsR5O3wiolUUaPke9EQXEBhocpHuZb_MwHd94JUH5KGXxtRz9Mkg8203xA-uMs6awrOiAgQbFDouSR3MWj2JtQBWaCgYKAc4SARISFQHGX2MiWF-NHk471eCZPzPWnDLA6g0207",
-      "tokenExpiry": "2025-12-11T13:20:44.323Z",
+      "accessToken": "ya29.a0Aa7pCA8WXSzkNnt7SaZmxS7EE83a9WRbPhsjcDY9Rt7csjGcLNiWp0o5qX9AGF_paeHT53N6-rAuA81yJpxeNQlbTlqKQOFR3RT0XD1ZCFX2vqtnsiozRHIujd1Yjd92gKk1k4h9Fj0VKavF4BshWfR9rO8yOGaQML_kDvaKQgOrxFRd7XC76dtT9nIS4fvVIG48lIxMaCgYKASMSARISFQHGX2Mi797S_Wvtp0syDSPnwtno8Q0207",
+      "tokenExpiry": "2025-12-11T22:02:06.988Z",
       "blogName": "FactShock World",
       "blogUrl": "http://factshockworld.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
@@ -179,21 +187,43 @@
       "id": "9f48d6ef-d47a-4fe9-8239-2cf276abdd36",
       "time": "17:27",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
       "id": "ade203f4-428f-4ac9-8de6-856bdfb357cb",
       "time": "17:34",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "05892601-b1ba-4a15-a038-64b23853a52e",
+      "time": "21:57",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "075ae4c5-e838-4203-9d56-8d858cc133cd",
+      "time": "22:00",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "9e044db1-78c9-4288-937e-3a588d4f6d62",
+      "time": "22:02",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 0,
+  "currentCerebrasKeyIndex": 1,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
+  "currentSerperKeyIndex": 0,
   "usedTopics": [
     "the autonomous ai agent revolution: stop prompting, start automating your entire workflow",
     "unlock desktop superpowers: the multimodal ai tools you need to master now for unprecedented productivity",
@@ -245,7 +275,8 @@
     "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
     "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
     "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english",
-    "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases"
+    "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases",
+    "science news | the latest news from all areas of science"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -287,7 +318,8 @@
       "unveiling the mysteries of the 'toadstone': how the recent discovery of a 400-year-old toadstone pendant on september 20, 2023, in the buckinghamshire county museum is redefining the history of 17th-century english folk magic",
       "the mysterious case of the 'dulce base': uncovering the truth behind the alleged secret underground facility in dulce, new mexico, as revealed by whistleblower phil schneider on november 12, 1995, and recently resurfaced in a declassified fbi document on october 25, 2023",
       "uncovering the baffling 'fast radio bursts' detected by the canadian hydrogen intensity mapping experiment (chime) on november 2, 2023, and how dr. victoria kaspi's team is racing against time to unravel the mystery of these enigmatic cosmic events",
-      "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023"
+      "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
+      "science news | the latest news from all areas of science"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
