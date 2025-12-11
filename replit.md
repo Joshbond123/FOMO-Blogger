@@ -165,14 +165,23 @@ npm run build   # Build for production
 
 ## Recent Updates
 
+### December 11, 2025 - Serper.dev Integration (Primary Research Tool)
+- **Serper.dev API Integration**: All web research now uses Serper.dev exclusively instead of Gemini web search
+- **Unlimited Serper API Keys**: Add multiple rotating Serper API keys with automatic rotation and failure handling
+- **Time-Aware Searching**: Research queries include date context (today, 24h, week, month) for accurate trending topics
+- **Enhanced Duplicate Prevention**: Topics are persisted immediately after research to prevent duplicates across all niches
+- **Research Status Tracking**: Research logs now update from "generated" to "published" when posts are successfully published
+- **Research Transparency Page**: Shows 10 most recent research logs with full details, sources, timestamps, and masked API keys
+- **New Server Service**: Created server/services/serper.ts for centralized Serper.dev web search functionality
+
 ### December 11, 2025 - Tumblr OAuth Fix
 - **Fixed Tumblr Cross-Posting**: Resolved OAuth 1.0 signature verification failures that caused 401 Unauthorized errors
 - **Switched to NPF Format**: Changed from legacy `/post` endpoint to NPF (Neue Post Format) `/posts` endpoint
 - **JSON-Based Requests**: NPF uses JSON Content-Type which doesn't require body params in OAuth signature calculation
 - **Cross-Posting Now Working**: Both manual and scheduled publishing successfully cross-post to connected Tumblr blogs
 
-### December 2024 - Web Search & Research Enhancement
-- **Real Web Search Before Publishing**: AI now browses the internet using Gemini's Google Search grounding before generating any blog posts
+### December 2024 - Web Search & Research Enhancement (Deprecated - Now using Serper.dev)
+- **Real Web Search Before Publishing**: AI now browses the internet using Serper.dev for research before generating any blog posts
 - **Research-Based Content**: Blog posts are now written using actual facts, statistics, and sources found from web research - not generic AI knowledge
 - **Stronger No-Text Image Prompts**: Enhanced image generation prompts to completely eliminate text, words, letters, and typography from generated images
 - **Improved Topic Uniqueness**: Added similarity scoring to prevent topics that are too similar to previously used topics (not just exact matches)
