@@ -44,8 +44,8 @@ export async function searchTrendingTopics(nicheId?: NicheId): Promise<WebSearch
     : "";
   
   const nicheContext = niche 
-    ? `Find a currently TRENDING topic in the "${niche.name}" niche. Focus on: ${niche.promptContext}. Keywords: ${niche.keywords.join(", ")}`
-    : `Find a currently TRENDING topic in AI, technology, or productivity.`;
+    ? `Find the MOST INTERESTING, HIGH-ATTENTION trending topic in the "${niche.name}" niche. Focus on: ${niche.promptContext}. Keywords: ${niche.keywords.join(", ")}`
+    : `Find the MOST INTERESTING, HIGH-ATTENTION trending topic in AI, technology, or productivity.`;
 
   const today = new Date().toLocaleDateString("en-US", { 
     weekday: "long", 
@@ -54,29 +54,43 @@ export async function searchTrendingTopics(nicheId?: NicheId): Promise<WebSearch
     day: "numeric" 
   });
 
-  const prompt = `Today is ${today}. You are a research analyst. ${nicheContext}
+  const prompt = `Today is ${today}. You are an expert content strategist finding topics that INSTANTLY grab attention. ${nicheContext}
 
-Search the internet and find what's ACTUALLY trending right now. Look for:
-- Breaking news and recent events
-- Viral stories and discussions  
-- Popular topics people are searching for
-- Recent announcements or developments
+Search the internet for trending stories. Your goal is to find ONE topic that:
+- Makes readers say "I NEED to read this!"
+- Has a high curiosity or shock factor
+- Is genuinely interesting, NOT boring or generic
+- Feels current and urgent
+- Will generate engagement (comments, shares)
 ${usedTopicsContext}
 
+REJECT these types of topics:
+- Boring industry updates
+- Generic announcements
+- Topics that sound promotional or like ads
+- Vague trends with no specific story
+
+PREFER these types of topics:
+- Surprising discoveries or revelations
+- Controversial stories with strong opinions
+- Mysterious or unexplained events
+- Human interest stories with emotional impact
+- Specific events with clear details
+
 Based on your web search, provide:
-1. A specific trending topic title (not generic, must be current and specific)
+1. ONE specific, attention-grabbing topic (not generic, must instantly hook readers)
 2. A detailed summary of what's happening (based on actual news/sources)
 3. The sources you found (with real URLs and snippets)
-4. Why this topic is trending right now
+4. Why this topic will grab attention
 5. Key facts and statistics from your research
 6. Relevant keywords
 
 Respond in JSON format:
 {
-  "topic": "Specific trending topic title",
+  "topic": "Specific, attention-grabbing topic title that makes people want to click",
   "summary": "Detailed 3-4 paragraph summary based on real sources you found",
   "sources": [{"title": "Article title", "url": "https://...", "snippet": "Key excerpt"}],
-  "whyTrending": "What triggered this trend - be specific about dates and events",
+  "whyTrending": "What makes this topic so interesting - be specific about why it grabs attention",
   "facts": ["Fact 1 from research", "Fact 2 from research", "Fact 3 from research"],
   "keywords": ["keyword1", "keyword2", "keyword3"],
   "searchQueries": ["search query used 1", "search query used 2"]

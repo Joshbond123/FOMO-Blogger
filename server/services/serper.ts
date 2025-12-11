@@ -166,27 +166,27 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId): Promise<Ser
   const allResults: SerperSearchResult[] = [];
   let keyUsed = "";
   
-  const baseQuery = niche 
-    ? `${niche.name} trending news ${today}`
-    : `trending technology news ${today}`;
-  
+  // Use niche-specific HIGH-ATTENTION search queries
   const queries = niche 
     ? [
-        `${niche.name} breaking news today`,
-        `${niche.keywords[0]} latest trends 2024`,
-        `${niche.keywords[1] || niche.keywords[0]} viral news`,
+        `${niche.name} viral story today`,
+        `${niche.name} shocking news this week`,
+        `${niche.keywords[0]} breaking story`,
+        `${niche.keywords[1] || niche.keywords[0]} trending viral`,
+        `most talked about ${niche.name} story`,
       ]
     : [
-        "trending tech news today",
-        "AI technology latest developments",
-        "viral technology stories",
+        "viral tech story today",
+        "shocking AI news this week",
+        "most talked about technology story",
+        "trending technology breakthrough",
       ];
   
   for (const query of queries) {
     try {
       const { results, keyUsed: usedKey } = await callSerperWithRotation(query, { 
         timeRange: "week",
-        num: 10 
+        num: 15 
       });
       
       keyUsed = usedKey;
@@ -204,6 +204,7 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId): Promise<Ser
     throw new Error("No search results found from Serper");
   }
   
+  // Remove duplicates
   const uniqueResults = allResults.reduce((acc, result) => {
     if (!acc.find(r => r.link === result.link)) {
       acc.push(result);
@@ -211,17 +212,18 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId): Promise<Ser
     return acc;
   }, [] as SerperSearchResult[]);
   
-  let selectedResult = uniqueResults[0];
-  for (const result of uniqueResults) {
-    const isUsed = usedTopicsForNiche.some(
-      used => result.title.toLowerCase().includes(used) || 
-              used.includes(result.title.toLowerCase().slice(0, 30))
+  // Filter out already used topics
+  const unusedResults = uniqueResults.filter(result => {
+    return !usedTopicsForNiche.some(
+      used => result.title.toLowerCase().includes(used.toLowerCase()) || 
+              used.toLowerCase().includes(result.title.toLowerCase().slice(0, 30))
     );
-    if (!isUsed) {
-      selectedResult = result;
-      break;
-    }
-  }
+  });
+  
+  const candidateResults = unusedResults.length > 0 ? unusedResults : uniqueResults;
+  
+  // Use AI to select the MOST interesting, high-attention topic
+  const selectedResult = await selectBestTopic(candidateResults.slice(0, 20), niche, today);
   
   const sources = uniqueResults.slice(0, 5).map(r => ({
     title: r.title,
@@ -230,7 +232,7 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId): Promise<Ser
     publishDate: r.date || today,
   }));
   
-  const topic = selectedResult.title;
+  const topic = selectedResult.topic;
   const summary = `Based on current research from ${sources.length} sources (as of ${today} at ${timeString}), this topic is generating significant attention.
 
 ${selectedResult.snippet}
@@ -240,11 +242,13 @@ ${sources.slice(1, 4).map(s => `- ${s.snippet}`).join("\n")}
 
 This research was conducted using Serper.dev to ensure up-to-date, real-world data.`;
   
-  const whyTrending = `This topic was found trending on ${today} based on searches for ${niche?.name || "technology"} news. The search returned ${uniqueResults.length} unique results with this topic appearing prominently.`;
+  const whyTrending = selectedResult.whyInteresting || `This topic was found trending on ${today} based on searches for ${niche?.name || "technology"} news. The search returned ${uniqueResults.length} unique results with this topic appearing prominently.`;
   
   const keywords = niche 
     ? [...niche.keywords, "trending", "news", "viral"]
     : ["technology", "trending", "news", "AI", "viral"];
+  
+  console.log(`[Serper] Selected high-attention topic: "${topic}"`);
   
   return {
     topic,
@@ -255,6 +259,107 @@ This research was conducted using Serper.dev to ensure up-to-date, real-world da
     keywords,
     serperKeyUsed: keyUsed,
   };
+}
+
+// AI-powered topic selector - picks the MOST interesting, high-attention topic
+async function selectBestTopic(
+  candidates: SerperSearchResult[], 
+  niche: { name: string; keywords: readonly string[]; promptContext: string } | null,
+  today: string
+): Promise<{ topic: string; snippet: string; whyInteresting: string }> {
+  
+  if (candidates.length === 0) {
+    return {
+      topic: `Trending in ${niche?.name || "Technology"}`,
+      snippet: "No specific trending topic found.",
+      whyInteresting: "General interest topic."
+    };
+  }
+  
+  if (candidates.length === 1) {
+    return {
+      topic: candidates[0].title,
+      snippet: candidates[0].snippet,
+      whyInteresting: "Top trending result."
+    };
+  }
+  
+  // Use Gemini to evaluate and select the best topic
+  try {
+    const { GoogleGenAI } = await import("@google/genai");
+    const key = await storage.getNextGeminiKey();
+    if (!key) {
+      // Fallback to first result if no AI key
+      return {
+        topic: candidates[0].title,
+        snippet: candidates[0].snippet,
+        whyInteresting: "Top trending result."
+      };
+    }
+    
+    const ai = new GoogleGenAI({ apiKey: key.key });
+    
+    const candidateList = candidates.map((c, i) => 
+      `${i + 1}. "${c.title}" - ${c.snippet}`
+    ).join("\n");
+    
+    const prompt = `You are an expert content strategist. Today is ${today}.
+
+NICHE: ${niche?.name || "General Technology"}
+${niche ? `FOCUS AREAS: ${niche.promptContext}` : ""}
+
+Below are ${candidates.length} potential trending topics found via web search. Your job is to select the ONE topic that will:
+- INSTANTLY grab readers' attention (high curiosity factor)
+- Generate the most engagement (comments, shares)
+- Be genuinely interesting and NOT boring
+- Feel current and urgent (not old news)
+- Match the niche perfectly
+
+CANDIDATES:
+${candidateList}
+
+RULES FOR SELECTION:
+- REJECT boring, generic, or weak topics (like "general industry update")
+- REJECT topics that sound promotional or like ads
+- PREFER topics with: surprising facts, controversy, mystery, human interest, urgency
+- PREFER specific stories over vague trends
+- PREFER topics that make people say "I need to read this!"
+
+Select the SINGLE BEST high-attention topic. Respond in JSON:
+{
+  "selectedIndex": 1,
+  "topic": "The exact or slightly refined topic title (make it catchy but not clickbait)",
+  "whyInteresting": "1-2 sentences explaining why this topic will grab attention"
+}`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+      },
+    });
+
+    const text = response.text || "";
+    const parsed = JSON.parse(text);
+    
+    const selectedIndex = Math.max(0, Math.min((parsed.selectedIndex || 1) - 1, candidates.length - 1));
+    const selectedCandidate = candidates[selectedIndex];
+    
+    return {
+      topic: parsed.topic || selectedCandidate.title,
+      snippet: selectedCandidate.snippet,
+      whyInteresting: parsed.whyInteresting || "High-attention trending topic."
+    };
+    
+  } catch (error) {
+    console.error("[Serper] AI topic selection failed, using first result:", error);
+    return {
+      topic: candidates[0].title,
+      snippet: candidates[0].snippet,
+      whyInteresting: "Top trending result."
+    };
+  }
 }
 
 export async function researchTopicWithSerper(

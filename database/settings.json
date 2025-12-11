@@ -13,35 +13,35 @@
       "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
       "createdAt": "2025-12-07T00:33:52.645Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:20:29.019Z"
+      "lastUsed": "2025-12-11T22:10:04.495Z"
     },
     {
       "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:20:29.947Z"
+      "lastUsed": "2025-12-11T22:15:03.707Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T16:27:00.440Z"
+      "lastUsed": "2025-12-11T22:21:04.018Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T16:27:01.503Z"
+      "lastUsed": "2025-12-11T22:30:03.378Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T16:34:00.685Z"
+      "lastUsed": "2025-12-11T22:34:03.744Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T21:02:06.864Z"
+      "lastUsed": "2025-12-11T22:34:05.964Z"
     }
   ],
   "serperApiKeys": [
@@ -91,8 +91,8 @@
       "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
       "createdAt": "2025-12-07T01:28:05.271Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA_Tkufdl-AHaDyX_Our8IWKRrsz-YbDyPjKeXuIMQyhRYuHcEez6QbJFFZ4_ii_Nzhd-V20f0PMvclJdLVsObZ39QyXt8EGitceDPMTSlHXxxYywkMLEq1y6t12AlY3YaDc4YqUVg-xtJyVhFN6KTK2gLuKiOgGdNiHA4XKP2XkMQdq1Rh_lkyQAnXmph6qnDsQaCgYKAVISARISFQHGX2MixC0YxgXudKfe-v4UThKiXg0207",
-      "tokenExpiry": "2025-12-11T17:34:06.401Z",
+      "accessToken": "ya29.a0Aa7pCA-xb6hjsPtGPrMC_ZZdtdL1dZEBWbM8AZ6IeTdBSRmMP1Gxxad1apPeVJxazqsX-SEwhced-n0-xb3s1yO0kJi_ChK4u8KPqXLjaRxHbzt2_XiaEJfvf43C9Hd3d9OFXfoaV7FHz-HwKWx9aoVq2JP41pMt5OMAYDZzk1LAkFTkMrgZaGWIS6z2_kivJnCm9Ky-aCgYKAT4SARISFQHGX2Mi5joNFmJtP7bhNL8Wc-KSgQ0207",
+      "tokenExpiry": "2025-12-11T23:15:18.112Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
@@ -125,8 +125,8 @@
       "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
       "createdAt": "2025-12-07T01:30:38.846Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8WXSzkNnt7SaZmxS7EE83a9WRbPhsjcDY9Rt7csjGcLNiWp0o5qX9AGF_paeHT53N6-rAuA81yJpxeNQlbTlqKQOFR3RT0XD1ZCFX2vqtnsiozRHIujd1Yjd92gKk1k4h9Fj0VKavF4BshWfR9rO8yOGaQML_kDvaKQgOrxFRd7XC76dtT9nIS4fvVIG48lIxMaCgYKASMSARISFQHGX2Mi797S_Wvtp0syDSPnwtno8Q0207",
-      "tokenExpiry": "2025-12-11T22:02:06.988Z",
+      "accessToken": "ya29.a0Aa7pCA8-IM-HlvnX-9CTcT8YlPjAXNGn77j434nfHK018-EJivR4GmjmaiMXAx0Wuu_NDvkTj0ir3AI8qhUx9XpAEdM0rJNid_n8PtaTlgo5RY5NSXMAUtsCVqltqLFSoueBq-wEK2Rmz-usv9r49Wm026ubs-4krM-ptjJCBCPEOJ0qt-7sVFswfNaW9NPLHS7KacMSaCgYKAUkSARISFQHGX2MiEmN5wwSlk_TkZUg1UTkxXw0207",
+      "tokenExpiry": "2025-12-11T23:10:16.462Z",
       "blogName": "FactShock World",
       "blogUrl": "http://factshockworld.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
@@ -142,8 +142,8 @@
       "id": "56cf1820-0eac-469e-ae3c-8505bbb245f4",
       "createdAt": "2025-12-07T01:32:19.998Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9Af_D2ycWplSC6VA62FvFLtxhkEUQ5D1Z8vYQe8KhctdzCtvFyowVYItiaq6SBf_-gRoEqm_fuGi10GhKauyY7lV25RiRDHs_nzM9tl8RCzVxUisf5G-ZR56O7UghTF2YHs9ST2zSslxilu9F_puoFry1BP1LUhRDnhxwJTmcQhsJOh3Pitr0Mzdc2NzGlM2YxaCgYKAYwSARISFQHGX2MiDFPZIFkFlw7GT7c_ZVWvkQ0207",
-      "tokenExpiry": "2025-12-11T09:17:13.183Z",
+      "accessToken": "ya29.a0Aa7pCA-4rY1apjZDopDu7EUc6Q0MTjLrYPGFZnXtdfKqB8nwCE0_RIdoPEqSY162retLS4-N4UEnFedjha9r6_tDBI4mlpR6ECLagQbmrU_vHTO_5Z87Fr5XrcQoaTw1Gt17Ez-wWR0EYjNIBTr65ACzGq2R_SILz--VqVsdCTTJ-E8HKT7E-uDLxREOImuT62NDuYfiaCgYKAXYSARISFQHGX2MiOM-PWL8-NsPvjDp5FjBB9A0207",
+      "tokenExpiry": "2025-12-11T23:21:08.221Z",
       "blogName": "DailyHack Mastery",
       "blogUrl": "http://dailyhackmastery.blogspot.com/",
       "bannerAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/10/a3/78/10a37817eee3cd2f482f8f3bd86dc2b9.js\"\n></script>",
@@ -176,8 +176,8 @@
       "id": "6dc72eae-ef94-4690-8e86-bb5cbd678482",
       "createdAt": "2025-12-08T06:43:31.811Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA_BFc_X1AFDRsAWTOubSkbwqVYKNFiZqvQjzvnwBJK6Nmu2jLXnHqnlI16Zx5kKQqubE-AjnODvy57ojUbHMlXAf5yKRlWSo9BFIgGKFB5yMN1zo126D4OOX2jNN_6HBRZUz4nS4oRwmeIzW7G6x_MKQWzDQzaNrafPfzyauLhFzWRXTNgMf9hEAxm6EY8lyVBraCgYKAWMSARISFQHGX2MiXUqow5dGOCmQEwt9bRYm7g0207",
-      "tokenExpiry": "2025-12-11T17:27:09.503Z",
+      "accessToken": "ya29.a0Aa7pCA-jNuliSDuhrXP_P3Zp2iNWzboNCNjN0lI94Goq4ojRrDGb326kQ6xhi6J2wxVAOZdkMmDf4KbXAYG-WCd-agkqExfVimhZFPcLnQpjYRxIlosQj-gYsRVqjMWjqG8x1G0XLlpISgt8xTS_0fqYDCrSSAiOUSoYIV_RWoMbTnZoatZJfMQ6_TtErgRAM827b546aCgYKAY8SARISFQHGX2Mi2AS56pQfzZReU1DtvsWPVQ0207",
+      "tokenExpiry": "2025-12-11T23:30:06.349Z",
       "blogName": "TrendWave Media",
       "blogUrl": "http://trendwavemedia3.blogspot.com/"
     }
@@ -215,12 +215,54 @@
       "id": "9e044db1-78c9-4288-937e-3a588d4f6d62",
       "time": "22:02",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "36682b6c-d948-4d65-9454-d86bab1b5873",
+      "time": "23:10",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "df2a8361-e237-45b0-aff0-125a9d3b154f",
+      "time": "23:14",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "bf7f3d61-d7e5-48b6-9046-f25a9f314296",
+      "time": "23:15",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "7321cf45-ae63-4b12-8198-fa2df0dc1ab0",
+      "time": "23:21",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "2bebebac-7456-462e-94cd-e4a26ef3713c",
+      "time": "23:30",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "b56afab2-abb7-4a1b-a2d6-dccccb58a6f8",
+      "time": "23:34",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 1,
+  "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -276,7 +318,12 @@
     "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
     "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english",
     "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases",
-    "science news | the latest news from all areas of science"
+    "science news | the latest news from all areas of science",
+    "sciencedaily: your source for the latest research news",
+    "catherine hoggle ruled competent to stand trial in missing children ...",
+    "latest - tips, tricks and hacks for doing everything better | lifehacker",
+    "tmz.com: celebrity news | entertainment news",
+    "breaking celebrity news, entertainment news and celeb gossip"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -291,7 +338,8 @@
       "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities",
       "the chilling connection between the 1996 disappearance of morgan nick and the recent arrest of",
       "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
-      "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases"
+      "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases",
+      "catherine hoggle ruled competent to stand trial in missing children ..."
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
@@ -307,7 +355,8 @@
       "10 morning routine hacks to boost productivity and save time",
       "15 simple swaps to reduce household expenses and increase savings",
       "how to leverage the upcoming 2024 summer olympics to score cheap flights and accommodations using the 'olympic effect' strategy",
-      "maximizing the 2024 tax season with the newly introduced 'secure 2.0' act: 5 little-known strategies to claim the expanded $2,500 saver's credit and boost retirement savings by april 15th"
+      "maximizing the 2024 tax season with the newly introduced 'secure 2.0' act: 5 little-known strategies to claim the expanded $2,500 saver's credit and boost retirement savings by april 15th",
+      "latest - tips, tricks and hacks for doing everything better | lifehacker"
     ],
     "weird-facts": [
       "forget everything you knew: the ancient hominin discovery rewriting our evolutionary story right now",
@@ -319,7 +368,8 @@
       "the mysterious case of the 'dulce base': uncovering the truth behind the alleged secret underground facility in dulce, new mexico, as revealed by whistleblower phil schneider on november 12, 1995, and recently resurfaced in a declassified fbi document on october 25, 2023",
       "uncovering the baffling 'fast radio bursts' detected by the canadian hydrogen intensity mapping experiment (chime) on november 2, 2023, and how dr. victoria kaspi's team is racing against time to unravel the mystery of these enigmatic cosmic events",
       "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
-      "science news | the latest news from all areas of science"
+      "science news | the latest news from all areas of science",
+      "sciencedaily: your source for the latest research news"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
@@ -331,7 +381,9 @@
       "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
       "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content",
       "the unexpected resurgence of 90s boy bands: how bts's rm and suga's recent collaboration with backstreet boys' nick carter is sparking a new wave of nostalgia on tiktok and instagram, with over 1 million users participating in the #90sboybandchallenge since its launch on february 20, 2024",
-      "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english"
+      "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english",
+      "tmz.com: celebrity news | entertainment news",
+      "breaking celebrity news, entertainment news and celeb gossip"
     ],
     "health-hacks": [
       "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",

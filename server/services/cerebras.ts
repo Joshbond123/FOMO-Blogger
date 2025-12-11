@@ -326,7 +326,7 @@ ${research.sources.slice(0, 5).map(s => `- ${s.title}: ${s.snippet}`).join("\n")
 Use these facts to support your ONE main topic. Do not make up statistics or claims. All content should relate back to the single topic: "${topic}"
 ` : "";
 
-  const prompt = `You are a skilled blogger who writes like a real person - not like AI. Your writing should feel authentic, warm, and easy to read.
+  const prompt = `You are a top-tier professional writer creating expert-level content. Your writing sounds like it comes from someone who truly knows the subject - authoritative yet accessible.
 
 Write a complete blog post about THIS SINGLE TOPIC ONLY: "${topic}"
 ${fomoHook ? `\nHook to inspire your intro: "${fomoHook}"` : ""}
@@ -336,54 +336,66 @@ ${nicheWritingStyle}
 
 CRITICAL - SINGLE TOPIC FOCUS:
 - Write ONLY about "${topic}" - do NOT cover multiple topics or switch between different subjects
-- Every section of your blog must relate directly to this one main topic
+- Every section must explore a different angle of this ONE main topic
 - Do NOT create a "round-up" or "listicle" covering multiple unrelated topics
-- The entire blog post should be a deep dive into this ONE specific topic
+- The entire blog post should be a focused deep dive into this ONE specific topic
 - All facts and research should support this single main topic
 
-WRITING RULES (FOLLOW EXACTLY):
-1. Write like you're talking to a friend - casual, warm, and real
-2. Keep sentences readable - avoid long run-on sentences
-3. Keep paragraphs digestible - don't write walls of text
-4. Use simple, everyday words - no fancy vocabulary
-5. Vary your sentence length to create natural rhythm
-6. Start some sentences with "And", "But", "So" - it's conversational
-7. Use contractions (don't, won't, can't, it's)
-8. Ask questions to engage readers
-9. Use "you" and "your" often to speak directly to readers
-10. INCLUDE SPECIFIC FACTS from the research provided above to support your main topic
+YOUR WRITING MUST:
+- Sound like a respected expert wrote it - confident, knowledgeable, trustworthy
+- Be written in simple, clear English that anyone can understand
+- Hook readers from the first sentence and keep them engaged until the end
+- Flow naturally with smooth transitions between sections
+- Deliver REAL value - insights, facts, and information readers can actually use
+- Feel like premium content, not generic filler
 
-BANNED AI WORDS AND PHRASES - NEVER USE THESE:
+YOUR WRITING MUST NEVER:
+- Sound promotional, salesy, or like an advertisement
+- Look like AI-generated content (avoid robotic patterns)
+- Be boring, generic, or superficial
+- Repeat the same points in different words
+- Include fluff or filler content
+
+WRITING STYLE:
+1. Write with authority but stay approachable - expert friend, not lecturer
+2. Use simple, everyday words - explain complex things simply
+3. Keep sentences clear and readable - no run-on sentences
+4. Vary sentence length to create natural rhythm
+5. Use contractions naturally (don't, won't, can't, it's)
+6. Ask questions to engage readers
+7. Include specific facts and details from the research
+8. Make every paragraph count - no filler content
+
+BANNED AI WORDS AND PHRASES - NEVER USE:
 - "delve", "landscape", "leverage", "utilize", "plethora", "myriad", "realm", "tapestry"
 - "game-changing", "revolutionary", "cutting-edge", "groundbreaking", "unprecedented"
 - "In today's fast-paced world", "In this digital age", "In the ever-evolving"
 - "Furthermore", "Moreover", "Additionally", "Consequently", "Subsequently"
 - "It's worth noting", "It's important to note", "Interestingly"
 - "robust", "seamless", "comprehensive", "holistic", "synergy", "paradigm"
-- "at the end of the day", "when all is said and done"
-- "needless to say", "goes without saying"
+- "at the end of the day", "when all is said and done", "needless to say"
+- "unlock", "harness", "empower", "elevate"
 
-USE THESE NATURAL ALTERNATIVES INSTEAD:
+USE NATURAL LANGUAGE INSTEAD:
 - "look into" instead of "delve"
 - "use" instead of "utilize/leverage"
-- "area" or "space" instead of "landscape/realm"
-- "lots of" or "many" instead of "plethora/myriad"
-- "Also," "Plus," "On top of that," instead of "Furthermore/Moreover"
-- "Here's the thing," "Look," "The cool part is" for transitions
+- "area" or "field" instead of "landscape/realm"
+- "Also," "Plus," "And here's the thing," instead of "Furthermore/Moreover"
+- "Here's what's interesting," "Look," "The key point is" for transitions
 
 STRUCTURE:
-1. TITLE: Catchy but simple - something you'd actually click on. Title must be about the ONE topic only.
-2. INTRO: Hook the reader right away. Introduce the ONE main topic clearly.
-3. BODY: 6-8 sections with clear H2 headings - ALL sections must explore different aspects of the SAME topic
-   - Each section dives deeper into the main topic from a different angle
-   - Include the REAL facts and statistics from the research to support the main topic
-   - Mix paragraphs with bullet points and numbered lists
-   - Include real examples and practical tips related to the main topic
-   - Keep it informative but easy to skim
-4. CONCLUSION: Summarize the main topic + encourage comments/shares
+1. TITLE: Compelling but honest - makes people want to read, not clickbait
+2. INTRO: Hook immediately with something surprising or important. Set up the topic clearly.
+3. BODY: 6-8 sections with clear H2 headings - ALL exploring different aspects of the SAME topic
+   - Each section adds new value and insights about the main topic
+   - Include the REAL facts and statistics from research
+   - Mix paragraphs with bullet points and numbered lists for easy reading
+   - Include practical takeaways and real examples
+   - Every section should be worth reading on its own
+4. CONCLUSION: Strong finish - summarize key points, leave readers thinking
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
-LENGTH: 1,200-1,800 words. Quality content based on real research.
+LENGTH: 1,200-1,800 words of high-quality, valuable content.
 
 Respond with ONLY valid JSON:
 {
