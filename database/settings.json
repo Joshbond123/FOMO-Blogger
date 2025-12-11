@@ -27,28 +27,28 @@
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:14:00.535Z"
+      "lastUsed": "2025-12-11T16:27:00.440Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:15:59.446Z"
+      "lastUsed": "2025-12-11T16:27:01.503Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:16:00.161Z"
+      "lastUsed": "2025-12-11T16:34:00.685Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:16:54.344Z"
+      "lastUsed": "2025-12-11T16:34:01.967Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T12:20:38.638Z"
+      "lastUsed": "2025-12-11T16:34:06.009Z"
     }
   ],
   "blogger": {
@@ -83,8 +83,8 @@
       "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
       "createdAt": "2025-12-07T01:28:05.271Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA95IwdGNc6LxxwmwVND2FwyVwOVqqUUBalVMTx5cJh-Tun_jS5RCX_089K0gDBKi4V4VhKFHShXF_P-f51DzqTOa2XHsUYeZD9dQ-Wae8towq8YES3F4FVfDpJiyxu7UunE22nbtziGWg-pwtvMzHm4K1fSxTaA9qs7rfe1SzDmmj44vQAIee6CDRWVCdvqwa37aCgYKAR8SARISFQHGX2MiMSJigWvCnACfHXW157mpaA0207",
-      "tokenExpiry": "2025-12-11T13:17:13.566Z",
+      "accessToken": "ya29.a0Aa7pCA_Tkufdl-AHaDyX_Our8IWKRrsz-YbDyPjKeXuIMQyhRYuHcEez6QbJFFZ4_ii_Nzhd-V20f0PMvclJdLVsObZ39QyXt8EGitceDPMTSlHXxxYywkMLEq1y6t12AlY3YaDc4YqUVg-xtJyVhFN6KTK2gLuKiOgGdNiHA4XKP2XkMQdq1Rh_lkyQAnXmph6qnDsQaCgYKAVISARISFQHGX2MixC0YxgXudKfe-v4UThKiXg0207",
+      "tokenExpiry": "2025-12-11T17:34:06.401Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
@@ -168,275 +168,30 @@
       "id": "6dc72eae-ef94-4690-8e86-bb5cbd678482",
       "createdAt": "2025-12-08T06:43:31.811Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA-Tf57TrAzQ3Z5PXHk2LLIk1gA2RmeAydIxCU6cUz_vXApslJgwUPzeQ1JGbcxeMUtjAeheXYxrEeCpaX2Z02S6Aflz9yv2PTrEyptceKMt8QMxdHui4atxyPU3WITFhqxOoeWxQPmCtJA-D_EscRWQREaEC6ayiyRQ7f6kRzyskOw-VRz8tANDzbiFh1bk6Yo2aCgYKAbwSARISFQHGX2MidLQA---AKdnH7qRwtAPuzw0207",
-      "tokenExpiry": "2025-12-11T13:08:04.938Z",
+      "accessToken": "ya29.a0Aa7pCA_BFc_X1AFDRsAWTOubSkbwqVYKNFiZqvQjzvnwBJK6Nmu2jLXnHqnlI16Zx5kKQqubE-AjnODvy57ojUbHMlXAf5yKRlWSo9BFIgGKFB5yMN1zo126D4OOX2jNN_6HBRZUz4nS4oRwmeIzW7G6x_MKQWzDQzaNrafPfzyauLhFzWRXTNgMf9hEAxm6EY8lyVBraCgYKAWMSARISFQHGX2MiXUqow5dGOCmQEwt9bRYm7g0207",
+      "tokenExpiry": "2025-12-11T17:27:09.503Z",
       "blogName": "TrendWave Media",
       "blogUrl": "http://trendwavemedia3.blogspot.com/"
     }
   ],
   "schedules": [
     {
-      "id": "04cc30e0-d9ef-4267-bfc1-72439a19b2d6",
-      "time": "09:05",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "5ac800bf-2d5c-4c0f-a189-09e35049ab97",
-      "time": "09:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "b9a81174-bba6-45c4-a1cd-441cadc90de0",
-      "time": "09:15",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "083609bf-b932-4e39-be5b-0b5339d08ace",
-      "time": "09:17",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "acfa1051-d16c-4554-8efc-5e4d01942a74",
-      "time": "09:20",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "1ef872ed-0e87-4e37-bc49-2d9a2367ac32",
-      "time": "11:03",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "3a58c010-cdfd-4495-971f-2830dda8fba0",
-      "time": "11:06",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "50ed245b-2717-4c15-a690-d2b191dc932d",
-      "time": "11:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "011e7170-c2b9-4713-a854-e360dc1af308",
-      "time": "11:13",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "25d4b2e4-beef-4072-a569-12ddeed0bdf3",
-      "time": "11:16",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "322f47e2-6812-40f5-a883-4b8325b9501d",
-      "time": "13:03",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "bedaa265-d772-4614-bde4-eae8861a3439",
-      "time": "13:06",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "3d9944c6-2376-4183-8827-c3e24599ba0c",
-      "time": "13:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "ca2226a3-ba6b-4624-b947-4d0775fa8820",
-      "time": "13:13",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "8af52cc3-8a25-431c-9c69-7e770a33e113",
-      "time": "13:16",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "74af6627-78a1-41ed-9b1d-af07f13f75be",
-      "time": "15:03",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "8e279003-041a-4c1a-b7b5-07de8943fba5",
-      "time": "15:06",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "4300b342-7349-424a-8b00-9d1cd26f9e65",
-      "time": "15:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "e221e80f-3a8a-4611-9886-570f43e13bfd",
-      "time": "15:14",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "a5290db3-4036-4777-8a07-89469a74c3e9",
-      "time": "15:18",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "eaf2e2c4-fbb8-4167-bfb1-f942335a0a99",
-      "time": "18:03",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "ef4270dc-2371-4b9f-a7b4-ccf84a51ee12",
-      "time": "18:06",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "905c3248-d1a1-4175-801e-7a78a7878fdc",
-      "time": "18:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "c4a08585-1b4a-429a-bc1e-a667b8e240c8",
-      "time": "18:13",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "0ee1994e-a5db-4ed4-8800-b145a61ed4ab",
-      "time": "18:16",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "be3459a0-eb24-4074-9ec4-cad67b1c5b09",
-      "time": "18:27",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
-    },
-    {
-      "id": "bb96b18b-7e0f-405d-a927-63366c986e69",
-      "time": "11:41",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "143e0024-053e-4ef2-8e70-8a33b52c19c8",
-      "time": "12:02",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "c5bd09d1-eae0-44ce-b511-2a9a5822a5d0",
-      "time": "12:19",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "61b41a49-a028-43ab-a694-57262bd0c938",
-      "time": "19:07",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "dd0ac7ed-2939-4dd0-b55e-d4cbb91356d7",
-      "time": "07:22",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "c529ea0d-1297-41ae-a0b2-1fd889fa4a7e",
-      "time": "07:23",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "a6d1b4ab-8fbd-447a-8d4d-6e070ccb2884",
-      "time": "08:14",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "961c4943-36b8-4448-b869-f7d9d53b2403",
-      "time": "10:29",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "2ad173d3-02a7-48ce-ab81-b35774464475",
-      "time": "12:09",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
-    },
-    {
-      "id": "e9455c33-18fe-49f3-9b67-d45d2f337229",
-      "time": "12:11",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
-    },
-    {
-      "id": "b626ed8f-3f42-4ca4-b32c-5728f521c60b",
-      "time": "13:08",
+      "id": "9f48d6ef-d47a-4fe9-8239-2cf276abdd36",
+      "time": "17:27",
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "ade203f4-428f-4ac9-8de6-856bdfb357cb",
+      "time": "17:34",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 3,
+  "currentCerebrasKeyIndex": 0,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "usedTopics": [
@@ -488,7 +243,9 @@
     "unlocking the potential of ai-driven cybersecurity: how microsoft's azure security center for iot, launched on march 1, 2023, is revolutionizing threat detection with machine learning algorithms and automation",
     "maximizing the 2024 tax season with the newly introduced 'secure 2.0' act: 5 little-known strategies to claim the expanded $2,500 saver's credit and boost retirement savings by april 15th",
     "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
-    "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023"
+    "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
+    "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english",
+    "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -502,7 +259,8 @@
       "the mysterious case of the dyatlov pass incident: new evidence and theories emerge",
       "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities",
       "the chilling connection between the 1996 disappearance of morgan nick and the recent arrest of",
-      "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes"
+      "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
+      "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
@@ -540,7 +298,8 @@
       "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
       "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
       "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content",
-      "the unexpected resurgence of 90s boy bands: how bts's rm and suga's recent collaboration with backstreet boys' nick carter is sparking a new wave of nostalgia on tiktok and instagram, with over 1 million users participating in the #90sboybandchallenge since its launch on february 20, 2024"
+      "the unexpected resurgence of 90s boy bands: how bts's rm and suga's recent collaboration with backstreet boys' nick carter is sparking a new wave of nostalgia on tiktok and instagram, with over 1 million users participating in the #90sboybandchallenge since its launch on february 20, 2024",
+      "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english"
     ],
     "health-hacks": [
       "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
