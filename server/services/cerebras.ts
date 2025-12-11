@@ -1,6 +1,7 @@
 import { storage } from "../storage";
 import type { GeneratedContent, NicheId, ApiKey, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
+import { searchTrendingTopics, researchTopicForContent, type WebSearchResult } from "./webSearch";
 
 const CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions";
 const CEREBRAS_MODEL = "llama-3.3-70b";
@@ -146,10 +147,48 @@ export async function testCerebrasConnection(): Promise<{ success: boolean; mess
   }
 }
 
-export async function generateTrendingTopic(nicheId?: NicheId): Promise<{ topic: string; fomoHook: string; keywords: string[] }> {
-  const settings = await storage.getSettings();
+export async function generateTrendingTopic(nicheId?: NicheId): Promise<{ topic: string; fomoHook: string; keywords: string[]; webResearch?: WebSearchResult }> {
   const niche = getNicheById(nicheId);
   
+  console.log("[Cerebras] Starting web search for trending topics...");
+  
+  let webResearch: WebSearchResult | undefined;
+  try {
+    webResearch = await searchTrendingTopics(nicheId);
+    console.log("[Cerebras] Web research completed:", webResearch.topic);
+  } catch (error) {
+    console.error("[Cerebras] Web search failed, falling back to AI generation:", error);
+  }
+  
+  if (webResearch && webResearch.topic && webResearch.summary) {
+    const settings = await storage.getSettings();
+    const usedTopicsForNiche = nicheId && settings.usedTopicsByNiche[nicheId] 
+      ? settings.usedTopicsByNiche[nicheId].slice(-100)
+      : settings.usedTopics.slice(-100);
+    
+    const normalizedTopic = webResearch.topic.toLowerCase().trim();
+    const isSimilar = usedTopicsForNiche.some(used => {
+      const usedNormalized = used.toLowerCase().trim();
+      return usedNormalized === normalizedTopic || 
+             usedNormalized.includes(normalizedTopic) || 
+             normalizedTopic.includes(usedNormalized) ||
+             calculateSimilarity(usedNormalized, normalizedTopic) > 0.6;
+    });
+    
+    if (!isSimilar) {
+      console.log("[Cerebras] Using web-researched topic:", webResearch.topic);
+      return {
+        topic: webResearch.topic,
+        fomoHook: webResearch.whyTrending || "This is what everyone is talking about right now.",
+        keywords: webResearch.keywords || niche?.keywords || ["trending", "viral"],
+        webResearch,
+      };
+    } else {
+      console.log("[Cerebras] Web topic too similar to used topics, generating alternative...");
+    }
+  }
+  
+  const settings = await storage.getSettings();
   const usedTopicsForNiche = nicheId && settings.usedTopicsByNiche[nicheId] 
     ? settings.usedTopicsByNiche[nicheId].slice(-100)
     : settings.usedTopics.slice(-100);
@@ -158,38 +197,41 @@ export async function generateTrendingTopic(nicheId?: NicheId): Promise<{ topic:
     ? `\n\nCRITICAL - DO NOT REPEAT OR USE SIMILAR TOPICS. These have already been covered:\n${usedTopicsForNiche.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n\nYour topic MUST be completely different from ALL of the above. Do not use synonyms or variations of these topics. Find a FRESH, UNIQUE angle that hasn't been covered.`
     : "";
 
+  const webContext = webResearch 
+    ? `\n\nBased on recent web research, here are some trending stories you can build upon (but DO NOT copy these exactly - use them for inspiration):\n- ${webResearch.topic}: ${webResearch.summary.substring(0, 300)}...\n- Facts found: ${webResearch.facts.slice(0, 3).join("; ")}`
+    : "";
+
   const nicheContext = niche 
     ? `You are an expert content strategist focused on the "${niche.name}" niche.
 
-Your task: Research and identify a TRENDING topic related to ${niche.promptContext} that would make an excellent blog post for today. Focus on:
+Your task: Create a UNIQUE and SPECIFIC trending topic related to ${niche.promptContext} that would make an excellent blog post for today. Focus on:
 ${niche.keywords.map(k => `- ${k}`).join("\n")}
-- Trending stories and current events in this niche
-- Engaging content that captures reader attention
-- Topics that create curiosity and shareability`
+- Current events and breaking news in this niche
+- Topics people are actively searching for
+- Fresh angles that haven't been covered`
     : `You are an expert AI content strategist focused on the "AI Tools and Productivity" niche.
 
-Your task: Research and identify a TRENDING topic in AI tools that would make an excellent blog post for today. Focus on:
+Your task: Create a UNIQUE and SPECIFIC trending topic in AI tools that would make an excellent blog post for today. Focus on:
 - New AI tools, features, or updates
 - Practical AI automation for work/business
 - AI productivity hacks and workflows
-- AI tool comparisons and reviews
 - Real-world AI use cases`;
 
   const prompt = `${nicheContext}
+${webContext}
 
 The topic MUST:
 1. Be COMPLETELY UNIQUE - not similar to any previously used topic
-2. Be highly relevant and timely (trending now)
-3. Create FOMO (fear of missing out) for readers
-4. Be actionable and engaging
-5. Appeal to the target audience of this niche
-6. Use a fresh angle that hasn't been explored before
+2. Be highly SPECIFIC (not generic like "top 10 tips" - give exact names, dates, events)
+3. Be timely and relevant to what's happening NOW
+4. Create urgency for readers
+5. Use a fresh angle that hasn't been explored
 ${usedTopicsContext}
 
 Respond with ONLY valid JSON in this exact format:
 {
-  "topic": "The specific topic title that would make an engaging blog post",
-  "fomoHook": "A compelling 1-2 sentence hook that creates urgency and FOMO",
+  "topic": "A SPECIFIC topic with real names, dates, or events - not generic",
+  "fomoHook": "A compelling 1-2 sentence hook that creates urgency",
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
 }`;
 
@@ -204,7 +246,8 @@ Respond with ONLY valid JSON in this exact format:
     return {
       topic: parsed.topic || (niche ? `Trending in ${niche.name}` : "AI Tools for Maximum Productivity"),
       fomoHook: parsed.fomoHook || "Discover what everyone is talking about.",
-      keywords: parsed.keywords || (niche ? niche.keywords : ["AI", "productivity", "automation"]),
+      keywords: parsed.keywords || (niche ? [...niche.keywords] : ["AI", "productivity", "automation"]),
+      webResearch,
     };
   } catch {
     const defaultTopic = niche 
@@ -216,24 +259,82 @@ Respond with ONLY valid JSON in this exact format:
     return {
       topic: defaultTopic,
       fomoHook: defaultHook,
-      keywords: niche ? niche.keywords : ["AI tools", "productivity", "business automation", "workflow"],
+      keywords: niche ? [...niche.keywords] : ["AI tools", "productivity", "business automation", "workflow"],
+      webResearch,
     };
   }
 }
 
-export async function generateBlogPost(topic: string, fomoHook?: string, nicheId?: NicheId): Promise<GeneratedContent> {
+function calculateSimilarity(str1: string, str2: string): number {
+  const stopWords = new Set(["the", "and", "for", "are", "but", "not", "you", "all", "can", "her", "was", "one", "our", "out", "have", "this", "from", "that", "with", "they", "will", "what", "about", "which", "when", "make", "like", "time", "just", "know", "take", "people", "into", "year", "your", "some", "could", "them", "than", "then", "look", "only", "come", "over", "such", "also", "back", "after", "use", "two", "how", "more", "most", "very", "even"]);
+  
+  const normalize = (str: string) => str.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .split(/\s+/)
+    .filter(w => w.length > 2 && !stopWords.has(w));
+  
+  const words1 = normalize(str1);
+  const words2 = normalize(str2);
+  
+  if (words1.length === 0 || words2.length === 0) return 0;
+  
+  const commonWords = words1.filter(w => words2.includes(w));
+  const jaccardSimilarity = commonWords.length / (new Set([...words1, ...words2]).size);
+  const overlapScore = commonWords.length / Math.min(words1.length, words2.length);
+  
+  return Math.max(jaccardSimilarity, overlapScore * 0.8);
+}
+
+export async function generateBlogPost(topic: string, fomoHook?: string, nicheId?: NicheId, existingResearch?: WebSearchResult): Promise<GeneratedContent> {
   const niche = getNicheById(nicheId);
 
+  console.log("[Cerebras] Researching topic before writing blog post...");
+  
+  let research = existingResearch;
+  if (!research) {
+    try {
+      const topicResearch = await researchTopicForContent(topic, nicheId);
+      research = {
+        topic,
+        summary: topicResearch.researchSummary,
+        sources: topicResearch.sources,
+        searchQueries: [],
+        facts: topicResearch.facts,
+        whyTrending: "",
+        keywords: [],
+      };
+      console.log("[Cerebras] Topic research completed, found", topicResearch.facts.length, "facts");
+    } catch (error) {
+      console.error("[Cerebras] Topic research failed, proceeding without research:", error);
+    }
+  }
+
   const nicheWritingStyle = niche ? getNicheWritingStyle(niche.id) : getDefaultWritingStyle();
+
+  const researchContext = research ? `
+IMPORTANT - USE THIS RESEARCH DATA IN YOUR ARTICLE:
+This is real information from web research. Include these facts and details in your article:
+
+Summary: ${research.summary}
+
+Key Facts (USE THESE):
+${research.facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
+
+Sources Referenced:
+${research.sources.slice(0, 5).map(s => `- ${s.title}: ${s.snippet}`).join("\n")}
+
+Write about these REAL facts and information. Do not make up statistics or claims. Base your content on this research.
+` : "";
 
   const prompt = `You are a skilled blogger who writes like a real person - not like AI. Your writing should feel authentic, warm, and easy to read.
 
 Write a complete blog post about: "${topic}"
 ${fomoHook ? `\nHook to inspire your intro: "${fomoHook}"` : ""}
+${researchContext}
 
 ${nicheWritingStyle}
 
-WRITING RULES (VERY IMPORTANT):
+WRITING RULES (CRITICAL - FOLLOW EXACTLY):
 1. Write like you're talking to a friend - casual, warm, and real
 2. Keep sentences readable - avoid long run-on sentences
 3. Keep paragraphs digestible - don't write walls of text
@@ -243,36 +344,46 @@ WRITING RULES (VERY IMPORTANT):
 7. Use contractions (don't, won't, can't, it's)
 8. Ask questions to engage readers
 9. Use "you" and "your" often to speak directly to readers
+10. INCLUDE SPECIFIC FACTS from the research provided above
 
-AVOID THESE AI-SOUNDING PATTERNS:
-- Don't use "delve", "landscape", "leverage", "utilize", "plethora", "myriad"
-- Don't use "In today's fast-paced world" or similar cliches
-- Don't start paragraphs with "Furthermore", "Moreover", "Additionally"
-- Don't use overly formal transitions
-- Don't overuse superlatives like "revolutionary", "game-changing", "cutting-edge"
+BANNED AI WORDS AND PHRASES - NEVER USE THESE:
+- "delve", "landscape", "leverage", "utilize", "plethora", "myriad", "realm", "tapestry"
+- "game-changing", "revolutionary", "cutting-edge", "groundbreaking", "unprecedented"
+- "In today's fast-paced world", "In this digital age", "In the ever-evolving"
+- "Furthermore", "Moreover", "Additionally", "Consequently", "Subsequently"
+- "It's worth noting", "It's important to note", "Interestingly"
+- "robust", "seamless", "comprehensive", "holistic", "synergy", "paradigm"
+- "at the end of the day", "when all is said and done"
+- "needless to say", "goes without saying"
+
+USE THESE NATURAL ALTERNATIVES INSTEAD:
+- "look into" instead of "delve"
+- "use" instead of "utilize/leverage"
+- "area" or "space" instead of "landscape/realm"
+- "lots of" or "many" instead of "plethora/myriad"
+- "Also," "Plus," "On top of that," instead of "Furthermore/Moreover"
+- "Here's the thing," "Look," "The cool part is" for transitions
 
 STRUCTURE:
 1. TITLE: Catchy but simple - something you'd actually click on
-2. INTRO: Hook the reader right away with something interesting. Create a sense of urgency or curiosity.
+2. INTRO: Hook the reader right away. Reference the real facts from research.
 3. BODY: 6-8 sections with clear H2 headings
+   - Include the REAL facts and statistics from the research
    - Mix paragraphs with bullet points and numbered lists
    - Include real examples and practical tips
    - Keep it informative but easy to skim
-   - Make readers feel they're getting valuable insider info
-4. CONCLUSION: Quick summary + encourage comments/shares + create urgency to take action
+4. CONCLUSION: Quick summary + encourage comments/shares
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
-LENGTH: Write a complete, well-developed blog post (1,200-1,800 words). Each section should have enough depth to be valuable but not overwhelming. Quality over quantity.
-
-Write like a professional human blogger - natural, engaging, and polished.
+LENGTH: 1,200-1,800 words. Quality content based on real research.
 
 Respond with ONLY valid JSON:
 {
   "title": "Your catchy, simple title",
-  "content": "Full HTML-formatted blog content",
+  "content": "Full HTML-formatted blog content based on research",
   "excerpt": "2-3 sentence preview that makes people want to read more",
   "labels": ["label1", "label2", "label3", "label4", "label5"],
-  "imagePrompt": "Detailed image prompt for featured image"
+  "imagePrompt": "Visual scene description for featured image - describe a scene, no text"
 }`;
 
   const response = await callCerebrasWithRotation(
@@ -291,7 +402,7 @@ Respond with ONLY valid JSON:
       content: parsed.content || "<p>Content generation failed. Please try again.</p>",
       excerpt: parsed.excerpt || (niche ? `Discover the latest in ${niche.name.toLowerCase()}.` : "Discover the latest in AI tools and productivity."),
       labels: parsed.labels || (niche ? niche.keywords.slice(0, 5) : ["AI", "Productivity", "Technology"]),
-      imagePrompt: parsed.imagePrompt || `Modern, professional illustration of ${topic}, ${niche ? niche.promptContext : "technology concept"}, clean design`,
+      imagePrompt: parsed.imagePrompt || `Cinematic visual scene representing ${topic}, ${niche ? niche.promptContext : "modern technology"}, dramatic lighting, no text`,
     };
   } catch (error) {
     throw new Error("Failed to parse generated content. Please try again.");

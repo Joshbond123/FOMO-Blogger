@@ -19,7 +19,14 @@ async function fetchWithTimeout(url: string, timeout: number): Promise<Response>
 }
 
 function createFOMOImagePrompt(basePrompt: string): string {
-  return `${basePrompt}, purely visual scene only, ultra-detailed, cinematic lighting, hyper-realistic, 8k resolution, dramatic composition, vibrant colors, professional photography, stunning visual impact, award-winning photography, high contrast, sharp focus, magazine cover quality, breathtaking scene, epic atmosphere, absolutely no text, no words, no letters, no typography, no writing, no captions, no titles, no labels, no watermarks, no logos, no signs, no banners, text-free image`;
+  const cleanPrompt = basePrompt
+    .replace(/text|words?|letters?|typography|writing|caption|title|label|sign|banner|logo|watermark|headline|subtitle|quote|signage|poster|placard|board|display|screen|monitor/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  
+  const negativePrompts = "text, words, letters, typography, writing, captions, titles, labels, watermarks, logos, signs, banners, numbers, symbols, readable content, overlays, subtitles, headlines, quotes, slogans, signage, posters, placards, boards, displays, screens, monitors with text, handwriting, printed words, font, characters, alphabet, inscriptions, graffiti, stickers with text";
+  
+  return `${cleanPrompt}, purely visual photograph only with absolutely zero text elements, ultra-detailed, cinematic lighting, hyper-realistic, 8k resolution, dramatic composition, vibrant colors, professional photography, stunning visual impact, award-winning photography, high contrast, sharp focus, magazine cover quality, breathtaking scene, epic atmosphere, clean image without any writing or readable elements, pure visual scene, --no ${negativePrompts}`;
 }
 
 export async function testImageGeneratorConnection(): Promise<{ success: boolean; message: string }> {

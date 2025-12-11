@@ -165,6 +165,16 @@ npm run build   # Build for production
 
 ## Recent Updates
 
+### December 2024 - Web Search & Research Enhancement
+- **Real Web Search Before Publishing**: AI now browses the internet using Gemini's Google Search grounding before generating any blog posts
+- **Research-Based Content**: Blog posts are now written using actual facts, statistics, and sources found from web research - not generic AI knowledge
+- **Stronger No-Text Image Prompts**: Enhanced image generation prompts to completely eliminate text, words, letters, and typography from generated images
+- **Improved Topic Uniqueness**: Added similarity scoring to prevent topics that are too similar to previously used topics (not just exact matches)
+- **Banned AI Words**: Extensive list of AI-sounding words and phrases that are never used (delve, leverage, landscape, game-changing, etc.)
+- **Natural Writing Style**: Specific guidelines for more natural, human-like writing with casual transitions and conversational tone
+- **New WebSearch Service**: Created server/services/webSearch.ts for centralized web research functionality
+
+### Previous Updates
 - Simplified Research Transparency page to show only published posts (removed niche selection, research buttons, topic lists)
 - Fixed scheduler to properly await async operations
 - Added Switch toggle for schedule active/inactive state

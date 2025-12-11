@@ -2,6 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { storage } from "../storage";
 import type { GeneratedContent, NicheId } from "@shared/schema";
 import { NICHES } from "@shared/schema";
+import { searchTrendingTopics, researchTopicForContent, type WebSearchResult } from "./webSearch";
 
 async function getGeminiClient(): Promise<GoogleGenAI> {
   const key = await storage.getNextGeminiKey();
@@ -97,7 +98,7 @@ Respond with ONLY valid JSON in this exact format:
     return {
       topic: parsed.topic || (niche ? `Trending in ${niche.name}` : "AI Tools for Maximum Productivity"),
       fomoHook: parsed.fomoHook || "Discover what everyone is talking about.",
-      keywords: parsed.keywords || (niche ? niche.keywords : ["AI", "productivity", "automation"]),
+      keywords: parsed.keywords || (niche ? [...niche.keywords] : ["AI", "productivity", "automation"]),
     };
   } catch {
     const defaultTopic = niche 
@@ -109,25 +110,62 @@ Respond with ONLY valid JSON in this exact format:
     return {
       topic: defaultTopic,
       fomoHook: defaultHook,
-      keywords: niche ? niche.keywords : ["AI tools", "productivity", "business automation", "workflow"],
+      keywords: niche ? [...niche.keywords] : ["AI tools", "productivity", "business automation", "workflow"],
     };
   }
 }
 
-export async function generateBlogPost(topic: string, fomoHook?: string, nicheId?: NicheId): Promise<GeneratedContent> {
+export async function generateBlogPost(topic: string, fomoHook?: string, nicheId?: NicheId, existingResearch?: WebSearchResult): Promise<GeneratedContent> {
   const ai = await getGeminiClient();
   const niche = getNicheById(nicheId);
 
+  console.log("[Gemini] Researching topic before writing blog post...");
+  
+  let research = existingResearch;
+  if (!research) {
+    try {
+      const topicResearch = await researchTopicForContent(topic, nicheId);
+      research = {
+        topic,
+        summary: topicResearch.researchSummary,
+        sources: topicResearch.sources,
+        searchQueries: [],
+        facts: topicResearch.facts,
+        whyTrending: "",
+        keywords: [],
+      };
+      console.log("[Gemini] Topic research completed, found", topicResearch.facts.length, "facts");
+    } catch (error) {
+      console.error("[Gemini] Topic research failed, proceeding without research:", error);
+    }
+  }
+
   const nicheWritingStyle = niche ? getNicheWritingStyle(niche.id) : getDefaultWritingStyle();
+
+  const researchContext = research ? `
+IMPORTANT - USE THIS RESEARCH DATA IN YOUR ARTICLE:
+This is real information from web research. Include these facts and details in your article:
+
+Summary: ${research.summary}
+
+Key Facts (USE THESE):
+${research.facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
+
+Sources Referenced:
+${research.sources.slice(0, 5).map(s => `- ${s.title}: ${s.snippet}`).join("\n")}
+
+Write about these REAL facts and information. Do not make up statistics or claims. Base your content on this research.
+` : "";
 
   const prompt = `You are a skilled blogger who writes like a real person - not like AI. Your writing should feel authentic, warm, and easy to read.
 
 Write a complete blog post about: "${topic}"
 ${fomoHook ? `\nHook to inspire your intro: "${fomoHook}"` : ""}
+${researchContext}
 
 ${nicheWritingStyle}
 
-WRITING RULES (VERY IMPORTANT):
+WRITING RULES (CRITICAL - FOLLOW EXACTLY):
 1. Write like you're talking to a friend - casual, warm, and real
 2. Keep sentences readable - avoid long run-on sentences
 3. Keep paragraphs digestible - don't write walls of text
@@ -137,42 +175,48 @@ WRITING RULES (VERY IMPORTANT):
 7. Use contractions (don't, won't, can't, it's)
 8. Ask questions to engage readers
 9. Use "you" and "your" often to speak directly to readers
+10. INCLUDE SPECIFIC FACTS from the research provided above
 
-AVOID THESE AI-SOUNDING PATTERNS:
-- Don't use "delve", "landscape", "leverage", "utilize", "plethora", "myriad"
-- Don't use "In today's fast-paced world" or similar cliches
-- Don't start paragraphs with "Furthermore", "Moreover", "Additionally"
-- Don't use overly formal transitions
-- Don't overuse superlatives like "revolutionary", "game-changing", "cutting-edge"
+BANNED AI WORDS AND PHRASES - NEVER USE THESE:
+- "delve", "landscape", "leverage", "utilize", "plethora", "myriad", "realm", "tapestry"
+- "game-changing", "revolutionary", "cutting-edge", "groundbreaking", "unprecedented"
+- "In today's fast-paced world", "In this digital age", "In the ever-evolving"
+- "Furthermore", "Moreover", "Additionally", "Consequently", "Subsequently"
+- "It's worth noting", "It's important to note", "Interestingly"
+- "robust", "seamless", "comprehensive", "holistic", "synergy", "paradigm"
+
+USE THESE NATURAL ALTERNATIVES INSTEAD:
+- "look into" instead of "delve"
+- "use" instead of "utilize/leverage"
+- "area" or "space" instead of "landscape/realm"
+- "Also," "Plus," "On top of that," instead of "Furthermore/Moreover"
 
 STRUCTURE:
 1. TITLE: Catchy but simple - something you'd actually click on
-2. INTRO: Hook the reader right away with something interesting. Create a sense of urgency or curiosity.
+2. INTRO: Hook the reader right away. Reference the real facts from research.
 3. BODY: 6-8 sections with clear H2 headings
+   - Include the REAL facts and statistics from the research
    - Mix paragraphs with bullet points and numbered lists
    - Include real examples and practical tips
-   - Keep it informative but easy to skim
-   - Make readers feel they're getting valuable insider info
-4. CONCLUSION: Quick summary + encourage comments/shares + create urgency to take action
+4. CONCLUSION: Quick summary + encourage comments/shares
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
-LENGTH: Write a complete, well-developed blog post (1,200-1,800 words). Each section should have enough depth to be valuable but not overwhelming. Quality over quantity.
-
-Write like a professional human blogger - natural, engaging, and polished.
+LENGTH: 1,200-1,800 words. Quality content based on real research.
 
 Respond with ONLY valid JSON:
 {
   "title": "Your catchy, simple title",
-  "content": "Full HTML-formatted blog content",
+  "content": "Full HTML-formatted blog content based on research",
   "excerpt": "2-3 sentence preview that makes people want to read more",
   "labels": ["label1", "label2", "label3", "label4", "label5"],
-  "imagePrompt": "Detailed image prompt for featured image"
+  "imagePrompt": "Visual scene description for featured image - describe a scene, no text"
 }`;
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: prompt,
     config: {
+      tools: [{ googleSearch: {} }],
       responseMimeType: "application/json",
     },
   });
@@ -187,8 +231,8 @@ Respond with ONLY valid JSON:
       title: parsed.title || topic,
       content: parsed.content || "<p>Content generation failed. Please try again.</p>",
       excerpt: parsed.excerpt || (niche ? `Discover the latest in ${niche.name.toLowerCase()}.` : "Discover the latest in AI tools and productivity."),
-      labels: parsed.labels || (niche ? niche.keywords.slice(0, 5) : ["AI", "Productivity", "Technology"]),
-      imagePrompt: parsed.imagePrompt || `Modern, professional illustration of ${topic}, ${niche ? niche.promptContext : "technology concept"}, clean design`,
+      labels: parsed.labels || (niche ? [...niche.keywords.slice(0, 5)] : ["AI", "Productivity", "Technology"]),
+      imagePrompt: parsed.imagePrompt || `Cinematic visual scene representing ${topic}, ${niche ? niche.promptContext : "modern technology"}, dramatic lighting, no text`,
     };
   } catch (error) {
     throw new Error("Failed to parse generated content. Please try again.");
