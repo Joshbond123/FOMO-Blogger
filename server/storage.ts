@@ -817,13 +817,15 @@ export class FileStorage implements IStorage {
   }
 
   async updateTrendingResearch(id: string, updates: Partial<TrendingResearch>): Promise<TrendingResearch | undefined> {
-    const allResearch = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
-    const index = allResearch.findIndex((r) => r.id === id);
+    // Read full dataset directly (not via getTrendingResearch which truncates to 10)
+    const fullResearch = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
+    const index = fullResearch.findIndex((r) => r.id === id);
     if (index === -1) return undefined;
     
-    allResearch[index] = { ...allResearch[index], ...updates };
-    writeJsonFile(RESEARCH_FILE, allResearch);
-    return allResearch[index];
+    fullResearch[index] = { ...fullResearch[index], ...updates };
+    // Write full array back to preserve all historical entries
+    writeJsonFile(RESEARCH_FILE, fullResearch);
+    return fullResearch[index];
   }
 
   async deleteTrendingResearch(id: string): Promise<void> {
