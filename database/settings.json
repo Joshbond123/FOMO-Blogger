@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T08:15:00.503Z"
+      "lastUsed": "2025-12-11T09:29:02.660Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -48,7 +48,7 @@
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T08:10:01.640Z"
+      "lastUsed": "2025-12-11T09:29:00.567Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T08:20:13.321Z"
+      "lastUsed": "2025-12-11T09:29:13.273Z"
     }
   ],
   "blogger": {
@@ -117,8 +117,8 @@
       "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
       "createdAt": "2025-12-07T01:30:38.846Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA_u77njH1uVFmz097TZrJtMlTRH2WWWHIGnjM9AtwxjvASNMKr04G7EhAmVw3WYms8ezsmQrzQmR96Z_l25Xk3Z26yil1YKALATzIcVeqYUvbr8NP9Pv-dqjEpkzo9l_P_mcqjPvZE7NJOuFswhjUxqzPRkuZ605DIhtW866BmgLdmoOmiGj3rcKSjfmY530stWaCgYKAQsSARISFQHGX2MiuUzVqD94w8GrmVInxrRHow0207",
-      "tokenExpiry": "2025-12-11T09:15:15.221Z",
+      "accessToken": "ya29.a0Aa7pCA_hBJYODdPfA5SwWgLPiykw_tS_JYid5FWrbJ9mMgwP_gxpHOR0SdlFGhsw8c9ygaxGCJLuqnj5NvwkDDI2KmDasPjvU9GDe4ToHtFGtOgPSZLMBwGU_M5kxnIqavgSixffp6ibh539I1boh9EvEbQXm7k8NVZDF6ZqUmbCobDelD3mckFDVhkhMEvnK2nDxKGPaCgYKAXcSARISFQHGX2Miiw1B-AjC5g86bPgM6UvTKQ0207",
+      "tokenExpiry": "2025-12-11T10:29:13.377Z",
       "blogName": "FactShock World",
       "blogUrl": "http://factshockworld.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
@@ -405,10 +405,17 @@
       "timezone": "Africa/Lagos",
       "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "961c4943-36b8-4448-b869-f7d9d53b2403",
+      "time": "10:29",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 6,
+  "currentCerebrasKeyIndex": 1,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "usedTopics": [
@@ -451,7 +458,8 @@
     "how google's recent acquisition of alter on february 15, 2023, will revolutionize ai-powered customer service chatbots with personalized conversational interfaces",
     "decoding the voynich manuscript: the recent breakthrough by dr. lisa fagin davis on august 10, 2023, using ai-enhanced paleography to uncover the secrets of the world's most mysterious book",
     "how to leverage the upcoming 2024 summer olympics to score cheap flights and accommodations using the 'olympic effect' strategy",
-    "how the recent discovery of the 'immunome' by dr. alessandro sette in february 2023 is revolutionizing our understanding of immune system function and its impact on mental health, fitness, and nutrition"
+    "how the recent discovery of the 'immunome' by dr. alessandro sette in february 2023 is revolutionizing our understanding of immune system function and its impact on mental health, fitness, and nutrition",
+    "unveiling the mysteries of the 'toadstone': how the recent discovery of a 400-year-old toadstone pendant on september 20, 2023, in the buckinghamshire county museum is redefining the history of 17th-century english folk magic"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -485,7 +493,8 @@
       "the bizarre science of sleep paralysis: uncovering the dark side of rem",
       "unveiling the mysterious zone of silence: recent discoveries in mexico's mapimí silent zone",
       "the recent uncovering of the 'booming sand dunes' of china's badain jaran desert: scientists stunned by the sudden appearance of singing sand on june 15, 2023",
-      "decoding the voynich manuscript: the recent breakthrough by dr. lisa fagin davis on august 10, 2023, using ai-enhanced paleography to uncover the secrets of the world's most mysterious book"
+      "decoding the voynich manuscript: the recent breakthrough by dr. lisa fagin davis on august 10, 2023, using ai-enhanced paleography to uncover the secrets of the world's most mysterious book",
+      "unveiling the mysteries of the 'toadstone': how the recent discovery of a 400-year-old toadstone pendant on september 20, 2023, in the buckinghamshire county museum is redefining the history of 17th-century english folk magic"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
