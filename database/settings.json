@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T11:19:00.588Z"
+      "lastUsed": "2025-12-11T06:22:01.624Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -48,7 +48,7 @@
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T11:02:03.751Z"
+      "lastUsed": "2025-12-11T06:22:00.505Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-10T18:07:13.337Z"
+      "lastUsed": "2025-12-11T06:22:06.723Z"
     }
   ],
   "blogger": {
@@ -168,8 +168,8 @@
       "id": "6dc72eae-ef94-4690-8e86-bb5cbd678482",
       "createdAt": "2025-12-08T06:43:31.811Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA_R2qSkkUoXsArfk3NBWcneRWY-m-c_VQENbQwUF3FNVlVO5GUopvTNM4fPs9ClDrrBMQ7ndpvN2-tsoNgTasyRUeIudc3vP71tKG3GIYwopdg57cxqbHKyLGHe8VuLz9mE5runPO6qga1yLeBMO6vK8ZbX6KtE738i32fKOQdrR3TPeV_-Z7q8Rck6R9XZ5eeraCgYKAUwSARISFQHGX2Mix5RPzB3asnZuetA3DMBvmw0207",
-      "tokenExpiry": "2025-12-08T11:41:14.096Z",
+      "accessToken": "ya29.a0Aa7pCA8DOQQ0fH3qT0Au4fV9l1DXVaETAbbRyXUeBHKg8gLZ5i4cbdjTze9ML_a9qi5tezcXXObvAFrkkgUwrgJewunhO8GiyTYxWt3uHK6jD3_2tiTBkhD-5HDEsNi5NJLrH_rlUG8dbhAnIizn_pqFs4qjUxZnrnA0Zp5ooLTuRPue0sgEy-hgPvYv7FP8gn-CyOZAaCgYKAWsSARISFQHGX2MifqqCpJfS2c_qOjErHlX1RA0207",
+      "tokenExpiry": "2025-12-11T07:22:06.801Z",
       "blogName": "TrendWave Media",
       "blogUrl": "http://trendwavemedia3.blogspot.com/"
     }
@@ -382,12 +382,26 @@
       "id": "61b41a49-a028-43ab-a694-57262bd0c938",
       "time": "19:07",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "dd0ac7ed-2939-4dd0-b55e-d4cbb91356d7",
+      "time": "07:22",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "c529ea0d-1297-41ae-a0b2-1fd889fa4a7e",
+      "time": "07:23",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 6,
+  "currentCerebrasKeyIndex": 1,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "usedTopics": [
@@ -423,7 +437,8 @@
     "the minecraft youtuber takeover: how streamers are revolutionizing the gaming industry",
     "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
     "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
-    "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities"
+    "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities",
+    "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -461,7 +476,8 @@
       "the taylor swift eras tour social media takeover: how swifties are redefining fandom in the digital age",
       "the minecraft youtuber takeover: how streamers are revolutionizing the gaming industry",
       "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
-      "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health"
+      "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
+      "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content"
     ],
     "health-hacks": [
       "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
