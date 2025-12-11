@@ -624,7 +624,7 @@ export async function registerRoutes(
             
             if (connection) {
               tumblrResult = await publishToTumblr(
-                connection.tumblrBlogId,
+                connection.tumblrBlogName,
                 draftPost,
                 result.postUrl
               );
@@ -695,7 +695,7 @@ export async function registerRoutes(
             
             if (connection) {
               tumblrResult = await publishToTumblr(
-                connection.tumblrBlogId,
+                connection.tumblrBlogName,
                 post,
                 result.postUrl
               );

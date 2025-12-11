@@ -3,6 +3,7 @@ import { storage } from "../storage";
 import { generateTrendingTopic, generateBlogPost } from "./cerebras";
 import { generateBlogImage } from "./imageGenerator";
 import { publishToBlogger, publishToBloggerWithAccount } from "./blogger";
+import { publishToTumblr } from "./tumblr";
 import type { Schedule, BloggerAccount, NicheId, Post } from "@shared/schema";
 import { NICHES } from "@shared/schema";
 
@@ -179,6 +180,34 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
         bloggerPostUrl: result.postUrl,
       });
       console.log(`[Scheduler] SUCCESS: Post published at ${result.postUrl}`);
+      
+      // Step 6: Cross-post to Tumblr if there's a connection for this account
+      if (accountId && result.postUrl) {
+        try {
+          const connections = await storage.getTumblrConnections();
+          const connection = connections.find(c => c.bloggerAccountId === accountId);
+          
+          if (connection) {
+            console.log(`[Scheduler] Step 6: Cross-posting to Tumblr (${connection.tumblrBlogName})...`);
+            const tumblrResult = await publishToTumblr(
+              connection.tumblrBlogName,
+              post,
+              result.postUrl
+            );
+            
+            if (tumblrResult.success) {
+              console.log(`[Scheduler] SUCCESS: Also posted to Tumblr at ${tumblrResult.postUrl}`);
+            } else {
+              console.log(`[Scheduler] Tumblr cross-post failed: ${tumblrResult.message}`);
+            }
+          } else {
+            console.log(`[Scheduler] No Tumblr connection found for account ${accountId}, skipping cross-post`);
+          }
+        } catch (tumblrError) {
+          console.error("[Scheduler] Tumblr cross-post error:", tumblrError);
+        }
+      }
+      
       console.log(`[Scheduler] ========================================`);
     } else {
       await storage.updatePost(post.id, {
