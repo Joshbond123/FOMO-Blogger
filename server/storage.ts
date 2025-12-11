@@ -204,6 +204,7 @@ export interface IStorage {
   getTrendingResearch(): Promise<TrendingResearch[]>;
   getTrendingResearchById(id: string): Promise<TrendingResearch | undefined>;
   createTrendingResearch(research: InsertTrendingResearch): Promise<TrendingResearch>;
+  updateTrendingResearch(id: string, updates: Partial<TrendingResearch>): Promise<TrendingResearch | undefined>;
   deleteTrendingResearch(id: string): Promise<void>;
   
   // Tumblr integration
@@ -813,6 +814,16 @@ export class FileStorage implements IStorage {
       .slice(0, 10);
     writeJsonFile(RESEARCH_FILE, sortedResearch);
     return research;
+  }
+
+  async updateTrendingResearch(id: string, updates: Partial<TrendingResearch>): Promise<TrendingResearch | undefined> {
+    const allResearch = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
+    const index = allResearch.findIndex((r) => r.id === id);
+    if (index === -1) return undefined;
+    
+    allResearch[index] = { ...allResearch[index], ...updates };
+    writeJsonFile(RESEARCH_FILE, allResearch);
+    return allResearch[index];
   }
 
   async deleteTrendingResearch(id: string): Promise<void> {

@@ -1,10 +1,11 @@
 import cron, { ScheduledTask } from "node-cron";
 import { storage } from "../storage";
-import { generateTrendingTopic, generateBlogPost } from "./cerebras";
+import { generateBlogPost } from "./cerebras";
 import { generateBlogImage } from "./imageGenerator";
 import { publishToBlogger, publishToBloggerWithAccount } from "./blogger";
 import { publishToTumblr } from "./tumblr";
-import type { Schedule, BloggerAccount, NicheId, Post } from "@shared/schema";
+import { searchTrendingTopicsSerper, researchTopicWithSerper } from "./serper";
+import type { Schedule, BloggerAccount, NicheId, Post, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
 
 const scheduledJobs: Map<string, ScheduledTask> = new Map();
@@ -117,21 +118,55 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
     }
 
     const niche = NICHES.find(n => n.id === nicheId);
-    console.log(`[Scheduler] Step 1: Generating trending topic for ${niche?.name || nicheId}...`);
+    console.log(`[Scheduler] Step 1: Researching trending topics via Serper.dev for ${niche?.name || nicheId}...`);
     
-    let topic;
+    let serperResearch;
     try {
-      topic = await generateTrendingTopic(nicheId as NicheId);
-      console.log(`[Scheduler] Topic generated: ${topic.topic}`);
+      const serperKeys = settings.serperApiKeys || [];
+      if (serperKeys.length === 0) {
+        console.error("[Scheduler] ERROR: No Serper API keys available, skipping scheduled post");
+        return;
+      }
+      
+      serperResearch = await searchTrendingTopicsSerper(nicheId as NicheId);
+      console.log(`[Scheduler] Topic researched via Serper: ${serperResearch.topic}`);
+      console.log(`[Scheduler] Found ${serperResearch.sources.length} sources with key: ${serperResearch.serperKeyUsed}`);
+      
+      const researchLog: InsertTrendingResearch = {
+        title: serperResearch.topic,
+        shortDescription: serperResearch.summary.slice(0, 200),
+        fullSummary: serperResearch.summary,
+        aiAnalysis: `Topic selected based on ${serperResearch.sources.length} sources found via Serper.dev search. Keywords: ${serperResearch.keywords.join(", ")}`,
+        nicheId: nicheId,
+        nicheName: niche?.name || nicheId,
+        bloggerAccountId: accountId,
+        bloggerAccountName: account?.name,
+        sources: serperResearch.sources,
+        searchQueries: serperResearch.searchQueries,
+        whyTrending: serperResearch.whyTrending,
+        serperKeyUsed: serperResearch.serperKeyUsed,
+        status: "generated",
+        researchedAt: new Date().toISOString(),
+      };
+      
+      const savedResearch = await storage.createTrendingResearch(researchLog);
+      console.log("[Scheduler] Research log saved for transparency with ID:", savedResearch.id);
+      
+      await storage.addUsedTopic(serperResearch.topic, nicheId);
+      console.log("[Scheduler] Topic added to used topics for duplicate prevention");
+      
+      (serperResearch as any).researchId = savedResearch.id;
+      
     } catch (error) {
-      console.error("[Scheduler] ERROR: Failed to generate topic:", error);
-      throw new Error(`Topic generation failed: ${error instanceof Error ? error.message : "Unknown error"}`);
+      console.error("[Scheduler] ERROR: Failed to research topics via Serper:", error);
+      throw new Error(`Serper research failed: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
 
-    console.log("[Scheduler] Step 2: Generating blog post content...");
+    console.log("[Scheduler] Step 2: Generating blog post content with AI...");
     let content;
     try {
-      content = await generateBlogPost(topic.topic, topic.fomoHook, nicheId as NicheId);
+      const fomoHook = `Discover what's happening now with ${serperResearch.topic} - based on ${serperResearch.sources.length} real sources!`;
+      content = await generateBlogPost(serperResearch.topic, fomoHook, nicheId as NicheId);
       console.log(`[Scheduler] Post title: ${content.title}`);
     } catch (error) {
       console.error("[Scheduler] ERROR: Failed to generate blog post:", error);
@@ -159,7 +194,7 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
       title: content.title,
       content: content.content,
       excerpt: content.excerpt,
-      topic: topic.topic,
+      topic: serperResearch.topic,
       nicheId,
       accountId,
       accountName: account?.name,
@@ -180,6 +215,15 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
         bloggerPostUrl: result.postUrl,
       });
       console.log(`[Scheduler] SUCCESS: Post published at ${result.postUrl}`);
+      
+      if ((serperResearch as any).researchId) {
+        await storage.updateTrendingResearch((serperResearch as any).researchId, {
+          status: "published",
+          postId: post.id,
+          postTitle: post.title,
+        });
+        console.log("[Scheduler] Research log status updated to published");
+      }
       
       // Step 6: Cross-post to Tumblr if there's a connection for this account
       if (accountId && result.postUrl) {
@@ -265,7 +309,6 @@ export async function refreshSchedules(): Promise<void> {
           console.error(`[Scheduler] Unhandled error in cron job for ${schedule.time}:`, error);
         }
       }, {
-        scheduled: true,
         timezone: schedule.timezone || "UTC"
       });
       
