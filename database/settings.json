@@ -13,21 +13,21 @@
       "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
       "createdAt": "2025-12-07T00:33:52.645Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:10:04.495Z"
+      "lastUsed": "2025-12-11T23:24:04.995Z"
     },
     {
       "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:15:03.707Z"
+      "lastUsed": "2025-12-11T23:32:04.544Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:21:04.018Z"
+      "lastUsed": "2025-12-11T23:39:05.013Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T23:16:12.284Z"
+      "lastUsed": "2025-12-11T23:39:18.749Z"
     }
   ],
   "serperApiKeys": [
@@ -91,8 +91,8 @@
       "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
       "createdAt": "2025-12-07T01:28:05.271Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA-xb6hjsPtGPrMC_ZZdtdL1dZEBWbM8AZ6IeTdBSRmMP1Gxxad1apPeVJxazqsX-SEwhced-n0-xb3s1yO0kJi_ChK4u8KPqXLjaRxHbzt2_XiaEJfvf43C9Hd3d9OFXfoaV7FHz-HwKWx9aoVq2JP41pMt5OMAYDZzk1LAkFTkMrgZaGWIS6z2_kivJnCm9Ky-aCgYKAT4SARISFQHGX2Mi5joNFmJtP7bhNL8Wc-KSgQ0207",
-      "tokenExpiry": "2025-12-11T23:15:18.112Z",
+      "accessToken": "ya29.a0Aa7pCA9M2RFqkADKtGJ9FU6W8gTx_jn6U_YkQWfOwo8FxwbELfYCtzcUtyaX5qw2olHNKZ9VJkFwkzX5dLwz5tV_7v0xuW383nX6ioM5w6mZHQ8MSPkH1v2_-BxVHm1GZTcmx6wc_HjwAhWoZZuH_8OV9FZgIuF00myvFOGJc08wbMb88WyCrsy5miWXfqLpJJYjHKJFaCgYKARESARISFQHGX2Mi938H2FbgTjoqIU_bO096Ug0207",
+      "tokenExpiry": "2025-12-12T00:32:12.184Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
@@ -108,8 +108,8 @@
       "id": "9579e08e-449c-4006-a45f-3ce4d224353a",
       "createdAt": "2025-12-07T01:29:03.542Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9dsAIyZK12L6J7_oi9vm0jWhq4U7vICqYE0Yo03N8PUbWCHoghjIQoC57LRXzFsqnUFg_K04qP1NTOclntWqzplA1i2HCM6P6AKkZbdxbqJiDl0vlxbSmJhuOxcyrW6ETASBtVz1HhiPXR1LpgTyQ8HNw4pzZsY-ikS993aMO83FYGlZrWzz4qPZ89xV0WdJf2aCgYKAaESARISFQHGX2MimLtt7srOSxtm1LT9XNkYow0207",
-      "tokenExpiry": "2025-12-11T13:14:21.230Z",
+      "accessToken": "ya29.a0Aa7pCA_6umdz-PVYvdRVkEupgxlA52FMqoNtAOaCt7VJ572isuRUJc2b6DNg3TK8yUFXk4-CE-7DVkIHcVx6Qzwxc38hUcEtmdRYqHsL2n9FiaF7BJjI8d0otkmHxOBqlf6X-fgYZXZi7uk6keLDlMHMs1QMeXnfpzIAJywRMHIVITTGNdJSwbrgbJLk9MajONvQy1X8aCgYKAQoSARISFQHGX2MiQD8lDvrxEtzeeZDsPrKd7A0207",
+      "tokenExpiry": "2025-12-12T00:24:15.462Z",
       "blogName": "AIGenius Hub",
       "blogUrl": "http://aigeniushub0.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '55ef161ca9e138ca3500533973fddb48',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/55ef161ca9e138ca3500533973fddb48/invoke.js\"\n></script>",
@@ -125,8 +125,8 @@
       "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
       "createdAt": "2025-12-07T01:30:38.846Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8-IM-HlvnX-9CTcT8YlPjAXNGn77j434nfHK018-EJivR4GmjmaiMXAx0Wuu_NDvkTj0ir3AI8qhUx9XpAEdM0rJNid_n8PtaTlgo5RY5NSXMAUtsCVqltqLFSoueBq-wEK2Rmz-usv9r49Wm026ubs-4krM-ptjJCBCPEOJ0qt-7sVFswfNaW9NPLHS7KacMSaCgYKAUkSARISFQHGX2MiEmN5wwSlk_TkZUg1UTkxXw0207",
-      "tokenExpiry": "2025-12-11T23:10:16.462Z",
+      "accessToken": "ya29.a0Aa7pCA-ZUXNY4JnVTnsupKiy-oG0xVgOKkpcpflWGrgAHPAVuRWFv3jP9D9GT8SQdj2QjvweqDO3XlCiokgmm_vafNOF4rjqjU5UAF6h1EMl3iE-30jKGyLizq_uAqGh0keyl1cbOZmNl5HLSazK95T_QBXNrBKcmlWSjwQ1Vcp8xxpDY4byrv9htU9AwRE2MLqOSJ2HaCgYKARkSARISFQHGX2MinGIuuu4SzPG73l_CGa6MDg0207",
+      "tokenExpiry": "2025-12-12T00:39:18.696Z",
       "blogName": "FactShock World",
       "blogUrl": "http://factshockworld.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
@@ -250,33 +250,54 @@
       "id": "2bebebac-7456-462e-94cd-e4a26ef3713c",
       "time": "23:30",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
       "id": "b56afab2-abb7-4a1b-a2d6-dccccb58a6f8",
       "time": "23:34",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
       "id": "701d5db3-66f3-40ff-8a2a-3ac96f5b904e",
       "time": "23:49",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "3a2b1bc3-00e0-4559-b3a5-c4294518a785",
       "time": "00:16",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "e5b53107-d8bb-4c9e-ac0e-8513f1aac1f3",
+      "time": "00:24",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "3186ff3f-f397-4a2a-94ad-b02b721d8c90",
+      "time": "00:32",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "dbc12161-25b4-485d-a1a4-5e01828a511c",
+      "time": "00:39",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 1,
+  "currentCerebrasKeyIndex": 4,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -339,7 +360,10 @@
     "tmz.com: celebrity news | entertainment news",
     "breaking celebrity news, entertainment news and celeb gossip",
     "weird but true",
-    "gary brecka reveals his 6 free biohacks"
+    "gary brecka reveals his 6 free biohacks",
+    "ai-generated political videos are more about memes and ...",
+    "the disturbing backyard scene points to murder... ...",
+    "strange & offbeat news"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -355,7 +379,8 @@
       "the chilling connection between the 1996 disappearance of morgan nick and the recent arrest of",
       "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
       "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases",
-      "catherine hoggle ruled competent to stand trial in missing children ..."
+      "catherine hoggle ruled competent to stand trial in missing children ...",
+      "the disturbing backyard scene points to murder... ..."
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
@@ -364,7 +389,8 @@
       "amazing ai image generation technology",
       "revolutionizing workflows with ai-powered low-code automation: the future of productivity",
       "how google's recent acquisition of alter on february 15, 2023, will revolutionize ai-powered customer service chatbots with personalized conversational interfaces",
-      "unlocking the potential of ai-driven cybersecurity: how microsoft's azure security center for iot, launched on march 1, 2023, is revolutionizing threat detection with machine learning algorithms and automation"
+      "unlocking the potential of ai-driven cybersecurity: how microsoft's azure security center for iot, launched on march 1, 2023, is revolutionizing threat detection with machine learning algorithms and automation",
+      "ai-generated political videos are more about memes and ..."
     ],
     "life-hacks": [
       "the sneaky supermarket scams: how to beat shrinkflation & skimpflation and save big on groceries",
@@ -386,7 +412,8 @@
       "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
       "science news | the latest news from all areas of science",
       "sciencedaily: your source for the latest research news",
-      "weird but true"
+      "weird but true",
+      "strange & offbeat news"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",

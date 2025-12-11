@@ -165,7 +165,7 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
     console.log("[Scheduler] Step 2: Generating blog post content with AI...");
     let content;
     try {
-      const fomoHook = `Discover what's happening now with ${serperResearch.topic} - based on ${serperResearch.sources.length} real sources!`;
+      const fomoHook = `Discover what's happening now with ${serperResearch.topic}`;
       content = await generateBlogPost(serperResearch.topic, fomoHook, nicheId as NicheId);
       console.log(`[Scheduler] Post title: ${content.title}`);
     } catch (error) {
