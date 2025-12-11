@@ -323,7 +323,9 @@ ${research.facts.map((f, i) => `${i + 1}. ${f}`).join("\n")}
 Reference Sources:
 ${research.sources.slice(0, 5).map(s => `- ${s.title}: ${s.snippet}`).join("\n")}
 
-Use these facts to support your ONE main topic. Do not make up statistics or claims. All content should relate back to the single topic: "${topic}"
+IMPORTANT: Use ONLY facts that directly relate to "${topic}". Do not make up statistics or claims. 
+Do NOT include any facts about other topics, creatures, events, or subjects - ONLY "${topic}".
+If the research mentions other topics, IGNORE THEM. Stay 100% focused on "${topic}"
 ` : "";
 
   const prompt = `You are a top-tier professional writer creating expert-level content. Your writing sounds like it comes from someone who truly knows the subject - authoritative yet accessible.
@@ -334,12 +336,33 @@ ${researchContext}
 
 ${nicheWritingStyle}
 
-CRITICAL - SINGLE TOPIC FOCUS:
-- Write ONLY about "${topic}" - do NOT cover multiple topics or switch between different subjects
-- Every section must explore a different angle of this ONE main topic
-- Do NOT create a "round-up" or "listicle" covering multiple unrelated topics
-- The entire blog post should be a focused deep dive into this ONE specific topic
-- All facts and research should support this single main topic
+ABSOLUTE RULE - SINGLE TOPIC ONLY (MANDATORY):
+The blog MUST be 100% focused on ONLY this ONE topic: "${topic}"
+
+YOU MUST:
+- Write the ENTIRE article about "${topic}" and NOTHING else
+- Every paragraph, every section, every fact must directly relate to "${topic}"
+- Explore different angles, aspects, and depths of this ONE single topic
+- Stay completely focused from the first word to the last word
+
+YOU MUST NEVER:
+- Include ANY other topic, subject, or theme besides "${topic}"
+- Mix multiple topics together in the same article
+- Add "related" or "similar" topics - NO EXCEPTIONS
+- Switch between different subjects halfway through
+- Create round-ups, listicles, or compilations of multiple topics
+- Mention unrelated discoveries, facts, or stories even if they seem connected
+
+EXAMPLES OF WHAT IS FORBIDDEN:
+- If the topic is "Immortal Jellyfish" - do NOT also write about axolotls, starfish, or other creatures
+- If the topic is "Mary Celeste Mystery" - do NOT also write about other ship mysteries or other historical events
+- If the topic is "Axolotl Regeneration" - do NOT also write about other animals, immortality research, or health applications
+- NEVER combine science + history + motivation + health into one article - pick ONE
+
+CORRECT APPROACH:
+- If the topic is "Immortal Jellyfish" - write ONLY about the immortal jellyfish (its biology, discovery, research, habitat, etc.)
+- If the topic is "Mary Celeste Mystery" - write ONLY about the Mary Celeste (the ship, the crew, the theories, the investigation, etc.)
+- Deep dive into ONE topic with multiple angles - NOT surface coverage of multiple topics
 
 YOUR WRITING MUST:
 - Sound like a respected expert wrote it - confident, knowledgeable, trustworthy
@@ -384,15 +407,16 @@ USE NATURAL LANGUAGE INSTEAD:
 - "Here's what's interesting," "Look," "The key point is" for transitions
 
 STRUCTURE:
-1. TITLE: Compelling but honest - makes people want to read, not clickbait
-2. INTRO: Hook immediately with something surprising or important. Set up the topic clearly.
-3. BODY: 6-8 sections with clear H2 headings - ALL exploring different aspects of the SAME topic
-   - Each section adds new value and insights about the main topic
-   - Include the REAL facts and statistics from research
+1. TITLE: Compelling but honest - makes people want to read, not clickbait. Must be about "${topic}" ONLY.
+2. INTRO: Hook immediately with something surprising about "${topic}". Set up THIS specific topic clearly.
+3. BODY: 6-8 sections with clear H2 headings - ALL sections MUST be about "${topic}"
+   - Each section explores a DIFFERENT ANGLE of the SAME topic "${topic}"
+   - Example angles: history, science, discovery, impact, future, controversy, details, timeline
+   - NEVER add sections about other topics, animals, events, or subjects
+   - Include the REAL facts and statistics from research about "${topic}"
    - Mix paragraphs with bullet points and numbered lists for easy reading
-   - Include practical takeaways and real examples
-   - Every section should be worth reading on its own
-4. CONCLUSION: Strong finish - summarize key points, leave readers thinking
+   - Every section dives deeper into "${topic}" - no topic switching allowed
+4. CONCLUSION: Strong finish about "${topic}" only - summarize key points, leave readers thinking
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
 LENGTH: 1,200-1,800 words of high-quality, valuable content.
