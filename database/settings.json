@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T21:02:03.374Z"
+      "lastUsed": "2025-12-11T23:16:04.649Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:49:12.054Z"
+      "lastUsed": "2025-12-11T23:16:12.284Z"
     }
   ],
   "serperApiKeys": [
@@ -159,8 +159,8 @@
       "id": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb",
       "createdAt": "2025-12-07T01:42:24.483Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA-s_tPq4VfwY0lxbY51SLfb3JkbaapbT-nGjOO9a8-I6Spm48hVxaO1XaM8gSv9bRYB6no2oReMJ4Er6V5Z-rFhbEjHt2PIQxpwwfbeZzB9lpbpj4oTCjUsjufDXJ-d57L7Gv9hg2cVJXZMvBY3cbeZfa_242MpUKz592P2tqsQSZfxpjKSFwRrQybGSGxjyOEZaCgYKAVsSARISFQHGX2MiYPxO9ajumOpVuuNlWhy19g0207",
-      "tokenExpiry": "2025-12-11T12:11:03.579Z",
+      "accessToken": "ya29.a0Aa7pCA_f9DPUvMKU-feFiHZ1n0DnHtSgktabHh8HgibKRvxsI8TBIW0PYxUGoGzsb-O0qSuweUrHkxl-iUISK-9b9JmiINApC0wQDRZfvhsHnI3XPPXX72k9X5kSkvgXvFgy1PSoDPpCUpmdM6BjOfuQB9dPylVkjA3XBRnXH3DzGwi_u_EmB4JvE8mVnEeiS611gJ1CaCgYKASsSARISFQHGX2MiLvE4n528zKk4E2k4NYP5-g0207",
+      "tokenExpiry": "2025-12-12T00:16:12.374Z",
       "blogName": "HealthLabz",
       "blogUrl": "http://healthlabz4.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '7c07d4c5a00b61af00d1893d0f1ea8ec',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/7c07d4c5a00b61af00d1893d0f1ea8ec/invoke.js\"\n></script>",
@@ -266,10 +266,17 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "3a2b1bc3-00e0-4559-b3a5-c4294518a785",
+      "time": "00:16",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 0,
+  "currentCerebrasKeyIndex": 1,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -331,7 +338,8 @@
     "latest - tips, tricks and hacks for doing everything better | lifehacker",
     "tmz.com: celebrity news | entertainment news",
     "breaking celebrity news, entertainment news and celeb gossip",
-    "weird but true"
+    "weird but true",
+    "gary brecka reveals his 6 free biohacks"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -399,7 +407,8 @@
       "unlocking the power of circadian rhythm: how synchronizing your body's internal clock can revolutionize your health and wellness",
       "the rise of personalized nutrition: how genetic testing can revolutionize your diet and wellness",
       "how the recent discovery of the 'immunome' by dr. alessandro sette in february 2023 is revolutionizing our understanding of immune system function and its impact on mental health, fitness, and nutrition",
-      "the emerging connection between the 2023 ipcc climate report and gut health: how rising global temperatures are disrupting the human microbiome"
+      "the emerging connection between the 2023 ipcc climate report and gut health: how rising global temperatures are disrupting the human microbiome",
+      "gary brecka reveals his 6 free biohacks"
     ]
   }
 }

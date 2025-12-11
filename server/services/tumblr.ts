@@ -181,8 +181,9 @@ export async function publishToTumblr(
     // Use NPF (Neue Post Format) endpoint - uses JSON and simpler OAuth
     const url = `https://api.tumblr.com/v2/blog/${tumblrBlogName}/posts`;
     
-    // Create a preview excerpt (first 200 characters of plain text content)
-    const excerpt = post.excerpt || post.content.substring(0, 200).replace(/<[^>]*>/g, "") + "...";
+    // Create a preview excerpt (first 1000 characters of plain text content)
+    const plainTextContent = post.content.replace(/<[^>]*>/g, "");
+    const excerpt = plainTextContent.substring(0, 1000) + (plainTextContent.length > 1000 ? "..." : "");
     
     // Build NPF content blocks
     const contentBlocks: any[] = [];
