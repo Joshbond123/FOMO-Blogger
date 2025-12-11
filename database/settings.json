@@ -6,49 +6,49 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T06:22:01.624Z"
+      "lastUsed": "2025-12-11T08:15:00.503Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
       "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
       "createdAt": "2025-12-07T00:33:52.645Z",
       "isActive": true,
-      "lastUsed": "2025-12-08T11:19:02.095Z"
+      "lastUsed": "2025-12-11T08:15:01.377Z"
     },
     {
       "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-10T18:07:00.536Z"
+      "lastUsed": "2025-12-11T08:17:00.570Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-10T18:07:02.418Z"
+      "lastUsed": "2025-12-11T08:17:02.813Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-10T18:10:15.366Z"
+      "lastUsed": "2025-12-11T08:20:00.566Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-10T18:11:03.612Z"
+      "lastUsed": "2025-12-11T08:20:01.508Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T06:22:00.505Z"
+      "lastUsed": "2025-12-11T08:10:01.640Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T06:22:06.723Z"
+      "lastUsed": "2025-12-11T08:20:13.321Z"
     }
   ],
   "blogger": {
@@ -83,8 +83,8 @@
       "id": "a8d453c5-3551-40a4-8d91-256c98f23c9a",
       "createdAt": "2025-12-07T01:28:05.271Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8Q5jDz_ErGQ1ncdScxiOfUxPz1vuqw4Ns7Si31H2o-h3EgWWcy2DFUiVaLhT5gdSKPe1iXxEDqBzr7JvBmVt1MVZh_cLdBRi-cdn1JbHfrdBkh9-66iQhXJwPBYhIwBO8U_S4e4QHYKLNr9ESgc8GPYNHugK3hpGEWRLQYO_yJlg2rUuBHHHfwdHkhJh7j9ds9aCgYKAaMSARISFQHGX2MirpW3qh7h0SsiHZwIUae_Aw0207",
-      "tokenExpiry": "2025-12-10T19:07:13.342Z",
+      "accessToken": "ya29.a0Aa7pCA_yyTK71-oNksUpiEV-cJBk84uT45cQyREkD5HSsCyBML4sZu2jeSnjhYauDJrPwxmwUAcWBShKqbqrlJ-57u6sULsDkxQdW69X4Z1gdXmFd1KcDwz6pa_6y3rSg50SWVVjnMt-utbf8VKM0L_HKVgy2fnv8JYDKxL45rpVAw12O1SkT9X-sN44QA3X1ZdtvD_xaCgYKAW8SARISFQHGX2Mi9UWHm_WwyIl1QLAHmwyMJA0207",
+      "tokenExpiry": "2025-12-11T09:05:10.396Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
@@ -100,8 +100,8 @@
       "id": "9579e08e-449c-4006-a45f-3ce4d224353a",
       "createdAt": "2025-12-07T01:29:03.542Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8dL83wtkja0PCqPVeKjKNu8U29Cijd0Z17F4MB8XEk_kGxoAG1ei8vO-dSmlotWz_D53iTiWdhDKHgkOQAQIMZnAhMNr_Mx4YaEjcdYylFXFIqBAAamKqe4WmGUBDRdFmywltYN5yJjh2yRPh4wYxp2IAjDsfqFZVJtw5SGnwpF2nZ9Cd84JuI3YQ3RAU1lkpbaCgYKAQQSARISFQHGX2MirBQz1qULq1XB4U6Xti6m1A0207",
-      "tokenExpiry": "2025-12-07T18:06:50.510Z",
+      "accessToken": "ya29.a0Aa7pCA8E-3dT6bB5cqKph2sOyxtAONr4EDiFzB5gpBTyVnlugX4Kb1nPkKrB7HrSv4lZayADoxM6JIV62o8ZQbBKF-6UqQ6xQmD8seAZKeh5b-TyF8eEy49iLvsE08D5mXgPikNy9twquFynz4Wf7HcbEdsUUHSTKJA4FSPL6njuXXzDaE4XJdM1N3hDex26kHhdK6wJaCgYKAeYSARISFQHGX2MicbtkirnApHk8eWiRbh1mQg0207",
+      "tokenExpiry": "2025-12-11T09:10:13.405Z",
       "blogName": "AIGenius Hub",
       "blogUrl": "http://aigeniushub0.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '55ef161ca9e138ca3500533973fddb48',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/55ef161ca9e138ca3500533973fddb48/invoke.js\"\n></script>",
@@ -117,8 +117,8 @@
       "id": "a54ab943-90ad-4f23-8ffa-17052ed30b2f",
       "createdAt": "2025-12-07T01:30:38.846Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8nffS_yapK8aZHxdrxqlLcIhF32MIyaF8dbaHHEgh_WDsHjzxs_OQ_mZIopAcRG5RMAZrvUbuQJjAUzloe4Me6QpNqT1eBaJV6i6xWM_DsMbGGuyo7Ef38er6nhr2RxwUJdQs_gZQUiplJIIA193j9mK4Q5ns4Fw3KSGAAxKVSg-8Yvs59phxWHXgiL6b9r3OVaCgYKAdsSARISFQHGX2MiXWQfrwIU-Zko_wGz6a9tZQ0207",
-      "tokenExpiry": "2025-12-07T18:10:05.139Z",
+      "accessToken": "ya29.a0Aa7pCA_u77njH1uVFmz097TZrJtMlTRH2WWWHIGnjM9AtwxjvASNMKr04G7EhAmVw3WYms8ezsmQrzQmR96Z_l25Xk3Z26yil1YKALATzIcVeqYUvbr8NP9Pv-dqjEpkzo9l_P_mcqjPvZE7NJOuFswhjUxqzPRkuZ605DIhtW866BmgLdmoOmiGj3rcKSjfmY530stWaCgYKAQsSARISFQHGX2MiuUzVqD94w8GrmVInxrRHow0207",
+      "tokenExpiry": "2025-12-11T09:15:15.221Z",
       "blogName": "FactShock World",
       "blogUrl": "http://factshockworld.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'b7d0de6d8efc338f0890ee2341d17906',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/b7d0de6d8efc338f0890ee2341d17906/invoke.js\"\n></script>",
@@ -134,8 +134,8 @@
       "id": "56cf1820-0eac-469e-ae3c-8505bbb245f4",
       "createdAt": "2025-12-07T01:32:19.998Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA_ci-v-PqW8A90cBlZZ9PBx6oDGVTOs7uLNBGNu-0DFCsCL8IoGMRPj9uztRg3icMe4gPKaO4xotsyuWbXmur4EonXVv0ny6qI2iBbDnPAc-B9uWlfIcvsF6PUVaiRC5kzmeCMxDhQZFaEobMeIPg4RHdOOqX4HGUZy10VP0yikC_uUXUn9h8A_Yak0ySHecaNbaCgYKAacSARISFQHGX2MiHFIViZq60qIDQwjC4bzi2Q0207",
-      "tokenExpiry": "2025-12-07T18:13:15.924Z",
+      "accessToken": "ya29.a0Aa7pCA9Af_D2ycWplSC6VA62FvFLtxhkEUQ5D1Z8vYQe8KhctdzCtvFyowVYItiaq6SBf_-gRoEqm_fuGi10GhKauyY7lV25RiRDHs_nzM9tl8RCzVxUisf5G-ZR56O7UghTF2YHs9ST2zSslxilu9F_puoFry1BP1LUhRDnhxwJTmcQhsJOh3Pitr0Mzdc2NzGlM2YxaCgYKAYwSARISFQHGX2MiDFPZIFkFlw7GT7c_ZVWvkQ0207",
+      "tokenExpiry": "2025-12-11T09:17:13.183Z",
       "blogName": "DailyHack Mastery",
       "blogUrl": "http://dailyhackmastery.blogspot.com/",
       "bannerAdsCode": "<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/10/a3/78/10a37817eee3cd2f482f8f3bd86dc2b9.js\"\n></script>",
@@ -151,8 +151,8 @@
       "id": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb",
       "createdAt": "2025-12-07T01:42:24.483Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9StzI0EMDy7vBT5JKEcDIGsURgz2w8_Tlqvx-oHPx3zTbPp3XEPuSHGnyP0gXARib2GEFFUOE4JJ6RvF2LBy-p5I9n_N_z5FJrv67Wbwz6cTzxMpKoro9f0z18FmrzPoxTosTM20wblIh1z_jASaWHXIrU_iAapWrserppJzE9ipFb5KzyX6WMXwni87iRHwgqaCgYKAVsSARISFQHGX2MiB-GwmUWCsBMGRxwsU3qGrg0207",
-      "tokenExpiry": "2025-12-07T18:16:12.179Z",
+      "accessToken": "ya29.a0Aa7pCA-swmJtZu6vSj0tNGQ05OL45CLr8p5BHx8Ma1xccTMj53sBwm9yr2BAGNM0tScJwCcOtT2Ww8rvoTw4OtJFB2JFuQGCbuBcQTLn7JssDe0mB8rYBG3ta__yWpNqGbpZY_8SrTgIq8_vCpE3h24ywKq2t5RFaFGywyMpNL6hOaSbuNd6fL4FDu4bp7JbK_E4gXh5aCgYKAe0SARISFQHGX2MimRPbIvtfXvJvBPfwu0mSDQ0207",
+      "tokenExpiry": "2025-12-11T09:20:13.238Z",
       "blogName": "HealthLabz",
       "blogUrl": "http://healthlabz4.blogspot.com/",
       "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : '7c07d4c5a00b61af00d1893d0f1ea8ec',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"//asleepextraordinary.com/7c07d4c5a00b61af00d1893d0f1ea8ec/invoke.js\"\n></script>",
@@ -389,7 +389,7 @@
       "id": "dd0ac7ed-2939-4dd0-b55e-d4cbb91356d7",
       "time": "07:22",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
@@ -398,10 +398,17 @@
       "timezone": "Africa/Lagos",
       "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "a6d1b4ab-8fbd-447a-8d4d-6e070ccb2884",
+      "time": "08:14",
+      "timezone": "Africa/Lagos",
+      "isActive": false,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 1,
+  "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "usedTopics": [
@@ -438,7 +445,13 @@
     "the rise of ai-generated influencers: how virtual celebrities are disrupting social media",
     "the dark side of asmr: uncovering the hidden world of trigger content and its impact on mental health",
     "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities",
-    "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content"
+    "the evolution of 'doomscrolling' to 'doomwatching': how social media's shift to video is changing the way we consume traumatic content",
+    "the recent uncovering of the 'booming sand dunes' of china's badain jaran desert: scientists stunned by the sudden appearance of singing sand on june 15, 2023",
+    "the chilling connection between the 1996 disappearance of morgan nick and the recent arrest of",
+    "how google's recent acquisition of alter on february 15, 2023, will revolutionize ai-powered customer service chatbots with personalized conversational interfaces",
+    "decoding the voynich manuscript: the recent breakthrough by dr. lisa fagin davis on august 10, 2023, using ai-enhanced paleography to uncover the secrets of the world's most mysterious book",
+    "how to leverage the upcoming 2024 summer olympics to score cheap flights and accommodations using the 'olympic effect' strategy",
+    "how the recent discovery of the 'immunome' by dr. alessandro sette in february 2023 is revolutionizing our understanding of immune system function and its impact on mental health, fitness, and nutrition"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -450,24 +463,29 @@
       "the dark unraveling of diddy's empire: why the federal raids are just the beginning of a chilling true crime saga",
       "the bizarre disappearance of the sodder children: uncovering new clues in a 75-year-old unsolved mystery",
       "the mysterious case of the dyatlov pass incident: new evidence and theories emerge",
-      "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities"
+      "the sinister side of sleep: exploring the baffling phenomenon of sleep paralysis and its connection to dark entities",
+      "the chilling connection between the 1996 disappearance of morgan nick and the recent arrest of"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
       "autonomous ai agents: the secret weapon redefining personal and professional productivity",
       "beyond prompts: are you harnessing the proactive ai assistants that are already redefining workflow automation?",
       "amazing ai image generation technology",
-      "revolutionizing workflows with ai-powered low-code automation: the future of productivity"
+      "revolutionizing workflows with ai-powered low-code automation: the future of productivity",
+      "how google's recent acquisition of alter on february 15, 2023, will revolutionize ai-powered customer service chatbots with personalized conversational interfaces"
     ],
     "life-hacks": [
       "the sneaky supermarket scams: how to beat shrinkflation & skimpflation and save big on groceries",
       "10 morning routine hacks to boost productivity and save time",
-      "15 simple swaps to reduce household expenses and increase savings"
+      "15 simple swaps to reduce household expenses and increase savings",
+      "how to leverage the upcoming 2024 summer olympics to score cheap flights and accommodations using the 'olympic effect' strategy"
     ],
     "weird-facts": [
       "forget everything you knew: the ancient hominin discovery rewriting our evolutionary story right now",
       "the bizarre science of sleep paralysis: uncovering the dark side of rem",
-      "unveiling the mysterious zone of silence: recent discoveries in mexico's mapimí silent zone"
+      "unveiling the mysterious zone of silence: recent discoveries in mexico's mapimí silent zone",
+      "the recent uncovering of the 'booming sand dunes' of china's badain jaran desert: scientists stunned by the sudden appearance of singing sand on june 15, 2023",
+      "decoding the voynich manuscript: the recent breakthrough by dr. lisa fagin davis on august 10, 2023, using ai-enhanced paleography to uncover the secrets of the world's most mysterious book"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
@@ -482,7 +500,8 @@
     "health-hacks": [
       "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
       "unlocking the power of circadian rhythm: how synchronizing your body's internal clock can revolutionize your health and wellness",
-      "the rise of personalized nutrition: how genetic testing can revolutionize your diet and wellness"
+      "the rise of personalized nutrition: how genetic testing can revolutionize your diet and wellness",
+      "how the recent discovery of the 'immunome' by dr. alessandro sette in february 2023 is revolutionizing our understanding of immune system function and its impact on mental health, fitness, and nutrition"
     ]
   }
 }
