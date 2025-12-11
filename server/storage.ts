@@ -15,6 +15,8 @@ import type {
   UserCredentials,
   TrendingResearch,
   InsertTrendingResearch,
+  TumblrCredentials,
+  TumblrBloggerConnection,
 } from "@shared/schema";
 
 const DATABASE_DIR = path.join(process.cwd(), "database");
@@ -26,6 +28,8 @@ const RESEARCH_FILE = path.join(DATABASE_DIR, "research.json");
 
 const STORAGE_DIR = path.join(process.cwd(), "storage");
 const CONFIG_FILE = path.join(STORAGE_DIR, "config.json");
+const TUMBLR_CONFIG_FILE = path.join(STORAGE_DIR, "tumblr_config.json");
+const TUMBLR_CONNECTIONS_FILE = path.join(DATABASE_DIR, "tumblr_connections.json");
 const IMAGES_DIR = path.join(STORAGE_DIR, "images");
 
 const defaultUserCredentials: UserCredentials = {
@@ -38,6 +42,13 @@ const defaultBloggerCredentials: BloggerCredentials = {
   client_secret: "",
   refresh_token: "",
   blog_id: "",
+};
+
+const defaultTumblrCredentials: TumblrCredentials = {
+  consumer_key: "",
+  consumer_secret: "",
+  token: "",
+  token_secret: "",
 };
 
 function ensureStorageDirectoryExists() {
@@ -187,6 +198,15 @@ export interface IStorage {
   getTrendingResearchById(id: string): Promise<TrendingResearch | undefined>;
   createTrendingResearch(research: InsertTrendingResearch): Promise<TrendingResearch>;
   deleteTrendingResearch(id: string): Promise<void>;
+  
+  // Tumblr integration
+  getTumblrCredentials(): Promise<TumblrCredentials>;
+  saveTumblrCredentials(credentials: TumblrCredentials): Promise<void>;
+  getTumblrConnections(): Promise<TumblrBloggerConnection[]>;
+  addTumblrConnection(connection: Omit<TumblrBloggerConnection, "id" | "createdAt">): Promise<TumblrBloggerConnection>;
+  removeTumblrConnection(id: string): Promise<void>;
+  getTumblrConnectionByBloggerAccountId(bloggerAccountId: string): Promise<TumblrBloggerConnection | undefined>;
+  getTumblrConnectionByTumblrBlogId(tumblrBlogId: string): Promise<TumblrBloggerConnection | undefined>;
 }
 
 export class FileStorage implements IStorage {
@@ -736,6 +756,75 @@ export class FileStorage implements IStorage {
     const research = readJsonFile<TrendingResearch[]>(RESEARCH_FILE, []);
     const filtered = research.filter((r) => r.id !== id);
     writeJsonFile(RESEARCH_FILE, filtered);
+  }
+
+  // Tumblr integration methods
+  async getTumblrCredentials(): Promise<TumblrCredentials> {
+    ensureStorageDirectoryExists();
+    try {
+      if (fs.existsSync(TUMBLR_CONFIG_FILE)) {
+        const data = fs.readFileSync(TUMBLR_CONFIG_FILE, "utf-8");
+        return JSON.parse(data) as TumblrCredentials;
+      }
+    } catch (error) {
+      console.error(`Error reading ${TUMBLR_CONFIG_FILE}:`, error);
+    }
+    return defaultTumblrCredentials;
+  }
+
+  async saveTumblrCredentials(credentials: TumblrCredentials): Promise<void> {
+    ensureStorageDirectoryExists();
+    try {
+      fs.writeFileSync(TUMBLR_CONFIG_FILE, JSON.stringify(credentials, null, 2), "utf-8");
+    } catch (error) {
+      console.error(`Error writing ${TUMBLR_CONFIG_FILE}:`, error);
+      throw new Error(`Failed to write to ${TUMBLR_CONFIG_FILE}`);
+    }
+  }
+
+  async getTumblrConnections(): Promise<TumblrBloggerConnection[]> {
+    return readJsonFile<TumblrBloggerConnection[]>(TUMBLR_CONNECTIONS_FILE, []);
+  }
+
+  async addTumblrConnection(connection: Omit<TumblrBloggerConnection, "id" | "createdAt">): Promise<TumblrBloggerConnection> {
+    const connections = await this.getTumblrConnections();
+    
+    // Check if connection already exists for this tumblr blog
+    const existingIndex = connections.findIndex(c => c.tumblrBlogId === connection.tumblrBlogId);
+    if (existingIndex !== -1) {
+      // Update existing connection
+      connections[existingIndex] = {
+        ...connections[existingIndex],
+        ...connection,
+      };
+      writeJsonFile(TUMBLR_CONNECTIONS_FILE, connections);
+      return connections[existingIndex];
+    }
+    
+    const newConnection: TumblrBloggerConnection = {
+      ...connection,
+      id: randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    connections.push(newConnection);
+    writeJsonFile(TUMBLR_CONNECTIONS_FILE, connections);
+    return newConnection;
+  }
+
+  async removeTumblrConnection(id: string): Promise<void> {
+    const connections = await this.getTumblrConnections();
+    const filtered = connections.filter((c) => c.id !== id);
+    writeJsonFile(TUMBLR_CONNECTIONS_FILE, filtered);
+  }
+
+  async getTumblrConnectionByBloggerAccountId(bloggerAccountId: string): Promise<TumblrBloggerConnection | undefined> {
+    const connections = await this.getTumblrConnections();
+    return connections.find((c) => c.bloggerAccountId === bloggerAccountId);
+  }
+
+  async getTumblrConnectionByTumblrBlogId(tumblrBlogId: string): Promise<TumblrBloggerConnection | undefined> {
+    const connections = await this.getTumblrConnections();
+    return connections.find((c) => c.tumblrBlogId === tumblrBlogId);
   }
 }
 

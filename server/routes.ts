@@ -5,6 +5,7 @@ import { testCerebrasConnection, generateTrendingTopic, generateBlogPost, genera
 import { testImageGeneratorConnection, generateBlogImage } from "./services/imageGenerator";
 import { testImgbbConnection } from "./services/imgbb";
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
+import { testTumblrConnection, getTumblrBlogs, publishToTumblr } from "./services/tumblr";
 import { startScheduler, refreshSchedules } from "./services/scheduler";
 import type { Post, NicheId } from "@shared/schema";
 import { NICHES } from "@shared/schema";
@@ -758,6 +759,117 @@ export async function registerRoutes(
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       res.status(500).json({ success: false, error: message });
+    }
+  });
+
+  // Tumblr integration endpoints
+  app.get("/api/tumblr/credentials", async (_req: Request, res: Response) => {
+    try {
+      const credentials = await storage.getTumblrCredentials();
+      const safeCredentials = {
+        consumer_key: credentials.consumer_key ? credentials.consumer_key.slice(0, 8) + "..." : "",
+        consumer_secret: credentials.consumer_secret ? "***" : "",
+        token: credentials.token ? "***" : "",
+        token_secret: credentials.token_secret ? "***" : "",
+        has_consumer_key: !!credentials.consumer_key,
+        has_consumer_secret: !!credentials.consumer_secret,
+        has_token: !!credentials.token,
+        has_token_secret: !!credentials.token_secret,
+      };
+      res.json(safeCredentials);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get Tumblr credentials" });
+    }
+  });
+
+  app.post("/api/tumblr/credentials", async (req: Request, res: Response) => {
+    try {
+      const { consumer_key, consumer_secret, token, token_secret } = req.body;
+      
+      const existingCredentials = await storage.getTumblrCredentials();
+      
+      const isValidNewValue = (value: string | undefined, existing: string): string => {
+        if (value === undefined || value === "" || value === "***" || value.endsWith("...")) {
+          return existing;
+        }
+        return value;
+      };
+      
+      const newCredentials = {
+        consumer_key: isValidNewValue(consumer_key, existingCredentials.consumer_key),
+        consumer_secret: isValidNewValue(consumer_secret, existingCredentials.consumer_secret),
+        token: isValidNewValue(token, existingCredentials.token),
+        token_secret: isValidNewValue(token_secret, existingCredentials.token_secret),
+      };
+      
+      await storage.saveTumblrCredentials(newCredentials);
+      res.json({ success: true, message: "Tumblr credentials saved successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to save Tumblr credentials" });
+    }
+  });
+
+  app.post("/api/test/tumblr", async (_req: Request, res: Response) => {
+    try {
+      const result = await testTumblrConnection();
+      res.json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.json({ success: false, message });
+    }
+  });
+
+  app.get("/api/tumblr/blogs", async (_req: Request, res: Response) => {
+    try {
+      const result = await getTumblrBlogs();
+      if (result.success) {
+        res.json({ success: true, blogs: result.blogs });
+      } else {
+        res.status(400).json({ success: false, error: result.message });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
+    }
+  });
+
+  app.get("/api/tumblr/connections", async (_req: Request, res: Response) => {
+    try {
+      const connections = await storage.getTumblrConnections();
+      res.json(connections);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get Tumblr connections" });
+    }
+  });
+
+  app.post("/api/tumblr/connections", async (req: Request, res: Response) => {
+    try {
+      const { tumblrBlogId, tumblrBlogName, bloggerAccountId, bloggerAccountName } = req.body;
+      
+      if (!tumblrBlogId || !tumblrBlogName || !bloggerAccountId || !bloggerAccountName) {
+        return res.status(400).json({ error: "All connection fields are required" });
+      }
+      
+      const connection = await storage.addTumblrConnection({
+        tumblrBlogId,
+        tumblrBlogName,
+        bloggerAccountId,
+        bloggerAccountName,
+      });
+      
+      res.json({ success: true, data: connection });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.delete("/api/tumblr/connections/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.removeTumblrConnection(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to remove Tumblr connection" });
     }
   });
 

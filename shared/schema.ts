@@ -304,3 +304,41 @@ export type TrendingResearch = z.infer<typeof trendingResearchSchema>;
 
 export const insertTrendingResearchSchema = trendingResearchSchema.omit({ id: true, createdAt: true });
 export type InsertTrendingResearch = z.infer<typeof insertTrendingResearchSchema>;
+
+// Tumblr credentials schema
+export const tumblrCredentialsSchema = z.object({
+  consumer_key: z.string(),
+  consumer_secret: z.string(),
+  token: z.string(),
+  token_secret: z.string(),
+});
+
+export type TumblrCredentials = z.infer<typeof tumblrCredentialsSchema>;
+
+// Tumblr blog schema
+export const tumblrBlogSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  url: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  uuid: z.string(),
+  isConnected: z.boolean().default(false),
+  connectedBloggerAccountId: z.string().optional(),
+  connectedBloggerAccountName: z.string().optional(),
+  createdAt: z.string(),
+});
+
+export type TumblrBlog = z.infer<typeof tumblrBlogSchema>;
+
+// Tumblr-Blogger connection schema
+export const tumblrBloggerConnectionSchema = z.object({
+  id: z.string(),
+  tumblrBlogId: z.string(),
+  tumblrBlogName: z.string(),
+  bloggerAccountId: z.string(),
+  bloggerAccountName: z.string(),
+  createdAt: z.string(),
+});
+
+export type TumblrBloggerConnection = z.infer<typeof tumblrBloggerConnectionSchema>;
