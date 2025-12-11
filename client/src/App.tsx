@@ -12,6 +12,7 @@ import Automation from "@/pages/automation";
 import Posts from "@/pages/posts";
 import Research from "@/pages/research";
 import Settings from "@/pages/settings";
+import TumblrBlogs from "@/pages/tumblr-blogs";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/automation" component={Automation} />
       <Route path="/posts" component={Posts} />
       <Route path="/research" component={Research} />
+      <Route path="/tumblr-blogs" component={TumblrBlogs} />
       <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>

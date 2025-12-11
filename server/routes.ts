@@ -614,7 +614,38 @@ export async function registerRoutes(
           bloggerPostId: result.postId,
           bloggerPostUrl: result.postUrl,
         });
-        res.json({ success: true, data: updatedPost, message: result.message });
+        
+        // Auto-publish to Tumblr if there's a connection for this account
+        let tumblrResult = null;
+        if (draftPost.accountId && result.postUrl) {
+          try {
+            const connections = await storage.getTumblrBloggerConnections();
+            const connection = connections.find(c => c.bloggerAccountId === draftPost.accountId && c.isActive);
+            
+            if (connection) {
+              tumblrResult = await publishToTumblr(
+                connection.tumblrBlogId,
+                draftPost.title,
+                draftPost.content,
+                result.postUrl
+              );
+              
+              if (tumblrResult.success) {
+                console.log(`Auto-posted to Tumblr: ${tumblrResult.postUrl}`);
+              } else {
+                console.log(`Tumblr cross-post failed: ${tumblrResult.message}`);
+              }
+            }
+          } catch (tumblrError) {
+            console.log("Tumblr cross-post error:", tumblrError);
+          }
+        }
+        
+        const message = tumblrResult?.success 
+          ? `${result.message} (Also posted to Tumblr)` 
+          : result.message;
+        
+        res.json({ success: true, data: updatedPost, message, tumblrPosted: tumblrResult?.success || false });
       } else {
         await storage.updatePost(draftPost.id, {
           status: "failed",
@@ -655,7 +686,38 @@ export async function registerRoutes(
           bloggerPostId: result.postId,
           bloggerPostUrl: result.postUrl,
         });
-        res.json({ success: true, data: updatedPost, message: result.message });
+        
+        // Auto-publish to Tumblr if there's a connection for this account
+        let tumblrResult = null;
+        if (post.accountId && result.postUrl) {
+          try {
+            const connections = await storage.getTumblrBloggerConnections();
+            const connection = connections.find(c => c.bloggerAccountId === post.accountId && c.isActive);
+            
+            if (connection) {
+              tumblrResult = await publishToTumblr(
+                connection.tumblrBlogId,
+                post.title,
+                post.content,
+                result.postUrl
+              );
+              
+              if (tumblrResult.success) {
+                console.log(`Auto-posted to Tumblr: ${tumblrResult.postUrl}`);
+              } else {
+                console.log(`Tumblr cross-post failed: ${tumblrResult.message}`);
+              }
+            }
+          } catch (tumblrError) {
+            console.log("Tumblr cross-post error:", tumblrError);
+          }
+        }
+        
+        const message = tumblrResult?.success 
+          ? `${result.message} (Also posted to Tumblr)` 
+          : result.message;
+        
+        res.json({ success: true, data: updatedPost, message, tumblrPosted: tumblrResult?.success || false });
       } else {
         await storage.updatePost(post.id, {
           status: "failed",

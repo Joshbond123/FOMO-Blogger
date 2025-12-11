@@ -179,175 +179,175 @@
       "id": "04cc30e0-d9ef-4267-bfc1-72439a19b2d6",
       "time": "09:05",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
       "id": "5ac800bf-2d5c-4c0f-a189-09e35049ab97",
       "time": "09:10",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
       "id": "b9a81174-bba6-45c4-a1cd-441cadc90de0",
       "time": "09:15",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "083609bf-b932-4e39-be5b-0b5339d08ace",
       "time": "09:17",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
       "id": "acfa1051-d16c-4554-8efc-5e4d01942a74",
       "time": "09:20",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
       "id": "1ef872ed-0e87-4e37-bc49-2d9a2367ac32",
       "time": "11:03",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
       "id": "3a58c010-cdfd-4495-971f-2830dda8fba0",
       "time": "11:06",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
       "id": "50ed245b-2717-4c15-a690-d2b191dc932d",
       "time": "11:10",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "011e7170-c2b9-4713-a854-e360dc1af308",
       "time": "11:13",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
       "id": "25d4b2e4-beef-4072-a569-12ddeed0bdf3",
       "time": "11:16",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
       "id": "322f47e2-6812-40f5-a883-4b8325b9501d",
       "time": "13:03",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
       "id": "bedaa265-d772-4614-bde4-eae8861a3439",
       "time": "13:06",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
       "id": "3d9944c6-2376-4183-8827-c3e24599ba0c",
       "time": "13:10",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "ca2226a3-ba6b-4624-b947-4d0775fa8820",
       "time": "13:13",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
       "id": "8af52cc3-8a25-431c-9c69-7e770a33e113",
       "time": "13:16",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
       "id": "74af6627-78a1-41ed-9b1d-af07f13f75be",
       "time": "15:03",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
       "id": "8e279003-041a-4c1a-b7b5-07de8943fba5",
       "time": "15:06",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
       "id": "4300b342-7349-424a-8b00-9d1cd26f9e65",
       "time": "15:10",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "e221e80f-3a8a-4611-9886-570f43e13bfd",
       "time": "15:14",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
       "id": "a5290db3-4036-4777-8a07-89469a74c3e9",
       "time": "15:18",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
       "id": "eaf2e2c4-fbb8-4167-bfb1-f942335a0a99",
       "time": "18:03",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
       "id": "ef4270dc-2371-4b9f-a7b4-ccf84a51ee12",
       "time": "18:06",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
       "id": "905c3248-d1a1-4175-801e-7a78a7878fdc",
       "time": "18:10",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
       "id": "c4a08585-1b4a-429a-bc1e-a667b8e240c8",
       "time": "18:13",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
       "id": "0ee1994e-a5db-4ed4-8800-b145a61ed4ab",
       "time": "18:16",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
@@ -361,21 +361,21 @@
       "id": "bb96b18b-7e0f-405d-a927-63366c986e69",
       "time": "11:41",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
       "id": "143e0024-053e-4ef2-8e70-8a33b52c19c8",
       "time": "12:02",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
       "id": "c5bd09d1-eae0-44ce-b511-2a9a5822a5d0",
       "time": "12:19",
       "timezone": "Africa/Lagos",
-      "isActive": true,
+      "isActive": false,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {

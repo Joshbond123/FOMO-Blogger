@@ -25,8 +25,10 @@ import {
   Globe,
   Megaphone,
   Save,
-  Brain
+  Brain,
+  Share2
 } from "lucide-react";
+import { SiTumblr } from "react-icons/si";
 import type { AppSettings, ApiKey, BloggerAccount } from "@shared/schema";
 
 interface CredentialsResponse {
@@ -38,6 +40,17 @@ interface CredentialsResponse {
   has_client_secret?: boolean;
   has_refresh_token?: boolean;
   has_blog_id?: boolean;
+}
+
+interface TumblrCredentialsResponse {
+  consumer_key: string;
+  consumer_secret: string;
+  token: string;
+  token_secret: string;
+  has_consumer_key?: boolean;
+  has_consumer_secret?: boolean;
+  has_token?: boolean;
+  has_token_secret?: boolean;
 }
 
 export default function Settings() {
@@ -55,6 +68,11 @@ export default function Settings() {
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
   const [bannerAdsCode, setBannerAdsCode] = useState("");
   const [popunderAdsCode, setPopunderAdsCode] = useState("");
+  
+  const [tumblrConsumerKey, setTumblrConsumerKey] = useState("");
+  const [tumblrConsumerSecret, setTumblrConsumerSecret] = useState("");
+  const [tumblrToken, setTumblrToken] = useState("");
+  const [tumblrTokenSecret, setTumblrTokenSecret] = useState("");
 
   const { data: settings, isLoading: settingsLoading } = useQuery<AppSettings>({
     queryKey: ["/api/settings"],
@@ -66,6 +84,10 @@ export default function Settings() {
 
   const { data: accounts, isLoading: accountsLoading } = useQuery<BloggerAccount[]>({
     queryKey: ["/api/accounts"],
+  });
+
+  const { data: tumblrCredentials, isLoading: tumblrCredentialsLoading } = useQuery<TumblrCredentialsResponse>({
+    queryKey: ["/api/tumblr/credentials"],
   });
 
   const addCerebrasKey = useMutation({
@@ -204,6 +226,39 @@ export default function Settings() {
     },
   });
 
+  const saveTumblrCredentials = useMutation({
+    mutationFn: async (creds: { consumer_key: string; consumer_secret: string; token: string; token_secret: string }) => {
+      return apiRequest("POST", "/api/tumblr/credentials", creds);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tumblr/credentials"] });
+      toast({ title: "Tumblr credentials saved successfully" });
+      setTumblrConsumerKey("");
+      setTumblrConsumerSecret("");
+      setTumblrToken("");
+      setTumblrTokenSecret("");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to save Tumblr credentials", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const testTumblr = useMutation({
+    mutationFn: async () => {
+      return apiRequest("POST", "/api/test/tumblr");
+    },
+    onSuccess: (data: any) => {
+      toast({ 
+        title: data.success ? "Connection successful" : "Connection failed",
+        description: data.message,
+        variant: data.success ? "default" : "destructive"
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Test failed", description: error.message, variant: "destructive" });
+    },
+  });
+
   const handleSelectAccount = (account: BloggerAccount) => {
     setSelectedAccountId(account.id);
     setBannerAdsCode(account.bannerAdsCode || "");
@@ -247,7 +302,16 @@ export default function Settings() {
     });
   };
 
-  if (settingsLoading || credentialsLoading || accountsLoading) {
+  const handleSaveTumblrCredentials = () => {
+    saveTumblrCredentials.mutate({
+      consumer_key: tumblrConsumerKey,
+      consumer_secret: tumblrConsumerSecret,
+      token: tumblrToken,
+      token_secret: tumblrTokenSecret,
+    });
+  };
+
+  if (settingsLoading || credentialsLoading || accountsLoading || tumblrCredentialsLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -267,7 +331,7 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="api-keys" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-flex">
+        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex">
           <TabsTrigger value="api-keys" data-testid="tab-api-keys">
             <Key className="h-4 w-4 mr-2" />
             API Keys
@@ -275,6 +339,10 @@ export default function Settings() {
           <TabsTrigger value="oauth" data-testid="tab-oauth">
             <Shield className="h-4 w-4 mr-2" />
             Blogger OAuth
+          </TabsTrigger>
+          <TabsTrigger value="tumblr" data-testid="tab-tumblr">
+            <SiTumblr className="h-4 w-4 mr-2" />
+            Tumblr
           </TabsTrigger>
           <TabsTrigger value="ads" data-testid="tab-ads">
             <Megaphone className="h-4 w-4 mr-2" />
@@ -660,6 +728,144 @@ export default function Settings() {
                   <li>Create OAuth 2.0 credentials</li>
                   <li>Generate a refresh token using OAuth Playground</li>
                   <li>Enter the credentials above</li>
+                </ol>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="tumblr" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                  <SiTumblr className="h-5 w-5" />
+                </div>
+                <div>
+                  <CardTitle className="text-lg">Tumblr API Credentials</CardTitle>
+                  <CardDescription>
+                    Configure your Tumblr OAuth credentials to enable automatic cross-posting
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  {tumblrCredentials?.has_consumer_key ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500" />
+                  )}
+                  <span className="text-sm">Consumer Key</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {tumblrCredentials?.has_consumer_secret ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500" />
+                  )}
+                  <span className="text-sm">Consumer Secret</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {tumblrCredentials?.has_token ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500" />
+                  )}
+                  <span className="text-sm">Token</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {tumblrCredentials?.has_token_secret ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500" />
+                  )}
+                  <span className="text-sm">Token Secret</span>
+                </div>
+                <Button 
+                  variant="outline"
+                  onClick={() => testTumblr.mutate()}
+                  disabled={testTumblr.isPending || !tumblrCredentials?.has_consumer_key}
+                  data-testid="button-test-tumblr"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-2 ${testTumblr.isPending ? "animate-spin" : ""}`} />
+                  Test Connection
+                </Button>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="tumblr-consumer-key">OAuth Consumer Key</Label>
+                    <Input
+                      id="tumblr-consumer-key"
+                      type="password"
+                      placeholder={tumblrCredentials?.has_consumer_key ? "Leave blank to keep existing" : "Enter Consumer Key"}
+                      value={tumblrConsumerKey}
+                      onChange={(e) => setTumblrConsumerKey(e.target.value)}
+                      data-testid="input-tumblr-consumer-key"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="tumblr-consumer-secret">OAuth Consumer Secret</Label>
+                    <Input
+                      id="tumblr-consumer-secret"
+                      type="password"
+                      placeholder={tumblrCredentials?.has_consumer_secret ? "Leave blank to keep existing" : "Enter Consumer Secret"}
+                      value={tumblrConsumerSecret}
+                      onChange={(e) => setTumblrConsumerSecret(e.target.value)}
+                      data-testid="input-tumblr-consumer-secret"
+                    />
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="tumblr-token">Token</Label>
+                    <Input
+                      id="tumblr-token"
+                      type="password"
+                      placeholder={tumblrCredentials?.has_token ? "Leave blank to keep existing" : "Enter Token"}
+                      value={tumblrToken}
+                      onChange={(e) => setTumblrToken(e.target.value)}
+                      data-testid="input-tumblr-token"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="tumblr-token-secret">Token Secret</Label>
+                    <Input
+                      id="tumblr-token-secret"
+                      type="password"
+                      placeholder={tumblrCredentials?.has_token_secret ? "Leave blank to keep existing" : "Enter Token Secret"}
+                      value={tumblrTokenSecret}
+                      onChange={(e) => setTumblrTokenSecret(e.target.value)}
+                      data-testid="input-tumblr-token-secret"
+                    />
+                  </div>
+                </div>
+                <Button 
+                  onClick={handleSaveTumblrCredentials}
+                  disabled={saveTumblrCredentials.isPending}
+                  data-testid="button-save-tumblr-credentials"
+                >
+                  {saveTumblrCredentials.isPending ? (
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Check className="h-4 w-4 mr-2" />
+                  )}
+                  Save Tumblr Credentials
+                </Button>
+              </div>
+
+              <div className="p-4 rounded-lg bg-muted/50">
+                <h4 className="text-sm font-medium mb-2">How to get Tumblr API credentials:</h4>
+                <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
+                  <li>Go to Tumblr Developer Console (api.tumblr.com/console)</li>
+                  <li>Register a new application to get Consumer Key and Secret</li>
+                  <li>Use the OAuth flow to obtain Token and Token Secret</li>
+                  <li>Enter all four credentials above</li>
                 </ol>
               </div>
             </CardContent>

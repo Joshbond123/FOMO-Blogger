@@ -18,8 +18,10 @@ import {
   Clock, 
   FileText,
   Database,
-  Search
+  Search,
+  Share2
 } from "lucide-react";
+import { SiTumblr } from "react-icons/si";
 
 const menuItems = [
   {
@@ -41,6 +43,11 @@ const menuItems = [
     title: "Research",
     url: "/research",
     icon: Search,
+  },
+  {
+    title: "Tumblr Blogs",
+    url: "/tumblr-blogs",
+    icon: SiTumblr,
   },
   {
     title: "Settings",
