@@ -51,21 +51,25 @@ function generateOAuthHeader(
     oauth_timestamp: Math.floor(Date.now() / 1000).toString(),
     oauth_token: credentials.token,
     oauth_version: "1.0",
-    ...additionalParams,
   };
+
+  // Merge ALL parameters for signature calculation (oauth + body params)
+  const allParams = { ...oauthParams, ...additionalParams };
+  
+  console.log("[Tumblr OAuth] All params for signature (keys):", Object.keys(allParams).sort());
 
   const signature = generateOAuthSignature(
     method,
     url,
-    oauthParams,
+    allParams,
     credentials.consumer_secret,
     credentials.token_secret
   );
 
   oauthParams.oauth_signature = signature;
 
+  // Only oauth_* params go in the Authorization header
   const headerParams = Object.keys(oauthParams)
-    .filter((key) => key.startsWith("oauth_"))
     .sort()
     .map((key) => `${encodeURIComponent(key)}="${encodeURIComponent(oauthParams[key])}"`)
     .join(", ");
@@ -174,55 +178,78 @@ export async function publishToTumblr(
   }
 
   try {
-    const url = `https://api.tumblr.com/v2/blog/${tumblrBlogName}/post`;
+    // Use NPF (Neue Post Format) endpoint - uses JSON and simpler OAuth
+    const url = `https://api.tumblr.com/v2/blog/${tumblrBlogName}/posts`;
     
     // Create a preview excerpt (first 200 characters of plain text content)
     const excerpt = post.excerpt || post.content.substring(0, 200).replace(/<[^>]*>/g, "") + "...";
     
-    // Build the post body with optional image, preview text, and link to full article
-    let postBody = "";
+    // Build NPF content blocks
+    const contentBlocks: any[] = [];
     
-    // Add the image if available
+    // Add image block if available
     if (post.imageUrl) {
-      postBody += `<div style="text-align: center; margin-bottom: 16px;">
-  <img src="${post.imageUrl}" alt="${post.title}" style="max-width: 100%; height: auto; border-radius: 8px;" />
-</div>\n`;
+      contentBlocks.push({
+        type: "image",
+        media: [{
+          url: post.imageUrl,
+        }],
+      });
     }
     
-    // Add the preview text and link
-    postBody += `<h2>${post.title}</h2>
-<p>${excerpt}</p>
-<p><strong><a href="${bloggerPostUrl}" target="_blank">Read the full article here</a></strong></p>`;
-
-    // Build the form data parameters
-    const formParams: Record<string, string> = {
+    // Add title as heading
+    contentBlocks.push({
       type: "text",
-      title: post.title,
-      body: postBody,
-    };
-    if (post.labels && post.labels.length > 0) {
-      formParams.tags = post.labels.join(",");
-    }
-
-    // For OAuth 1.0, form body parameters must be included in signature calculation
-    const authHeader = generateOAuthHeader("POST", url, credentials, formParams);
-
-    const formData = new URLSearchParams();
-    Object.entries(formParams).forEach(([key, value]) => {
-      formData.append(key, value);
+      text: post.title,
+      subtype: "heading1",
     });
+    
+    // Add excerpt
+    contentBlocks.push({
+      type: "text",
+      text: excerpt,
+    });
+    
+    // Add link to full article
+    contentBlocks.push({
+      type: "text",
+      text: "Read the full article here",
+      formatting: [{
+        type: "link",
+        start: 0,
+        end: 26,
+        url: bloggerPostUrl,
+      }],
+    });
+
+    // Build NPF request body
+    const requestBody = {
+      content: contentBlocks,
+      state: "published",
+      tags: post.labels?.join(",") || "",
+    };
+
+    // For NPF with JSON, DON'T include body in OAuth signature
+    const authHeader = generateOAuthHeader("POST", url, credentials);
+
+    console.log("[Tumblr NPF] Publishing to:", url);
+    console.log("[Tumblr NPF] Content blocks:", contentBlocks.length);
+    console.log("[Tumblr NPF] Auth header (first 100 chars):", authHeader.substring(0, 100));
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         Authorization: authHeader,
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body: formData.toString(),
+      body: JSON.stringify(requestBody),
     });
+
+    console.log("[Tumblr NPF] Response status:", response.status);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      console.log("[Tumblr NPF] Error response:", JSON.stringify(errorData));
       return {
         success: false,
         message: errorData.meta?.msg || `Failed to publish: HTTP ${response.status}`,

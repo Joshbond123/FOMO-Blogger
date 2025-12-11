@@ -165,6 +165,12 @@ npm run build   # Build for production
 
 ## Recent Updates
 
+### December 11, 2025 - Tumblr OAuth Fix
+- **Fixed Tumblr Cross-Posting**: Resolved OAuth 1.0 signature verification failures that caused 401 Unauthorized errors
+- **Switched to NPF Format**: Changed from legacy `/post` endpoint to NPF (Neue Post Format) `/posts` endpoint
+- **JSON-Based Requests**: NPF uses JSON Content-Type which doesn't require body params in OAuth signature calculation
+- **Cross-Posting Now Working**: Both manual and scheduled publishing successfully cross-post to connected Tumblr blogs
+
 ### December 2024 - Web Search & Research Enhancement
 - **Real Web Search Before Publishing**: AI now browses the internet using Gemini's Google Search grounding before generating any blog posts
 - **Research-Based Content**: Blog posts are now written using actual facts, statistics, and sources found from web research - not generic AI knowledge
