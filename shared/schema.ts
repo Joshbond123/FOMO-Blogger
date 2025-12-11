@@ -195,6 +195,7 @@ export const appSettingsSchema = z.object({
   cerebrasApiKeys: z.array(apiKeySchema).default([]), // New Cerebras keys
   huggingfaceApiKeys: z.array(apiKeySchema).default([]),
   imgbbApiKeys: z.array(apiKeySchema).default([]),
+  serperApiKeys: z.array(apiKeySchema).default([]), // Serper.dev API keys for web search
   blogger: bloggerSettingsSchema.default({}),
   bloggerAccounts: z.array(bloggerAccountSchema).default([]),
   schedules: z.array(scheduleSchema).default([]),
@@ -202,6 +203,7 @@ export const appSettingsSchema = z.object({
   currentCerebrasKeyIndex: z.number().default(0), // New Cerebras key rotation index
   currentHuggingfaceKeyIndex: z.number().default(0),
   currentImgbbKeyIndex: z.number().default(0),
+  currentSerperKeyIndex: z.number().default(0), // Serper key rotation index
   usedTopics: z.array(z.string()).default([]),
   usedTopicsByNiche: z.record(z.string(), z.array(z.string())).default({}),
   lastTopicRefresh: z.string().optional(),
@@ -279,7 +281,7 @@ export const userCredentialsSchema = z.object({
 
 export type UserCredentials = z.infer<typeof userCredentialsSchema>;
 
-// Trending Research schema - stores AI research on trending topics
+// Trending Research schema - stores AI research on trending topics with Serper.dev integration
 export const trendingResearchSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -291,13 +293,19 @@ export const trendingResearchSchema = z.object({
     title: z.string(),
     url: z.string(),
     snippet: z.string(),
+    publishDate: z.string().optional(),
   })),
   nicheId: z.string(),
   nicheName: z.string(),
   searchQueries: z.array(z.string()),
   postId: z.string().optional(),
   postTitle: z.string().optional(),
+  bloggerAccountId: z.string().optional(),
+  bloggerAccountName: z.string().optional(),
+  serperKeyUsed: z.string().optional(), // Masked key identifier for transparency
+  status: z.enum(["researching", "generated", "published", "failed"]).default("researching"),
   createdAt: z.string(),
+  researchedAt: z.string().optional(),
 });
 
 export type TrendingResearch = z.infer<typeof trendingResearchSchema>;

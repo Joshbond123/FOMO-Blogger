@@ -4,6 +4,7 @@ import { storage, getImagePath } from "./storage";
 import { testCerebrasConnection, generateTrendingTopic, generateBlogPost, generateTrendingResearch } from "./services/cerebras";
 import { testImageGeneratorConnection, generateBlogImage } from "./services/imageGenerator";
 import { testImgbbConnection } from "./services/imgbb";
+import { testSerperConnection, searchTrendingTopicsSerper, researchTopicWithSerper } from "./services/serper";
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
 import { testTumblrConnection, getTumblrBlogs, publishToTumblr } from "./services/tumblr";
 import { startScheduler, refreshSchedules } from "./services/scheduler";
@@ -257,6 +258,31 @@ export async function registerRoutes(
     }
   });
 
+  app.post("/api/settings/serper-keys", async (req: Request, res: Response) => {
+    try {
+      const { key, name } = req.body;
+      if (!key || typeof key !== "string") {
+        return res.status(400).json({ error: "API key is required" });
+      }
+      const newKey = await storage.addSerperKey(key, name);
+      res.json({
+        success: true,
+        data: { ...newKey, key: newKey.key.slice(0, 4) + "..." + newKey.key.slice(-4) },
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to add API key" });
+    }
+  });
+
+  app.delete("/api/settings/serper-keys/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.removeSerperKey(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to remove API key" });
+    }
+  });
+
   app.post("/api/settings/blogger", async (req: Request, res: Response) => {
     try {
       const { blogId, accessToken, refreshToken } = req.body;
@@ -492,6 +518,65 @@ export async function registerRoutes(
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       res.json({ success: false, message });
+    }
+  });
+
+  app.post("/api/test/serper", async (_req: Request, res: Response) => {
+    try {
+      const result = await testSerperConnection();
+      res.json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.json({ success: false, message });
+    }
+  });
+
+  app.post("/api/research/serper", async (req: Request, res: Response) => {
+    try {
+      const { nicheId } = req.body;
+      const result = await searchTrendingTopicsSerper(nicheId as NicheId);
+      res.json({ success: true, data: result });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
+    }
+  });
+
+  app.post("/api/research/serper/topic", async (req: Request, res: Response) => {
+    try {
+      const { topic, nicheId } = req.body;
+      if (!topic) {
+        return res.status(400).json({ error: "Topic is required" });
+      }
+      const result = await researchTopicWithSerper(topic, nicheId as NicheId);
+      res.json({ success: true, data: result });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
+    }
+  });
+
+  app.get("/api/research", async (_req: Request, res: Response) => {
+    try {
+      const research = await storage.getTrendingResearch();
+      const recentResearch = research
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, 10);
+      res.json(recentResearch);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get research logs" });
+    }
+  });
+
+  app.get("/api/research/:id", async (req: Request, res: Response) => {
+    try {
+      const research = await storage.getTrendingResearchById(req.params.id);
+      if (!research) {
+        return res.status(404).json({ error: "Research not found" });
+      }
+      res.json(research);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get research" });
     }
   });
 

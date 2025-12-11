@@ -122,6 +122,7 @@ const defaultSettings: AppSettings = {
   cerebrasApiKeys: [],
   huggingfaceApiKeys: [],
   imgbbApiKeys: [],
+  serperApiKeys: [],
   blogger: { isConnected: false },
   bloggerAccounts: [],
   schedules: [],
@@ -129,6 +130,7 @@ const defaultSettings: AppSettings = {
   currentCerebrasKeyIndex: 0,
   currentHuggingfaceKeyIndex: 0,
   currentImgbbKeyIndex: 0,
+  currentSerperKeyIndex: 0,
   usedTopics: [],
   usedTopicsByNiche: {},
   lastTopicRefresh: undefined,
@@ -156,6 +158,11 @@ export interface IStorage {
   addImgbbKey(key: string, name?: string): Promise<ApiKey>;
   removeImgbbKey(id: string): Promise<void>;
   getNextImgbbKey(): Promise<ApiKey | null>;
+  
+  addSerperKey(key: string, name?: string): Promise<ApiKey>;
+  removeSerperKey(id: string): Promise<void>;
+  getNextSerperKey(): Promise<ApiKey | null>;
+  rotateSerperKeyIndex(): Promise<void>;
   
   setBloggerSettings(settings: BloggerSettings): Promise<void>;
   clearBloggerSettings(): Promise<void>;
@@ -221,6 +228,8 @@ export class FileStorage implements IStorage {
       currentCerebrasKeyIndex: settings.currentCerebrasKeyIndex || 0,
       imgbbApiKeys: settings.imgbbApiKeys || [],
       currentImgbbKeyIndex: settings.currentImgbbKeyIndex || 0,
+      serperApiKeys: settings.serperApiKeys || [],
+      currentSerperKeyIndex: settings.currentSerperKeyIndex || 0,
     };
   }
 
@@ -426,6 +435,60 @@ export class FileStorage implements IStorage {
     await this.saveSettings(settings);
 
     return key;
+  }
+
+  async addSerperKey(key: string, name?: string): Promise<ApiKey> {
+    const settings = await this.getSettings();
+    const newKey: ApiKey = {
+      id: randomUUID(),
+      key,
+      name,
+      createdAt: new Date().toISOString(),
+      isActive: true,
+    };
+    if (!settings.serperApiKeys) {
+      settings.serperApiKeys = [];
+    }
+    settings.serperApiKeys.push(newKey);
+    await this.saveSettings(settings);
+    return newKey;
+  }
+
+  async removeSerperKey(id: string): Promise<void> {
+    const settings = await this.getSettings();
+    if (!settings.serperApiKeys) {
+      settings.serperApiKeys = [];
+    }
+    settings.serperApiKeys = settings.serperApiKeys.filter((k) => k.id !== id);
+    if ((settings.currentSerperKeyIndex || 0) >= settings.serperApiKeys.length) {
+      settings.currentSerperKeyIndex = 0;
+    }
+    await this.saveSettings(settings);
+  }
+
+  async getNextSerperKey(): Promise<ApiKey | null> {
+    const settings = await this.getSettings();
+    if (!settings.serperApiKeys) {
+      settings.serperApiKeys = [];
+    }
+    const activeKeys = settings.serperApiKeys.filter((k) => k.isActive);
+    if (activeKeys.length === 0) return null;
+
+    const currentIndex = (settings.currentSerperKeyIndex || 0) % activeKeys.length;
+    const key = activeKeys[currentIndex];
+    return key;
+  }
+
+  async rotateSerperKeyIndex(): Promise<void> {
+    const settings = await this.getSettings();
+    if (!settings.serperApiKeys) {
+      settings.serperApiKeys = [];
+    }
+    const activeKeys = settings.serperApiKeys.filter((k) => k.isActive);
+    if (activeKeys.length === 0) return;
+    
+    settings.currentSerperKeyIndex = ((settings.currentSerperKeyIndex || 0) + 1) % activeKeys.length;
+    await this.saveSettings(settings);
   }
 
   async setBloggerSettings(bloggerSettings: BloggerSettings): Promise<void> {

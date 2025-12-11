@@ -20,23 +20,24 @@ import {
   FileText,
   Clock,
   CheckCircle2,
-  Globe
+  Globe,
+  Search,
+  Key,
+  Calendar,
+  Link2
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
-import { NICHES, type Post } from "@shared/schema";
+import { NICHES, type TrendingResearch } from "@shared/schema";
 
 export default function ResearchTransparency() {
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [selectedResearch, setSelectedResearch] = useState<TrendingResearch | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  const { data: posts = [], isLoading } = useQuery<Post[]>({
-    queryKey: ["/api/posts"],
+  const { data: researchLogs = [], isLoading } = useQuery<TrendingResearch[]>({
+    queryKey: ["/api/research"],
   });
 
-  const publishedPosts = posts
-    .filter(p => p.status === "published")
-    .sort((a, b) => new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime())
-    .slice(0, 10);
+  const recentLogs = researchLogs.slice(0, 10);
 
   const getNicheBadge = (nicheId?: string) => {
     if (!nicheId) return null;
@@ -50,11 +51,40 @@ export default function ResearchTransparency() {
       display: format(date, "MMM d, yyyy"),
       time: format(date, "h:mm a"),
       relative: formatDistanceToNow(date, { addSuffix: true }),
+      full: format(date, "EEEE, MMMM d, yyyy 'at' h:mm:ss a"),
     };
   };
 
-  const openDetails = (post: Post) => {
-    setSelectedPost(post);
+  const getStatusBadge = (status?: string) => {
+    switch (status) {
+      case "published":
+        return <Badge variant="secondary" className="text-xs flex items-center gap-1">
+          <CheckCircle2 className="h-3 w-3" />
+          Published
+        </Badge>;
+      case "generated":
+        return <Badge variant="outline" className="text-xs flex items-center gap-1">
+          <FileText className="h-3 w-3" />
+          Generated
+        </Badge>;
+      case "researching":
+        return <Badge variant="outline" className="text-xs flex items-center gap-1">
+          <RefreshCw className="h-3 w-3 animate-spin" />
+          Researching
+        </Badge>;
+      case "failed":
+        return <Badge variant="destructive" className="text-xs">
+          Failed
+        </Badge>;
+      default:
+        return <Badge variant="secondary" className="text-xs">
+          Generated
+        </Badge>;
+    }
+  };
+
+  const openDetails = (research: TrendingResearch) => {
+    setSelectedResearch(research);
     setDetailsOpen(true);
   };
 
@@ -67,7 +97,7 @@ export default function ResearchTransparency() {
             Research Transparency
           </CardTitle>
           <CardDescription>
-            Showing the {publishedPosts.length} most recent AI-generated and published posts
+            Showing the {recentLogs.length} most recent research logs. All research is conducted using Serper.dev for real-time web data.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -75,83 +105,69 @@ export default function ResearchTransparency() {
             <div className="flex items-center justify-center py-8">
               <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
             </div>
-          ) : publishedPosts.length === 0 ? (
+          ) : recentLogs.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p data-testid="text-empty-state">No published posts yet</p>
-              <p className="text-sm">Posts will appear here after the AI publishes them at scheduled times</p>
+              <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p data-testid="text-empty-state">No research logs yet</p>
+              <p className="text-sm">Research logs will appear here when the AI researches topics using Serper.dev</p>
             </div>
           ) : (
             <div className="space-y-4">
-              {publishedPosts.map((post, index) => (
+              {recentLogs.map((research) => (
                 <div 
-                  key={post.id}
+                  key={research.id}
                   className="p-4 border rounded-md hover-elevate cursor-pointer"
-                  onClick={() => openDetails(post)}
-                  data-testid={`post-item-${post.id}`}
+                  onClick={() => openDetails(research)}
+                  data-testid={`research-item-${research.id}`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-2">
-                        <Badge variant="secondary" className="text-xs flex items-center gap-1">
-                          <CheckCircle2 className="h-3 w-3" />
-                          Published
-                        </Badge>
-                        {post.nicheId && (
+                        {getStatusBadge(research.status)}
+                        {research.nicheId && (
                           <Badge variant="outline" className="text-xs">
-                            {getNicheBadge(post.nicheId)}
+                            {getNicheBadge(research.nicheId)}
                           </Badge>
                         )}
-                        {post.accountName && (
+                        {research.bloggerAccountName && (
                           <Badge variant="outline" className="text-xs flex items-center gap-1">
                             <Globe className="h-3 w-3" />
-                            {post.accountName}
+                            {research.bloggerAccountName}
                           </Badge>
                         )}
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
                           <Clock className="h-3 w-3" />
-                          {formatDate(post.publishedAt || post.createdAt).relative}
+                          {formatDate(research.createdAt).relative}
                         </span>
                       </div>
-                      <h3 className="font-semibold mb-1 line-clamp-1" data-testid={`text-post-title-${post.id}`}>
-                        {post.title}
+                      <h3 className="font-semibold mb-1 line-clamp-1" data-testid={`text-research-title-${research.id}`}>
+                        {research.title}
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">
-                        {post.excerpt || post.topic}
+                        {research.shortDescription}
                       </p>
-                      <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground flex-wrap">
                         <span className="flex items-center gap-1">
-                          <FileText className="h-3 w-3" />
-                          Research Topic: {post.topic}
+                          <Link2 className="h-3 w-3" />
+                          {research.sources?.length || 0} sources
                         </span>
+                        {research.serperKeyUsed && (
+                          <span className="flex items-center gap-1">
+                            <Key className="h-3 w-3" />
+                            {research.serperKeyUsed}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      {post.bloggerPostUrl && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          asChild
-                          onClick={(e) => e.stopPropagation()}
-                          data-testid={`button-external-${post.id}`}
-                        >
-                          <a 
-                            href={post.bloggerPostUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={(e) => {
                           e.stopPropagation();
-                          openDetails(post);
+                          openDetails(research);
                         }}
-                        data-testid={`button-view-${post.id}`}
+                        data-testid={`button-view-${research.id}`}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -167,21 +183,17 @@ export default function ResearchTransparency() {
       <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
         <DialogContent className="max-w-3xl max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader>
-            <DialogTitle className="pr-8">{selectedPost?.title}</DialogTitle>
+            <DialogTitle className="pr-8">{selectedResearch?.title}</DialogTitle>
             <DialogDescription className="flex items-center gap-2 flex-wrap">
-              {selectedPost?.nicheId && (
-                <Badge variant="secondary">{getNicheBadge(selectedPost.nicheId)}</Badge>
+              {selectedResearch && getStatusBadge(selectedResearch.status)}
+              {selectedResearch?.nicheId && (
+                <Badge variant="secondary">{getNicheBadge(selectedResearch.nicheId)}</Badge>
               )}
-              {selectedPost?.accountName && (
+              {selectedResearch?.bloggerAccountName && (
                 <Badge variant="outline" className="flex items-center gap-1">
                   <Globe className="h-3 w-3" />
-                  {selectedPost.accountName}
+                  {selectedResearch.bloggerAccountName}
                 </Badge>
-              )}
-              {selectedPost?.publishedAt && (
-                <span className="text-xs">
-                  Published {formatDate(selectedPost.publishedAt).relative}
-                </span>
               )}
             </DialogDescription>
           </DialogHeader>
@@ -190,12 +202,19 @@ export default function ResearchTransparency() {
             <div className="space-y-6">
               <div>
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Brain className="h-4 w-4" />
-                  Research Topic
+                  <Calendar className="h-4 w-4" />
+                  Timestamp
                 </h4>
-                <p className="text-sm text-muted-foreground">
-                  {selectedPost?.topic}
-                </p>
+                <div className="text-sm space-y-1">
+                  <p className="text-muted-foreground">
+                    {selectedResearch?.createdAt && formatDate(selectedResearch.createdAt).full}
+                  </p>
+                  {selectedResearch?.researchedAt && (
+                    <p className="text-xs text-muted-foreground">
+                      Researched: {formatDate(selectedResearch.researchedAt).full}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <Separator />
@@ -203,10 +222,10 @@ export default function ResearchTransparency() {
               <div>
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <FileText className="h-4 w-4" />
-                  Summary
+                  Short Summary
                 </h4>
-                <p className="text-sm">
-                  {selectedPost?.excerpt}
+                <p className="text-sm text-muted-foreground">
+                  {selectedResearch?.shortDescription}
                 </p>
               </div>
 
@@ -214,43 +233,84 @@ export default function ResearchTransparency() {
 
               <div>
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  Posting Details
+                  <Brain className="h-4 w-4" />
+                  Full Research Summary
                 </h4>
-                <div className="text-sm space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground">Created:</span>
-                    <span>{selectedPost?.createdAt && formatDate(selectedPost.createdAt).display} at {selectedPost?.createdAt && formatDate(selectedPost.createdAt).time}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground">Published:</span>
-                    <span>{selectedPost?.publishedAt && formatDate(selectedPost.publishedAt).display} at {selectedPost?.publishedAt && formatDate(selectedPost.publishedAt).time}</span>
-                  </div>
-                  {selectedPost?.bloggerPostUrl && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-muted-foreground">Blog URL:</span>
-                      <a 
-                        href={selectedPost.bloggerPostUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-primary underline"
-                      >
-                        View on Blogger
-                      </a>
-                    </div>
-                  )}
-                </div>
+                <p className="text-sm whitespace-pre-wrap">
+                  {selectedResearch?.fullSummary}
+                </p>
               </div>
 
-              {selectedPost?.labels && selectedPost.labels.length > 0 && (
+              <Separator />
+
+              <div>
+                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                  <Search className="h-4 w-4" />
+                  Why This Topic Was Chosen
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  {selectedResearch?.whyTrending}
+                </p>
+              </div>
+
+              {selectedResearch?.sources && selectedResearch.sources.length > 0 && (
                 <>
                   <Separator />
                   <div>
-                    <h4 className="text-sm font-semibold mb-2">Labels</h4>
+                    <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <Link2 className="h-4 w-4" />
+                      Source Links ({selectedResearch.sources.length})
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedResearch.sources.map((source, index) => (
+                        <div key={index} className="p-3 border rounded-md">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1 min-w-0">
+                              <a 
+                                href={source.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="font-medium text-sm text-foreground hover:underline line-clamp-1"
+                              >
+                                {source.title}
+                              </a>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                {source.snippet}
+                              </p>
+                              {source.publishDate && (
+                                <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                                  <Calendar className="h-3 w-3" />
+                                  {source.publishDate}
+                                </p>
+                              )}
+                            </div>
+                            <a 
+                              href={source.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="shrink-0"
+                            >
+                              <Button variant="ghost" size="icon">
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {selectedResearch?.searchQueries && selectedResearch.searchQueries.length > 0 && (
+                <>
+                  <Separator />
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">Search Queries Used</h4>
                     <div className="flex flex-wrap gap-2">
-                      {selectedPost.labels.map((label, index) => (
+                      {selectedResearch.searchQueries.map((query, index) => (
                         <Badge key={index} variant="outline" className="text-xs">
-                          {label}
+                          {query}
                         </Badge>
                       ))}
                     </div>
@@ -258,15 +318,30 @@ export default function ResearchTransparency() {
                 </>
               )}
 
-              <Separator />
+              {selectedResearch?.serperKeyUsed && (
+                <>
+                  <Separator />
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                      <Key className="h-4 w-4" />
+                      Serper Key Used
+                    </h4>
+                    <Badge variant="secondary" className="font-mono text-xs">
+                      {selectedResearch.serperKeyUsed}
+                    </Badge>
+                  </div>
+                </>
+              )}
 
-              <div>
-                <h4 className="text-sm font-semibold mb-2">Full Content</h4>
-                <div 
-                  className="prose prose-sm dark:prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: selectedPost?.content || "" }}
-                />
-              </div>
+              {selectedResearch?.postTitle && (
+                <>
+                  <Separator />
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">Generated Blog Post</h4>
+                    <p className="text-sm">{selectedResearch.postTitle}</p>
+                  </div>
+                </>
+              )}
             </div>
           </ScrollArea>
         </DialogContent>

@@ -26,7 +26,8 @@ import {
   Megaphone,
   Save,
   Brain,
-  Share2
+  Share2,
+  Search
 } from "lucide-react";
 import { SiTumblr } from "react-icons/si";
 import type { AppSettings, ApiKey, BloggerAccount } from "@shared/schema";
@@ -59,6 +60,8 @@ export default function Settings() {
   const [newCerebrasKeyName, setNewCerebrasKeyName] = useState("");
   const [newImgbbKey, setNewImgbbKey] = useState("");
   const [newImgbbKeyName, setNewImgbbKeyName] = useState("");
+  const [newSerperKey, setNewSerperKey] = useState("");
+  const [newSerperKeyName, setNewSerperKeyName] = useState("");
   const [showCredentials, setShowCredentials] = useState(false);
   const [clientId, setClientId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -143,6 +146,50 @@ export default function Settings() {
     },
     onError: (error: Error) => {
       toast({ title: "Failed to remove key", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const addSerperKey = useMutation({
+    mutationFn: async ({ key, name }: { key: string; name?: string }) => {
+      return apiRequest("POST", "/api/settings/serper-keys", { key, name });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
+      toast({ title: "Serper API key added successfully" });
+      setNewSerperKey("");
+      setNewSerperKeyName("");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to add key", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const removeSerperKey = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest("DELETE", `/api/settings/serper-keys/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
+      toast({ title: "API key removed" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to remove key", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const testSerper = useMutation({
+    mutationFn: async () => {
+      return apiRequest("POST", "/api/test/serper");
+    },
+    onSuccess: (data: any) => {
+      toast({ 
+        title: data.success ? "Connection successful" : "Connection failed",
+        description: data.message,
+        variant: data.success ? "default" : "destructive"
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Test failed", description: error.message, variant: "destructive" });
     },
   });
 
@@ -291,6 +338,14 @@ export default function Settings() {
       return;
     }
     addImgbbKey.mutate({ key: newImgbbKey.trim(), name: newImgbbKeyName.trim() || undefined });
+  };
+
+  const handleAddSerperKey = () => {
+    if (!newSerperKey.trim()) {
+      toast({ title: "Please enter an API key", variant: "destructive" });
+      return;
+    }
+    addSerperKey.mutate({ key: newSerperKey.trim(), name: newSerperKeyName.trim() || undefined });
   };
 
   const handleSaveCredentials = () => {
@@ -596,6 +651,114 @@ export default function Settings() {
                       data-testid="button-test-imgbb"
                     >
                       <RefreshCw className={`h-4 w-4 mr-2 ${testImgbb.isPending ? "animate-spin" : ""}`} />
+                      Test
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                      <Search className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">Serper.dev</CardTitle>
+                      <CardDescription>For AI web research (trending topics)</CardDescription>
+                    </div>
+                  </div>
+                  <Badge variant={settings?.serperApiKeys?.length ? "secondary" : "outline"}>
+                    {settings?.serperApiKeys?.length || 0} keys
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 rounded-md bg-blue-500/10 border border-blue-500/20">
+                  <div className="flex items-start gap-3">
+                    <Search className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium">Web Research for Trending Topics</p>
+                      <p className="text-xs text-muted-foreground">
+                        Serper.dev is used exclusively for researching trending topics. 
+                        Add unlimited API keys - they rotate automatically per request. 
+                        Failed keys are skipped automatically.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {settings?.serperApiKeys && settings.serperApiKeys.length > 0 && (
+                  <ScrollArea className="max-h-48">
+                    <div className="space-y-2">
+                      {settings.serperApiKeys.map((key, index) => (
+                        <div 
+                          key={key.id} 
+                          className="flex items-center justify-between gap-2 p-3 rounded-md bg-muted/50"
+                          data-testid={`serper-key-${index}`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <Badge variant="outline" size="sm">#{index + 1}</Badge>
+                            <span className="text-sm font-mono truncate">{key.key}</span>
+                            {key.name && <span className="text-xs text-muted-foreground">({key.name})</span>}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeSerperKey.mutate(key.id)}
+                            data-testid={`button-remove-serper-key-${index}`}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                )}
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="serper-key-name">Key Name (optional)</Label>
+                    <Input
+                      id="serper-key-name"
+                      placeholder="e.g., Primary Key"
+                      value={newSerperKeyName}
+                      onChange={(e) => setNewSerperKeyName(e.target.value)}
+                      data-testid="input-serper-key-name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="serper-key">API Key</Label>
+                    <Input
+                      id="serper-key"
+                      type="password"
+                      placeholder="Enter Serper.dev API key"
+                      value={newSerperKey}
+                      onChange={(e) => setNewSerperKey(e.target.value)}
+                      data-testid="input-serper-key"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={handleAddSerperKey}
+                      disabled={addSerperKey.isPending}
+                      className="flex-1"
+                      data-testid="button-add-serper-key"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Key
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => testSerper.mutate()}
+                      disabled={testSerper.isPending || !settings?.serperApiKeys?.length}
+                      data-testid="button-test-serper"
+                    >
+                      <RefreshCw className={`h-4 w-4 mr-2 ${testSerper.isPending ? "animate-spin" : ""}`} />
                       Test
                     </Button>
                   </div>
