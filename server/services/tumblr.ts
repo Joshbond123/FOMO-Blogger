@@ -176,13 +176,23 @@ export async function publishToTumblr(
   try {
     const url = `https://api.tumblr.com/v2/blog/${tumblrBlogName}/post`;
     
+    // Create a preview excerpt (first 200 characters of plain text content)
     const excerpt = post.excerpt || post.content.substring(0, 200).replace(/<[^>]*>/g, "") + "...";
     
-    const postBody = `
-<h2>${post.title}</h2>
+    // Build the post body with optional image, preview text, and link to full article
+    let postBody = "";
+    
+    // Add the image if available
+    if (post.imageUrl) {
+      postBody += `<div style="text-align: center; margin-bottom: 16px;">
+  <img src="${post.imageUrl}" alt="${post.title}" style="max-width: 100%; height: auto; border-radius: 8px;" />
+</div>\n`;
+    }
+    
+    // Add the preview text and link
+    postBody += `<h2>${post.title}</h2>
 <p>${excerpt}</p>
-<p><a href="${bloggerPostUrl}" target="_blank">Read the full article here</a></p>
-    `.trim();
+<p><strong><a href="${bloggerPostUrl}" target="_blank">Read the full article here</a></strong></p>`;
 
     const formData = new URLSearchParams();
     formData.append("type", "text");

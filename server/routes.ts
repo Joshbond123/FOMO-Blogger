@@ -619,14 +619,13 @@ export async function registerRoutes(
         let tumblrResult = null;
         if (draftPost.accountId && result.postUrl) {
           try {
-            const connections = await storage.getTumblrBloggerConnections();
-            const connection = connections.find(c => c.bloggerAccountId === draftPost.accountId && c.isActive);
+            const connections = await storage.getTumblrConnections();
+            const connection = connections.find(c => c.bloggerAccountId === draftPost.accountId);
             
             if (connection) {
               tumblrResult = await publishToTumblr(
                 connection.tumblrBlogId,
-                draftPost.title,
-                draftPost.content,
+                draftPost,
                 result.postUrl
               );
               
@@ -691,14 +690,13 @@ export async function registerRoutes(
         let tumblrResult = null;
         if (post.accountId && result.postUrl) {
           try {
-            const connections = await storage.getTumblrBloggerConnections();
-            const connection = connections.find(c => c.bloggerAccountId === post.accountId && c.isActive);
+            const connections = await storage.getTumblrConnections();
+            const connection = connections.find(c => c.bloggerAccountId === post.accountId);
             
             if (connection) {
               tumblrResult = await publishToTumblr(
                 connection.tumblrBlogId,
-                post.title,
-                post.content,
+                post,
                 result.postUrl
               );
               
