@@ -48,7 +48,7 @@
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T16:34:01.967Z"
+      "lastUsed": "2025-12-11T22:49:09.145Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:34:05.964Z"
+      "lastUsed": "2025-12-11T22:49:12.054Z"
     }
   ],
   "serperApiKeys": [
@@ -259,10 +259,17 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "701d5db3-66f3-40ff-8a2a-3ac96f5b904e",
+      "time": "23:49",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 6,
+  "currentCerebrasKeyIndex": 0,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -323,7 +330,8 @@
     "catherine hoggle ruled competent to stand trial in missing children ...",
     "latest - tips, tricks and hacks for doing everything better | lifehacker",
     "tmz.com: celebrity news | entertainment news",
-    "breaking celebrity news, entertainment news and celeb gossip"
+    "breaking celebrity news, entertainment news and celeb gossip",
+    "weird but true"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -369,7 +377,8 @@
       "uncovering the baffling 'fast radio bursts' detected by the canadian hydrogen intensity mapping experiment (chime) on november 2, 2023, and how dr. victoria kaspi's team is racing against time to unravel the mystery of these enigmatic cosmic events",
       "the unprecedented discovery of the 'nebra sky disk 2.0': dr. harald meller's team unveils a second, even older ancient astronomical disk in the sachsen-anhalt region of germany on december 5, 2023",
       "science news | the latest news from all areas of science",
-      "sciencedaily: your source for the latest research news"
+      "sciencedaily: your source for the latest research news",
+      "weird but true"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
