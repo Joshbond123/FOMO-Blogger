@@ -194,15 +194,23 @@ export async function publishToTumblr(
 <p>${excerpt}</p>
 <p><strong><a href="${bloggerPostUrl}" target="_blank">Read the full article here</a></strong></p>`;
 
-    const formData = new URLSearchParams();
-    formData.append("type", "text");
-    formData.append("title", post.title);
-    formData.append("body", postBody);
+    // Build the form data parameters
+    const formParams: Record<string, string> = {
+      type: "text",
+      title: post.title,
+      body: postBody,
+    };
     if (post.labels && post.labels.length > 0) {
-      formData.append("tags", post.labels.join(","));
+      formParams.tags = post.labels.join(",");
     }
 
-    const authHeader = generateOAuthHeader("POST", url, credentials);
+    // For OAuth 1.0, form body parameters must be included in signature calculation
+    const authHeader = generateOAuthHeader("POST", url, credentials, formParams);
+
+    const formData = new URLSearchParams();
+    Object.entries(formParams).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     const response = await fetch(url, {
       method: "POST",
