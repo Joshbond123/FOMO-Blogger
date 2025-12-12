@@ -34,7 +34,7 @@
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:30:03.378Z"
+      "lastUsed": "2025-12-11T23:50:04.584Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T23:39:18.749Z"
+      "lastUsed": "2025-12-11T23:50:08.244Z"
     }
   ],
   "serperApiKeys": [
@@ -176,128 +176,191 @@
       "id": "6dc72eae-ef94-4690-8e86-bb5cbd678482",
       "createdAt": "2025-12-08T06:43:31.811Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA-jNuliSDuhrXP_P3Zp2iNWzboNCNjN0lI94Goq4ojRrDGb326kQ6xhi6J2wxVAOZdkMmDf4KbXAYG-WCd-agkqExfVimhZFPcLnQpjYRxIlosQj-gYsRVqjMWjqG8x1G0XLlpISgt8xTS_0fqYDCrSSAiOUSoYIV_RWoMbTnZoatZJfMQ6_TtErgRAM827b546aCgYKAY8SARISFQHGX2Mi2AS56pQfzZReU1DtvsWPVQ0207",
-      "tokenExpiry": "2025-12-11T23:30:06.349Z",
+      "accessToken": "ya29.a0Aa7pCA-Nhn55qCEVBSOrdclqoiaGEM6TTrRGZvkR-bZvSe_iYxeCGetueIKYEy2qPXtm7oC31RtYd7TgCifEu35eIOW1oOs9qJd04lZUmNY7Y252-OXf0oILxpDlAxKMiEyZFDiAkCpZSvXUn54CFTV6Lnuyv8vP-Y-kdnaZugNVpx8kC5CIh0GiPrfqm-bx8NKx15ZwaCgYKAV8SARISFQHGX2MiavhtS3QGXJ2StKM5j4vDJQ0207",
+      "tokenExpiry": "2025-12-12T00:50:08.558Z",
       "blogName": "TrendWave Media",
       "blogUrl": "http://trendwavemedia3.blogspot.com/"
     }
   ],
   "schedules": [
     {
-      "id": "9f48d6ef-d47a-4fe9-8239-2cf276abdd36",
-      "time": "17:27",
+      "id": "ba869f75-1034-4b06-a51e-8f57fec07f40",
+      "time": "09:00",
       "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "ade203f4-428f-4ac9-8de6-856bdfb357cb",
-      "time": "17:34",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
+      "isActive": true,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
-      "id": "05892601-b1ba-4a15-a038-64b23853a52e",
-      "time": "21:57",
+      "id": "2a1d9a5c-a443-4854-91ba-90affe60d86b",
+      "time": "09:20",
       "timezone": "Africa/Lagos",
-      "isActive": false,
+      "isActive": true,
       "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
     },
     {
-      "id": "075ae4c5-e838-4203-9d56-8d858cc133cd",
-      "time": "22:00",
+      "id": "23cafc17-4be1-4e1a-8901-255ea78e35ac",
+      "time": "09:40",
       "timezone": "Africa/Lagos",
-      "isActive": false,
+      "isActive": true,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
     },
     {
-      "id": "9e044db1-78c9-4288-937e-3a588d4f6d62",
-      "time": "22:02",
+      "id": "66e76e41-d9c1-4110-b8e1-c453a5634de9",
+      "time": "10:00",
       "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "36682b6c-d948-4d65-9454-d86bab1b5873",
-      "time": "23:10",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "df2a8361-e237-45b0-aff0-125a9d3b154f",
-      "time": "23:14",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "bf7f3d61-d7e5-48b6-9046-f25a9f314296",
-      "time": "23:15",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
-    },
-    {
-      "id": "7321cf45-ae63-4b12-8198-fa2df0dc1ab0",
-      "time": "23:21",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
+      "isActive": true,
       "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
     },
     {
-      "id": "2bebebac-7456-462e-94cd-e4a26ef3713c",
-      "time": "23:30",
+      "id": "ef4a926e-7b23-4190-b961-01534f2e1201",
+      "time": "10:20",
       "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "b56afab2-abb7-4a1b-a2d6-dccccb58a6f8",
-      "time": "23:34",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
-    },
-    {
-      "id": "701d5db3-66f3-40ff-8a2a-3ac96f5b904e",
-      "time": "23:49",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
-    },
-    {
-      "id": "3a2b1bc3-00e0-4559-b3a5-c4294518a785",
-      "time": "00:16",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
+      "isActive": true,
       "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
     },
     {
-      "id": "e5b53107-d8bb-4c9e-ac0e-8513f1aac1f3",
-      "time": "00:24",
+      "id": "ef06557f-3c7a-4aca-9fa5-7565768f9fa1",
+      "time": "10:40",
       "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     },
     {
-      "id": "3186ff3f-f397-4a2a-94ad-b02b721d8c90",
-      "time": "00:32",
+      "id": "f1c9e1cd-22a7-45fc-b5bf-f6df88ddc7f3",
+      "time": "13:00",
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     },
     {
-      "id": "dbc12161-25b4-485d-a1a4-5e01828a511c",
-      "time": "00:39",
+      "id": "b8e77776-fb2f-45f5-83c7-6a513acde9c5",
+      "time": "13:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "53beefde-d0b7-46b9-abeb-aa686a7f7e9c",
+      "time": "13:40",
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "83ba79bc-84fa-4f18-ab22-fe9a09765dd4",
+      "time": "14:00",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "6d277351-bec9-42ce-a4f7-317888fed581",
+      "time": "14:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "86c5447e-b19b-491f-aa83-2a099cea51e5",
+      "time": "14:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "e027bb8f-bc3f-458c-9da8-bcdbc2c3e69d",
+      "time": "17:00",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "371d1e46-fe88-4bac-b992-5cfa340edb0b",
+      "time": "17:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "afa1fb4a-4932-4fbf-b823-62faf3d6d7aa",
+      "time": "17:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "f236b961-ab85-4447-b55d-75ff04752e86",
+      "time": "18:00",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "2ea82648-e4bb-41f0-bd80-787023334805",
+      "time": "18:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "2a7e83d0-d319-4444-985d-aa2117e5bc41",
+      "time": "18:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "ef708aef-4b89-481b-bfee-fef366329fb5",
+      "time": "21:00",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
+    },
+    {
+      "id": "ce769cd7-a588-49d6-9c46-808bdc128897",
+      "time": "21:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "9579e08e-449c-4006-a45f-3ce4d224353a"
+    },
+    {
+      "id": "2c2d8ec3-e59f-4b29-acf3-8d3eada86099",
+      "time": "21:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a54ab943-90ad-4f23-8ffa-17052ed30b2f"
+    },
+    {
+      "id": "8e02b81c-aa0f-4155-a4b5-b8f3e5810995",
+      "time": "22:00",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "56cf1820-0eac-469e-ae3c-8505bbb245f4"
+    },
+    {
+      "id": "06253375-729e-49fa-8f67-9918a3d1deac",
+      "time": "22:20",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "24dd6e5d-a4b2-44f5-9f42-69e78ee84fdb"
+    },
+    {
+      "id": "68b9b817-d616-4791-8793-49232091e3cc",
+      "time": "10:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "553edd50-d7e6-447c-a909-051a33f42864",
+      "time": "22:40",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 4,
+  "currentCerebrasKeyIndex": 5,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -363,7 +426,8 @@
     "gary brecka reveals his 6 free biohacks",
     "ai-generated political videos are more about memes and ...",
     "the disturbing backyard scene points to murder... ...",
-    "strange & offbeat news"
+    "strange & offbeat news",
+    "trending: latest buzz in pop culture and news, photos & ..."
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -427,7 +491,8 @@
       "the unexpected resurgence of 90s boy bands: how bts's rm and suga's recent collaboration with backstreet boys' nick carter is sparking a new wave of nostalgia on tiktok and instagram, with over 1 million users participating in the #90sboybandchallenge since its launch on february 20, 2024",
       "the impact of emma chamberlain's april 15, 2024, instagram live session on the rise of 'sustainable luxury' in the fashion industry, featuring collaborations with stella mccartney and phoebe english",
       "tmz.com: celebrity news | entertainment news",
-      "breaking celebrity news, entertainment news and celeb gossip"
+      "breaking celebrity news, entertainment news and celeb gossip",
+      "trending: latest buzz in pop culture and news, photos & ..."
     ],
     "health-hacks": [
       "the ultimate brain reset: why everyone's embracing the 'dopamine detox' for peak focus & inner calm",
