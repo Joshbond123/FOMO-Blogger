@@ -164,11 +164,43 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
       throw new Error(`Serper research failed: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
 
+    // Step 1.5: Deep research on the chosen topic using real web search
+    console.log("[Scheduler] Step 1.5: Researching topic in depth via Serper.dev...");
+    let deepResearch;
+    try {
+      deepResearch = await researchTopicWithSerper(serperResearch.topic, nicheId as NicheId);
+      console.log(`[Scheduler] Deep research completed with ${deepResearch.sources.length} sources`);
+      console.log(`[Scheduler] Research summary preview: ${deepResearch.researchSummary.slice(0, 100)}...`);
+    } catch (error) {
+      console.log("[Scheduler] Deep research failed, continuing with initial research:", error);
+      deepResearch = null;
+    }
+
     console.log("[Scheduler] Step 2: Generating blog post content with AI...");
     let content;
     try {
       const fomoHook = `Discover what's happening now with ${serperResearch.topic}`;
-      content = await generateBlogPost(serperResearch.topic, fomoHook, nicheId as NicheId);
+      
+      // Build enhanced research context from deep research
+      const enhancedResearch = deepResearch ? {
+        topic: serperResearch.topic,
+        summary: deepResearch.researchSummary,
+        sources: deepResearch.sources,
+        searchQueries: serperResearch.searchQueries,
+        facts: deepResearch.sources.map(s => s.snippet),
+        whyTrending: serperResearch.whyTrending,
+        keywords: serperResearch.keywords,
+      } : {
+        topic: serperResearch.topic,
+        summary: serperResearch.summary,
+        sources: serperResearch.sources,
+        searchQueries: serperResearch.searchQueries,
+        facts: serperResearch.sources.map(s => s.snippet),
+        whyTrending: serperResearch.whyTrending,
+        keywords: serperResearch.keywords,
+      };
+      
+      content = await generateBlogPost(serperResearch.topic, fomoHook, nicheId as NicheId, enhancedResearch);
       console.log(`[Scheduler] Post title: ${content.title}`);
     } catch (error) {
       console.error("[Scheduler] ERROR: Failed to generate blog post:", error);
@@ -258,13 +290,27 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
           const updatedPost = await storage.getPost(post.id);
           if (updatedPost) {
             console.log(`[Scheduler] Step 7: Cross-posting to X (Twitter)...`);
-            const xResult = await postBlogToX(accountId, updatedPost);
+            console.log(`[Scheduler] X: Post has bloggerPostUrl: ${updatedPost.bloggerPostUrl ? "YES" : "NO"}`);
             
-            if (xResult.success) {
-              console.log(`[Scheduler] SUCCESS: Also posted to X at ${xResult.tweetUrl}`);
+            // Check if X connection exists before attempting
+            const xConnection = await storage.getXConnectionByBloggerAccountId(accountId);
+            if (!xConnection) {
+              console.log(`[Scheduler] X: No X connection found for blogger account ${accountId}`);
+              console.log(`[Scheduler] X: To enable X cross-posting, link an X account to this blog in the X Accounts settings`);
+            } else if (!xConnection.isActive) {
+              console.log(`[Scheduler] X: X connection exists but is inactive for account ${accountId}`);
             } else {
-              console.log(`[Scheduler] X cross-post skipped/failed: ${xResult.message}`);
+              console.log(`[Scheduler] X: Found active connection to X account ${xConnection.xAccountId}`);
+              const xResult = await postBlogToX(accountId, updatedPost);
+              
+              if (xResult.success) {
+                console.log(`[Scheduler] SUCCESS: Also posted to X at ${xResult.tweetUrl}`);
+              } else {
+                console.log(`[Scheduler] X cross-post failed: ${xResult.message}`);
+              }
             }
+          } else {
+            console.log(`[Scheduler] X: Could not retrieve updated post ${post.id} from storage`);
           }
         } catch (xError) {
           console.error("[Scheduler] X cross-post error:", xError);

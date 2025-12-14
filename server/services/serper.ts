@@ -74,7 +74,8 @@ function getTimeRangeParam(range: "today" | "24h" | "week" | "month" = "week"): 
 // Clean up expired topic locks
 function cleanupExpiredLocks(): void {
   const now = Date.now();
-  for (const [topic, lock] of topicLock.entries()) {
+  const entries = Array.from(topicLock.entries());
+  for (const [topic, lock] of entries) {
     if (now - lock.timestamp > LOCK_EXPIRY_MS) {
       topicLock.delete(topic);
     }
@@ -86,7 +87,8 @@ function isTopicLocked(topic: string, currentAccountId?: string, sourceUrl?: str
   cleanupExpiredLocks();
   const normalizedTopic = topic.toLowerCase().trim();
   
-  for (const [_, lock] of topicLock.entries()) {
+  const entries = Array.from(topicLock.entries());
+  for (const [_, lock] of entries) {
     if (lock.accountId !== currentAccountId) {
       // Check URL match first (most accurate)
       if (sourceUrl && lock.sourceUrl && sourceUrl === lock.sourceUrl) {
@@ -109,7 +111,8 @@ function lockTopic(originalTitle: string, accountId: string, sourceUrl?: string)
   const normalizedOriginal = originalTitle.toLowerCase().trim();
   
   // Check if topic is already locked by another account (atomic check-and-set)
-  for (const [_, lock] of topicLock.entries()) {
+  const entries = Array.from(topicLock.entries());
+  for (const [_, lock] of entries) {
     if (lock.accountId !== accountId) {
       // Check URL match first (most accurate)
       if (sourceUrl && lock.sourceUrl && sourceUrl === lock.sourceUrl) {
