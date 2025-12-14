@@ -4,6 +4,7 @@ import { generateBlogPost } from "./cerebras";
 import { generateBlogImage } from "./imageGenerator";
 import { publishToBlogger, publishToBloggerWithAccount } from "./blogger";
 import { publishToTumblr } from "./tumblr";
+import { postBlogToX } from "./twitter";
 import { searchTrendingTopicsSerper, researchTopicWithSerper } from "./serper";
 import type { Schedule, BloggerAccount, NicheId, Post, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
@@ -250,6 +251,23 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
           }
         } catch (tumblrError) {
           console.error("[Scheduler] Tumblr cross-post error:", tumblrError);
+        }
+        
+        // Step 7: Cross-post to X (Twitter) if there's a connection for this account
+        try {
+          const updatedPost = await storage.getPost(post.id);
+          if (updatedPost) {
+            console.log(`[Scheduler] Step 7: Cross-posting to X (Twitter)...`);
+            const xResult = await postBlogToX(accountId, updatedPost);
+            
+            if (xResult.success) {
+              console.log(`[Scheduler] SUCCESS: Also posted to X at ${xResult.tweetUrl}`);
+            } else {
+              console.log(`[Scheduler] X cross-post skipped/failed: ${xResult.message}`);
+            }
+          }
+        } catch (xError) {
+          console.error("[Scheduler] X cross-post error:", xError);
         }
       }
       

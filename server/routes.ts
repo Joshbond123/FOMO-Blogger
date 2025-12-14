@@ -7,6 +7,7 @@ import { testImgbbConnection } from "./services/imgbb";
 import { testSerperConnection, searchTrendingTopicsSerper, researchTopicWithSerper } from "./services/serper";
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
 import { testTumblrConnection, getTumblrBlogs, publishToTumblr } from "./services/tumblr";
+import { testXConnection, postToX, postBlogToX } from "./services/twitter";
 import { startScheduler, refreshSchedules } from "./services/scheduler";
 import type { Post, NicheId } from "@shared/schema";
 import { NICHES } from "@shared/schema";
@@ -1015,6 +1016,180 @@ export async function registerRoutes(
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: "Failed to remove Tumblr connection" });
+    }
+  });
+
+  // X (Twitter) Integration Routes
+  app.get("/api/x/accounts", async (_req: Request, res: Response) => {
+    try {
+      const accounts = await storage.getXAccounts();
+      const safeAccounts = accounts.map((a) => ({
+        ...a,
+        apiKey: a.apiKey.slice(0, 4) + "..." + a.apiKey.slice(-4),
+        apiSecret: "••••••••",
+        accessToken: a.accessToken.slice(0, 4) + "..." + a.accessToken.slice(-4),
+        accessTokenSecret: "••••••••",
+      }));
+      res.json(safeAccounts);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get X accounts" });
+    }
+  });
+
+  app.post("/api/x/accounts", async (req: Request, res: Response) => {
+    try {
+      const { name, apiKey, apiSecret, accessToken, accessTokenSecret } = req.body;
+      
+      if (!name || !apiKey || !apiSecret || !accessToken || !accessTokenSecret) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+      
+      const account = await storage.addXAccount({
+        name,
+        apiKey,
+        apiSecret,
+        accessToken,
+        accessTokenSecret,
+      });
+      
+      res.json({ 
+        success: true, 
+        data: {
+          ...account,
+          apiKey: account.apiKey.slice(0, 4) + "..." + account.apiKey.slice(-4),
+          apiSecret: "••••••••",
+          accessToken: account.accessToken.slice(0, 4) + "..." + account.accessToken.slice(-4),
+          accessTokenSecret: "••••••••",
+        }
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to add X account";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.delete("/api/x/accounts/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.removeXAccount(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to remove X account" });
+    }
+  });
+
+  app.post("/api/x/accounts/:id/test", async (req: Request, res: Response) => {
+    try {
+      const account = await storage.getXAccount(req.params.id);
+      if (!account) {
+        return res.status(404).json({ error: "X account not found" });
+      }
+      
+      const result = await testXConnection(
+        account.apiKey,
+        account.apiSecret,
+        account.accessToken,
+        account.accessTokenSecret
+      );
+      
+      if (result.success && result.username) {
+        await storage.updateXAccount(req.params.id, {
+          isConnected: true,
+          username: result.username,
+          lastTestedAt: new Date().toISOString(),
+        });
+      } else {
+        await storage.updateXAccount(req.params.id, {
+          isConnected: false,
+          lastTestedAt: new Date().toISOString(),
+        });
+      }
+      
+      res.json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.json({ success: false, message });
+    }
+  });
+
+  app.post("/api/test/x", async (req: Request, res: Response) => {
+    try {
+      const { apiKey, apiSecret, accessToken, accessTokenSecret } = req.body;
+      
+      if (!apiKey || !apiSecret || !accessToken || !accessTokenSecret) {
+        return res.status(400).json({ success: false, message: "All credentials are required" });
+      }
+      
+      const result = await testXConnection(apiKey, apiSecret, accessToken, accessTokenSecret);
+      res.json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.json({ success: false, message });
+    }
+  });
+
+  // X-Blogger Connections
+  app.get("/api/x/connections", async (_req: Request, res: Response) => {
+    try {
+      const connections = await storage.getXConnections();
+      res.json(connections);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get X connections" });
+    }
+  });
+
+  app.post("/api/x/connections", async (req: Request, res: Response) => {
+    try {
+      const { xAccountId, xAccountName, bloggerAccountId, bloggerAccountName } = req.body;
+      
+      if (!xAccountId || !xAccountName || !bloggerAccountId || !bloggerAccountName) {
+        return res.status(400).json({ error: "All connection fields are required" });
+      }
+      
+      const connection = await storage.addXConnection({
+        xAccountId,
+        xAccountName,
+        bloggerAccountId,
+        bloggerAccountName,
+        isActive: true,
+      });
+      
+      res.json({ success: true, data: connection });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.delete("/api/x/connections/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.removeXConnection(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to remove X connection" });
+    }
+  });
+
+  app.post("/api/x/post/:postId", async (req: Request, res: Response) => {
+    try {
+      const post = await storage.getPost(req.params.postId);
+      if (!post) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      
+      if (!post.accountId) {
+        return res.status(400).json({ error: "Post is not associated with a blogger account" });
+      }
+      
+      const result = await postBlogToX(post.accountId, post);
+      
+      if (result.success) {
+        res.json({ success: true, message: result.message, tweetUrl: result.tweetUrl });
+      } else {
+        res.status(400).json({ success: false, error: result.message });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: message });
     }
   });
 

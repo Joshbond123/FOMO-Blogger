@@ -13,6 +13,7 @@ import Posts from "@/pages/posts";
 import Research from "@/pages/research";
 import Settings from "@/pages/settings";
 import TumblrBlogs from "@/pages/tumblr-blogs";
+import XIntegration from "@/pages/x-integration";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/posts" component={Posts} />
       <Route path="/research" component={Research} />
       <Route path="/tumblr-blogs" component={TumblrBlogs} />
+      <Route path="/x-integration" component={XIntegration} />
       <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>

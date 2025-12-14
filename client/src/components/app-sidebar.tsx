@@ -21,7 +21,7 @@ import {
   Search,
   Share2
 } from "lucide-react";
-import { SiTumblr } from "react-icons/si";
+import { SiTumblr, SiX } from "react-icons/si";
 
 const menuItems = [
   {
@@ -48,6 +48,11 @@ const menuItems = [
     title: "Tumblr Blogs",
     url: "/tumblr-blogs",
     icon: SiTumblr,
+  },
+  {
+    title: "X Integration",
+    url: "/x-integration",
+    icon: SiX,
   },
   {
     title: "Settings",
