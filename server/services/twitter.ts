@@ -188,6 +188,25 @@ export async function postToX(
     if (!response.ok) {
       const errorText = await response.text();
       console.error("X API Error:", errorText);
+      
+      // Provide helpful error messages for common issues
+      if (response.status === 403) {
+        const errorLower = errorText.toLowerCase();
+        if (errorLower.includes("not permitted") || errorLower.includes("forbidden")) {
+          return {
+            success: false,
+            message: `X API permission error: Your X Developer App likely doesn't have "Read and Write" permissions. Go to developer.x.com -> Your App -> Settings -> User authentication settings -> Set permissions to "Read and Write", then REGENERATE your Access Token and Access Token Secret (old tokens won't work after permission changes).`,
+          };
+        }
+      }
+      
+      if (response.status === 401) {
+        return {
+          success: false,
+          message: `X API authentication error: Your API credentials may be invalid or expired. Please verify your API Key, API Secret, Access Token, and Access Token Secret in the X Developer Portal.`,
+        };
+      }
+      
       return {
         success: false,
         message: `Failed to post: ${response.status} - ${errorText}`,
