@@ -1,7 +1,21 @@
 import { storage } from "../storage";
 import type { GeneratedContent, NicheId, ApiKey, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
-import { searchTrendingTopics, researchTopicForContent, type WebSearchResult } from "./webSearch";
+
+// WebSearchResult type for compatibility (no longer importing from Gemini-based webSearch)
+export interface WebSearchResult {
+  topic: string;
+  summary: string;
+  sources: {
+    title: string;
+    url: string;
+    snippet: string;
+  }[];
+  searchQueries: string[];
+  facts: string[];
+  whyTrending: string;
+  keywords: string[];
+}
 
 const CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions";
 const CEREBRAS_MODEL = "llama-3.3-70b";
@@ -150,44 +164,9 @@ export async function testCerebrasConnection(): Promise<{ success: boolean; mess
 export async function generateTrendingTopic(nicheId?: NicheId): Promise<{ topic: string; fomoHook: string; keywords: string[]; webResearch?: WebSearchResult }> {
   const niche = getNicheById(nicheId);
   
-  console.log("[Cerebras] Starting web search for trending topics...");
+  console.log("[Cerebras] Generating trending topic using Cerebras AI...");
   
-  let webResearch: WebSearchResult | undefined;
-  try {
-    webResearch = await searchTrendingTopics(nicheId);
-    console.log("[Cerebras] Web research completed:", webResearch.topic);
-  } catch (error) {
-    console.error("[Cerebras] Web search failed, falling back to AI generation:", error);
-  }
-  
-  if (webResearch && webResearch.topic && webResearch.summary) {
-    const settings = await storage.getSettings();
-    const usedTopicsForNiche = nicheId && settings.usedTopicsByNiche[nicheId] 
-      ? settings.usedTopicsByNiche[nicheId].slice(-100)
-      : settings.usedTopics.slice(-100);
-    
-    const normalizedTopic = webResearch.topic.toLowerCase().trim();
-    const isSimilar = usedTopicsForNiche.some(used => {
-      const usedNormalized = used.toLowerCase().trim();
-      return usedNormalized === normalizedTopic || 
-             usedNormalized.includes(normalizedTopic) || 
-             normalizedTopic.includes(usedNormalized) ||
-             calculateSimilarity(usedNormalized, normalizedTopic) > 0.6;
-    });
-    
-    if (!isSimilar) {
-      console.log("[Cerebras] Using web-researched topic:", webResearch.topic);
-      return {
-        topic: webResearch.topic,
-        fomoHook: webResearch.whyTrending || "This is what everyone is talking about right now.",
-        keywords: webResearch.keywords || niche?.keywords || ["trending", "viral"],
-        webResearch,
-      };
-    } else {
-      console.log("[Cerebras] Web topic too similar to used topics, generating alternative...");
-    }
-  }
-  
+  // Using Cerebras for topic generation (no Gemini dependency)
   const settings = await storage.getSettings();
   const usedTopicsForNiche = nicheId && settings.usedTopicsByNiche[nicheId] 
     ? settings.usedTopicsByNiche[nicheId].slice(-100)
@@ -195,10 +174,6 @@ export async function generateTrendingTopic(nicheId?: NicheId): Promise<{ topic:
     
   const usedTopicsContext = usedTopicsForNiche.length > 0 
     ? `\n\nCRITICAL - DO NOT REPEAT OR USE SIMILAR TOPICS. These have already been covered:\n${usedTopicsForNiche.map((t, i) => `${i + 1}. ${t}`).join("\n")}\n\nYour topic MUST be completely different from ALL of the above. Do not use synonyms or variations of these topics. Find a FRESH, UNIQUE angle that hasn't been covered.`
-    : "";
-
-  const webContext = webResearch 
-    ? `\n\nBased on recent web research, here are some trending stories you can build upon (but DO NOT copy these exactly - use them for inspiration):\n- ${webResearch.topic}: ${webResearch.summary.substring(0, 300)}...\n- Facts found: ${webResearch.facts.slice(0, 3).join("; ")}`
     : "";
 
   const nicheContext = niche 
@@ -218,7 +193,6 @@ Your task: Create a UNIQUE and SPECIFIC trending topic in AI tools that would ma
 - Real-world AI use cases`;
 
   const prompt = `${nicheContext}
-${webContext}
 
 The topic MUST:
 1. Be COMPLETELY UNIQUE - not similar to any previously used topic
@@ -247,7 +221,6 @@ Respond with ONLY valid JSON in this exact format:
       topic: parsed.topic || (niche ? `Trending in ${niche.name}` : "AI Tools for Maximum Productivity"),
       fomoHook: parsed.fomoHook || "Discover what everyone is talking about.",
       keywords: parsed.keywords || (niche ? [...niche.keywords] : ["AI", "productivity", "automation"]),
-      webResearch,
     };
   } catch {
     const defaultTopic = niche 
@@ -260,7 +233,6 @@ Respond with ONLY valid JSON in this exact format:
       topic: defaultTopic,
       fomoHook: defaultHook,
       keywords: niche ? [...niche.keywords] : ["AI tools", "productivity", "business automation", "workflow"],
-      webResearch,
     };
   }
 }
@@ -285,15 +257,72 @@ function calculateSimilarity(str1: string, str2: string): number {
   return Math.max(jaccardSimilarity, overlapScore * 0.8);
 }
 
+// Cerebras-based topic research (replaces Gemini-based webSearch)
+async function researchTopicWithCerebras(topic: string, nicheId?: NicheId): Promise<{
+  researchSummary: string;
+  facts: string[];
+  sources: { title: string; url: string; snippet: string }[];
+}> {
+  const niche = getNicheById(nicheId);
+  
+  const today = new Date().toLocaleDateString("en-US", { 
+    weekday: "long", 
+    year: "numeric", 
+    month: "long", 
+    day: "numeric" 
+  });
+
+  const prompt = `Today is ${today}. You are a research analyst. Research this topic thoroughly: "${topic}"
+${niche ? `Context: This is for a ${niche.name} blog focused on ${niche.promptContext}.` : ""}
+
+Based on your knowledge, provide comprehensive research including:
+1. A detailed summary of what's happening with this topic (3-4 paragraphs)
+2. Key facts, numbers, and important points
+3. Relevant context and background information
+
+Respond with ONLY valid JSON:
+{
+  "researchSummary": "Detailed 3-4 paragraph summary about this topic with specific information",
+  "facts": ["Specific fact 1", "Specific fact 2", "Specific fact 3", "Specific fact 4", "Specific fact 5"],
+  "sources": [
+    {"title": "Source title 1", "url": "https://example.com/article1", "snippet": "Key information from source"},
+    {"title": "Source title 2", "url": "https://example.com/article2", "snippet": "Key information from source"}
+  ]
+}`;
+
+  try {
+    const response = await callCerebrasWithRotation(
+      [{ role: "user", content: prompt }],
+      true
+    );
+
+    const text = extractContent(response);
+    const parsed = JSON.parse(text);
+    
+    return {
+      researchSummary: parsed.researchSummary || "Research summary not available.",
+      facts: parsed.facts || [],
+      sources: parsed.sources || [],
+    };
+  } catch (error) {
+    console.error("[Cerebras] Research failed:", error);
+    return {
+      researchSummary: `Information about ${topic}.`,
+      facts: [],
+      sources: [],
+    };
+  }
+}
+
 export async function generateBlogPost(topic: string, fomoHook?: string, nicheId?: NicheId, existingResearch?: WebSearchResult): Promise<GeneratedContent> {
   const niche = getNicheById(nicheId);
 
-  console.log("[Cerebras] Researching topic before writing blog post...");
+  console.log("[Cerebras] Researching topic using Cerebras AI...");
   
   let research = existingResearch;
   if (!research) {
     try {
-      const topicResearch = await researchTopicForContent(topic, nicheId);
+      const topicResearch = await researchTopicWithCerebras(topic, nicheId);
       research = {
         topic,
         summary: topicResearch.researchSummary,
