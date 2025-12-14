@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T23:16:04.649Z"
+      "lastUsed": "2025-12-14T12:32:13.946Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -20,7 +20,7 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T23:32:04.544Z"
+      "lastUsed": "2025-12-14T12:40:13.098Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T12:20:17.187Z"
+      "lastUsed": "2025-12-14T12:40:15.267Z"
     }
   ],
   "serperApiKeys": [
@@ -357,10 +357,17 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "6dc72eae-ef94-4690-8e86-bb5cbd678482"
+    },
+    {
+      "id": "a6d8ae01-8612-419a-ade2-ec8d8a792628",
+      "time": "13:32",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "a8d453c5-3551-40a4-8d91-256c98f23c9a"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 6,
+  "currentCerebrasKeyIndex": 3,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -428,7 +435,9 @@
     "the disturbing backyard scene points to murder... ...",
     "strange & offbeat news",
     "trending: latest buzz in pop culture and news, photos & ...",
-    "these new “deep work” ai agents are going viral"
+    "these new “deep work” ai agents are going viral",
+    "you won't believe what happened to sharon marshall",
+    "scientists stumbled upon lifesaving cancer treatments"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -445,7 +454,8 @@
       "uncovering the mysterious death of rebecca zahau: new developments in the 2011 coronado mansion case and the potential link to similar cases of suspicious deaths in luxury homes",
       "the unsettling parallels between the 1980 'toothman' murders in rural ohio and the recent 'smiley face killer' theories: uncovering the chilling connection between two of america's most baffling unsolved cases",
       "catherine hoggle ruled competent to stand trial in missing children ...",
-      "the disturbing backyard scene points to murder... ..."
+      "the disturbing backyard scene points to murder... ...",
+      "you won't believe what happened to sharon marshall"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
@@ -479,7 +489,8 @@
       "science news | the latest news from all areas of science",
       "sciencedaily: your source for the latest research news",
       "weird but true",
-      "strange & offbeat news"
+      "strange & offbeat news",
+      "scientists stumbled upon lifesaving cancer treatments"
     ],
     "viral-entertainment": [
       "the bridgerton effect: why season 3's viral reign is dominating your feed and what happens next",
