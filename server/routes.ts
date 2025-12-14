@@ -1161,6 +1161,47 @@ export async function registerRoutes(
     }
   });
 
+  // Direct test endpoint for posting to X with an account ID
+  app.post("/api/x/accounts/:id/post-test", async (req: Request, res: Response) => {
+    try {
+      const account = await storage.getXAccount(req.params.id);
+      if (!account) {
+        return res.status(404).json({ error: "X account not found" });
+      }
+      
+      // Log exact credential lengths and values for debugging
+      console.log("[X Direct Post Test] Account from storage:", {
+        id: account.id,
+        name: account.name,
+        apiKeyFull: account.apiKey,
+        apiSecretFull: account.apiSecret,
+        accessTokenFull: account.accessToken,
+        accessTokenSecretFull: account.accessTokenSecret,
+        apiKeyLength: account.apiKey?.length,
+        apiSecretLength: account.apiSecret?.length,
+        accessTokenLength: account.accessToken?.length,
+        accessTokenSecretLength: account.accessTokenSecret?.length,
+      });
+      
+      const testMessage = `Test post from API at ${new Date().toISOString().slice(0, 19)}`;
+      
+      const result = await postToX(account, testMessage);
+      
+      res.json({
+        ...result,
+        credentialDebug: {
+          apiKeyLength: account.apiKey?.length,
+          apiSecretLength: account.apiSecret?.length,
+          accessTokenLength: account.accessToken?.length,
+          accessTokenSecretLength: account.accessTokenSecret?.length,
+        }
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
+    }
+  });
+
   // X-Blogger Connections
   app.get("/api/x/connections", async (_req: Request, res: Response) => {
     try {

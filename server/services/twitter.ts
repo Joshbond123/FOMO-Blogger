@@ -166,6 +166,19 @@ export async function postToX(
     const url = "https://api.twitter.com/2/tweets";
     
     const tweetBody: { text: string } = { text };
+    
+    // Debug logging
+    console.log("[X Post] Tweet text:", {
+      textLength: text?.length,
+      textPreview: text?.slice(0, 200),
+      fullText: text
+    });
+    console.log("[X Post] Using credentials:", {
+      apiKey: xAccount.apiKey?.slice(0, 8) + "...",
+      apiSecretLength: xAccount.apiSecret?.length,
+      accessToken: xAccount.accessToken?.slice(0, 15) + "...",
+      accessTokenSecretLength: xAccount.accessTokenSecret?.length
+    });
 
     const authHeader = generateAuthHeader(
       "POST",
@@ -275,7 +288,10 @@ export async function postBlogToX(
   post: Post
 ): Promise<{ success: boolean; message: string; tweetUrl?: string }> {
   try {
+    console.log("[postBlogToX] Starting for bloggerAccountId:", bloggerAccountId);
+    
     const connection = await storage.getXConnectionByBloggerAccountId(bloggerAccountId);
+    console.log("[postBlogToX] Connection found:", JSON.stringify(connection, null, 2));
     
     if (!connection || !connection.isActive) {
       return {
@@ -285,6 +301,19 @@ export async function postBlogToX(
     }
     
     const xAccount = await storage.getXAccount(connection.xAccountId);
+    console.log("[postBlogToX] xAccount retrieved:", JSON.stringify({
+      id: xAccount?.id,
+      name: xAccount?.name,
+      apiKey: xAccount?.apiKey,
+      apiKeyLength: xAccount?.apiKey?.length,
+      apiSecret: xAccount?.apiSecret,
+      apiSecretLength: xAccount?.apiSecret?.length,
+      accessToken: xAccount?.accessToken,
+      accessTokenLength: xAccount?.accessToken?.length,
+      accessTokenSecret: xAccount?.accessTokenSecret,
+      accessTokenSecretLength: xAccount?.accessTokenSecret?.length,
+      isConnected: xAccount?.isConnected,
+    }, null, 2));
     
     if (!xAccount || !xAccount.isConnected) {
       return {
@@ -303,6 +332,7 @@ export async function postBlogToX(
     }
     
     const tweetText = formatBlogPostForX(post, blogUrl);
+    console.log("[postBlogToX] Calling postToX with tweetText length:", tweetText.length);
     
     const result = await postToX(xAccount, tweetText, post.imageUrl);
     
