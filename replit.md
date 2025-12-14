@@ -1,14 +1,15 @@
 # AI Blog Automator
 
-An automated AI blogging platform that generates FOMO-driven content using Google Gemini AI, creates featured images with HuggingFace, and auto-publishes to Blogger.com with scheduling capabilities.
+An automated AI blogging platform that generates FOMO-driven content using Cerebras AI and Serper.dev for research, creates featured images with Pollinations AI, and auto-publishes to Blogger.com with X (Twitter) cross-posting.
 
 ## Overview
 
-This platform is designed for the **AI Tools and Productivity** niche, automatically generating:
-- Trending topic research
+This platform is designed for multiple niches, automatically generating:
+- Trending topic research via Serper.dev + Cerebras AI
 - SEO-optimized blog posts with FOMO hooks
-- Featured images using AI
+- Featured images using Pollinations AI (free)
 - Automated publishing to Blogger.com
+- Automatic cross-posting to X (Twitter) for connected accounts
 
 ## Architecture
 
@@ -22,7 +23,7 @@ This platform is designed for the **AI Tools and Productivity** niche, automatic
 - **API**: Express.js REST API
 - **Storage**: File-based JSON storage in `/database` folder
 - **Scheduling**: node-cron for automated posting
-- **AI Services**: Google Gemini API, HuggingFace Inference API
+- **AI Services**: Cerebras AI (primary), Serper.dev (web research), Pollinations AI (images)
 
 ## Key Features
 
