@@ -7,7 +7,8 @@ const CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions";
 const CEREBRAS_MODEL = "llama-3.3-70b";
 
 // Global topic lock to prevent duplicate topics across domains
-const topicLock = new Map<string, { timestamp: number; accountId: string }>();
+// Stores both original source title and URL for accurate comparison
+const topicLock = new Map<string, { timestamp: number; accountId: string; originalTitle: string; sourceUrl?: string }>();
 const LOCK_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
 
 export interface SerperSearchResult {
@@ -80,15 +81,20 @@ function cleanupExpiredLocks(): void {
   }
 }
 
-// Check if a topic is locked by another domain
-function isTopicLocked(topic: string, currentAccountId?: string): boolean {
+// Check if a topic is locked by another domain - compares against original source title
+function isTopicLocked(topic: string, currentAccountId?: string, sourceUrl?: string): boolean {
   cleanupExpiredLocks();
   const normalizedTopic = topic.toLowerCase().trim();
   
-  for (const [lockedTopic, lock] of topicLock.entries()) {
+  for (const [_, lock] of topicLock.entries()) {
     if (lock.accountId !== currentAccountId) {
-      const similarity = calculateTopicSimilarity(normalizedTopic, lockedTopic);
-      if (similarity > 0.6) {
+      // Check URL match first (most accurate)
+      if (sourceUrl && lock.sourceUrl && sourceUrl === lock.sourceUrl) {
+        return true;
+      }
+      // Then check original title similarity
+      const similarity = calculateTopicSimilarity(normalizedTopic, lock.originalTitle.toLowerCase());
+      if (similarity > 0.5) {
         return true;
       }
     }
@@ -96,12 +102,38 @@ function isTopicLocked(topic: string, currentAccountId?: string): boolean {
   return false;
 }
 
-// Lock a topic for a specific account
-function lockTopic(topic: string, accountId: string): void {
+// Lock a topic for a specific account - returns false if already locked by another account
+// Now stores original source title and URL for accurate comparison
+function lockTopic(originalTitle: string, accountId: string, sourceUrl?: string): boolean {
   cleanupExpiredLocks();
-  const normalizedTopic = topic.toLowerCase().trim();
-  topicLock.set(normalizedTopic, { timestamp: Date.now(), accountId });
-  console.log(`[Serper] Topic locked for account ${accountId}: "${topic}"`);
+  const normalizedOriginal = originalTitle.toLowerCase().trim();
+  
+  // Check if topic is already locked by another account (atomic check-and-set)
+  for (const [_, lock] of topicLock.entries()) {
+    if (lock.accountId !== accountId) {
+      // Check URL match first (most accurate)
+      if (sourceUrl && lock.sourceUrl && sourceUrl === lock.sourceUrl) {
+        console.log(`[Serper] Topic with URL "${sourceUrl}" already locked by account ${lock.accountId}, cannot lock for ${accountId}`);
+        return false;
+      }
+      // Then check original title similarity
+      const similarity = calculateTopicSimilarity(normalizedOriginal, lock.originalTitle.toLowerCase());
+      if (similarity > 0.5) {
+        console.log(`[Serper] Topic "${originalTitle}" already locked by account ${lock.accountId}, cannot lock for ${accountId}`);
+        return false;
+      }
+    }
+  }
+  
+  const lockKey = sourceUrl || normalizedOriginal;
+  topicLock.set(lockKey, { 
+    timestamp: Date.now(), 
+    accountId, 
+    originalTitle: normalizedOriginal,
+    sourceUrl 
+  });
+  console.log(`[Serper] Topic locked for account ${accountId}: "${originalTitle}"`);
+  return true;
 }
 
 // Calculate similarity between two topic strings
@@ -311,8 +343,8 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId, accountId?: 
              calculateTopicSimilarity(titleLower, usedLower) > 0.5;
     });
     
-    // Check against locked topics
-    const isLocked = isTopicLocked(result.title, accountId);
+    // Check against locked topics (pass URL for accurate matching)
+    const isLocked = isTopicLocked(result.title, accountId, result.link);
     
     return !isUsed && !isLocked;
   });
@@ -328,17 +360,88 @@ export async function searchTrendingTopicsSerper(nicheId?: NicheId, accountId?: 
   console.log(`[Serper] Generated ${topicCandidatesGenerated} topic candidates for AI selection`);
   
   // Use Cerebras AI to select the MOST interesting, high-attention topic with random element
-  const selectedResult = await selectBestTopicWithCerebras(
-    topCandidates, 
-    niche, 
-    today, 
-    allUsedTopics,
-    accountId
-  );
+  // With retry logic to handle topic lock failures (race condition prevention)
+  let selectedResult: { topic: string; snippet: string; whyInteresting: string; originalTitle: string; sourceUrl: string } | null = null;
+  let attempts = 0;
+  const maxAttempts = 5;
+  let remainingCandidates = [...topCandidates];
   
-  // Lock the selected topic for this account
-  if (accountId && selectedResult.topic) {
-    lockTopic(selectedResult.topic, accountId);
+  while (!selectedResult && attempts < maxAttempts && remainingCandidates.length > 0) {
+    attempts++;
+    const result = await selectBestTopicWithCerebras(
+      remainingCandidates, 
+      niche, 
+      today, 
+      allUsedTopics,
+      accountId
+    );
+    
+    // Try to lock the selected topic for this account using original title and URL
+    if (accountId && result.originalTitle) {
+      const lockAcquired = lockTopic(result.originalTitle, accountId, result.sourceUrl);
+      if (lockAcquired) {
+        selectedResult = result;
+        console.log(`[Serper] Successfully locked topic on attempt ${attempts}: "${result.originalTitle}"`);
+      } else {
+        // Remove the exact URL and similar topics from candidates and try again
+        console.log(`[Serper] Lock failed on attempt ${attempts}, trying different topic...`);
+        remainingCandidates = remainingCandidates.filter(c => 
+          c.link !== result.sourceUrl && 
+          calculateTopicSimilarity(c.title.toLowerCase(), result.originalTitle.toLowerCase()) < 0.5
+        );
+      }
+    } else {
+      // No accountId means no locking needed
+      selectedResult = result;
+    }
+  }
+  
+  // Fallback if all attempts fail - pick from remaining unlocked candidates
+  if (!selectedResult) {
+    console.log(`[Serper] All lock attempts failed after ${attempts} attempts`);
+    
+    // Find first unlocked candidate
+    for (const candidate of remainingCandidates) {
+      if (accountId) {
+        const lockAcquired = lockTopic(candidate.title, accountId, candidate.link);
+        if (lockAcquired) {
+          selectedResult = {
+            topic: createFOMOTitle(candidate.title, niche),
+            snippet: candidate.snippet,
+            whyInteresting: "Selected as fallback after lock conflicts.",
+            originalTitle: candidate.title,
+            sourceUrl: candidate.link
+          };
+          break;
+        }
+      }
+    }
+    
+    // Last resort - try ALL original candidates to find one that can be locked
+    if (!selectedResult) {
+      console.log(`[Serper] Trying all ${topCandidates.length} original candidates for lock...`);
+      for (const candidate of topCandidates) {
+        if (accountId) {
+          const lockAcquired = lockTopic(candidate.title, accountId, candidate.link);
+          if (lockAcquired) {
+            selectedResult = {
+              topic: createFOMOTitle(candidate.title, niche),
+              snippet: candidate.snippet,
+              whyInteresting: "Selected from exhaustive search after lock conflicts.",
+              originalTitle: candidate.title,
+              sourceUrl: candidate.link
+            };
+            console.log(`[Serper] Found unlocked topic in exhaustive search: "${candidate.title}"`);
+            break;
+          }
+        }
+      }
+    }
+    
+    // If still no result, throw error - cannot publish duplicate
+    if (!selectedResult) {
+      throw new Error(`All ${topCandidates.length} topic candidates are already locked by other domains. Cannot proceed without risking duplicate content.`);
+    }
   }
   
   const sources = uniqueResults.slice(0, 10).map(r => ({
@@ -388,13 +491,15 @@ async function selectBestTopicWithCerebras(
   today: string,
   usedTopics: string[],
   accountId?: string
-): Promise<{ topic: string; snippet: string; whyInteresting: string }> {
+): Promise<{ topic: string; snippet: string; whyInteresting: string; originalTitle: string; sourceUrl: string }> {
   
   if (candidates.length === 0) {
     return {
       topic: `Trending in ${niche?.name || "Technology"}`,
       snippet: "No specific trending topic found.",
-      whyInteresting: "General interest topic."
+      whyInteresting: "General interest topic.",
+      originalTitle: "Fallback topic",
+      sourceUrl: ""
     };
   }
   
@@ -406,7 +511,9 @@ async function selectBestTopicWithCerebras(
     return {
       topic: createFOMOTitle(randomSubset[0].title, niche),
       snippet: randomSubset[0].snippet,
-      whyInteresting: "Top trending result."
+      whyInteresting: "Top trending result.",
+      originalTitle: randomSubset[0].title,
+      sourceUrl: randomSubset[0].link
     };
   }
   
@@ -418,10 +525,13 @@ async function selectBestTopicWithCerebras(
     if (allKeys.length === 0) {
       // Fallback to random selection if no Cerebras keys
       const randomIndex = Math.floor(Math.random() * randomSubset.length);
+      const selected = randomSubset[randomIndex];
       return {
-        topic: createFOMOTitle(randomSubset[randomIndex].title, niche),
-        snippet: randomSubset[randomIndex].snippet,
-        whyInteresting: "Randomly selected trending topic."
+        topic: createFOMOTitle(selected.title, niche),
+        snippet: selected.snippet,
+        whyInteresting: "Randomly selected trending topic.",
+        originalTitle: selected.title,
+        sourceUrl: selected.link
       };
     }
     
@@ -507,17 +617,22 @@ Select ONE topic and respond in JSON:
     return {
       topic: parsed.topic || createFOMOTitle(selectedCandidate.title, niche),
       snippet: selectedCandidate.snippet,
-      whyInteresting: parsed.whyInteresting || "High-attention trending topic."
+      whyInteresting: parsed.whyInteresting || "High-attention trending topic.",
+      originalTitle: selectedCandidate.title,
+      sourceUrl: selectedCandidate.link
     };
     
   } catch (error) {
     console.error("[Serper] Cerebras topic selection failed, using random selection:", error);
     // Fallback to random selection
     const randomIndex = Math.floor(Math.random() * randomSubset.length);
+    const selected = randomSubset[randomIndex];
     return {
-      topic: createFOMOTitle(randomSubset[randomIndex].title, niche),
-      snippet: randomSubset[randomIndex].snippet,
-      whyInteresting: "Trending topic selected randomly."
+      topic: createFOMOTitle(selected.title, niche),
+      snippet: selected.snippet,
+      whyInteresting: "Trending topic selected randomly.",
+      originalTitle: selected.title,
+      sourceUrl: selected.link
     };
   }
 }

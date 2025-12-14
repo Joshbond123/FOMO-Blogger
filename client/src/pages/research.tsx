@@ -24,7 +24,10 @@ import {
   Search,
   Key,
   Calendar,
-  Link2
+  Link2,
+  Database,
+  ListChecks,
+  CheckCheck
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import { NICHES, type TrendingResearch } from "@shared/schema";
@@ -52,6 +55,21 @@ export default function ResearchTransparency() {
       time: format(date, "h:mm a"),
       relative: formatDistanceToNow(date, { addSuffix: true }),
       full: format(date, "EEEE, MMMM d, yyyy 'at' h:mm:ss a"),
+    };
+  };
+
+  // Parse aiAnalysis to extract source count, candidates, and niche confirmation
+  const parseAiAnalysis = (aiAnalysis?: string) => {
+    if (!aiAnalysis) return { totalSources: 0, candidates: 0, nicheConfirmed: false };
+    
+    const sourcesMatch = aiAnalysis.match(/(\d+)\s*sources?\s*found/i);
+    const candidatesMatch = aiAnalysis.match(/(\d+)\s*candidates?/i);
+    const nicheConfirmedMatch = aiAnalysis.match(/niche confirmed:\s*(yes|true)/i);
+    
+    return {
+      totalSources: sourcesMatch ? parseInt(sourcesMatch[1], 10) : 0,
+      candidates: candidatesMatch ? parseInt(candidatesMatch[1], 10) : 0,
+      nicheConfirmed: !!nicheConfirmedMatch,
     };
   };
 
@@ -147,10 +165,29 @@ export default function ResearchTransparency() {
                         {research.shortDescription}
                       </p>
                       <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground flex-wrap">
-                        <span className="flex items-center gap-1">
-                          <Link2 className="h-3 w-3" />
-                          {research.sources?.length || 0} sources
-                        </span>
+                        {(() => {
+                          const metrics = parseAiAnalysis(research.aiAnalysis);
+                          return (
+                            <>
+                              <span className="flex items-center gap-1" data-testid={`text-sources-${research.id}`}>
+                                <Database className="h-3 w-3" />
+                                {metrics.totalSources > 0 ? metrics.totalSources : (research.sources?.length || 0)} sources found
+                              </span>
+                              {metrics.candidates > 0 && (
+                                <span className="flex items-center gap-1" data-testid={`text-candidates-${research.id}`}>
+                                  <ListChecks className="h-3 w-3" />
+                                  {metrics.candidates} candidates
+                                </span>
+                              )}
+                              {metrics.nicheConfirmed && (
+                                <Badge variant="outline" className="text-xs flex items-center gap-1" data-testid={`badge-niche-confirmed-${research.id}`}>
+                                  <CheckCheck className="h-3 w-3" />
+                                  Niche Verified
+                                </Badge>
+                              )}
+                            </>
+                          );
+                        })()}
                         {research.serperKeyUsed && (
                           <span className="flex items-center gap-1">
                             <Key className="h-3 w-3" />
@@ -252,6 +289,46 @@ export default function ResearchTransparency() {
                   {selectedResearch?.whyTrending}
                 </p>
               </div>
+
+              {selectedResearch?.aiAnalysis && (
+                <>
+                  <Separator />
+                  <div>
+                    <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <Database className="h-4 w-4" />
+                      Research Metrics
+                    </h4>
+                    {(() => {
+                      const metrics = parseAiAnalysis(selectedResearch.aiAnalysis);
+                      return (
+                        <div className="flex flex-wrap gap-3">
+                          <div className="flex items-center gap-2 p-2 border rounded-md">
+                            <Database className="h-4 w-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium" data-testid="text-detail-sources">{metrics.totalSources}</p>
+                              <p className="text-xs text-muted-foreground">Total Sources</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 p-2 border rounded-md">
+                            <ListChecks className="h-4 w-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium" data-testid="text-detail-candidates">{metrics.candidates}</p>
+                              <p className="text-xs text-muted-foreground">Topic Candidates</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 p-2 border rounded-md">
+                            <CheckCheck className="h-4 w-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium" data-testid="text-detail-niche">{metrics.nicheConfirmed ? "Yes" : "No"}</p>
+                              <p className="text-xs text-muted-foreground">Niche Verified</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </>
+              )}
 
               {selectedResearch?.sources && selectedResearch.sources.length > 0 && (
                 <>
