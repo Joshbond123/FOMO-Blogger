@@ -17,6 +17,9 @@ import type {
   InsertTrendingResearch,
   TumblrCredentials,
   TumblrBloggerConnection,
+  XAccount,
+  InsertXAccount,
+  XBloggerConnection,
 } from "@shared/schema";
 
 const DATABASE_DIR = path.join(process.cwd(), "database");
@@ -30,6 +33,8 @@ const STORAGE_DIR = path.join(process.cwd(), "storage");
 const CONFIG_FILE = path.join(STORAGE_DIR, "config.json");
 const TUMBLR_CONFIG_FILE = path.join(STORAGE_DIR, "tumblr_config.json");
 const TUMBLR_CONNECTIONS_FILE = path.join(DATABASE_DIR, "tumblr_connections.json");
+const X_CONFIG_FILE = path.join(STORAGE_DIR, "x_accounts.json");
+const X_CONNECTIONS_FILE = path.join(DATABASE_DIR, "x_connections.json");
 const IMAGES_DIR = path.join(STORAGE_DIR, "images");
 
 const defaultUserCredentials: UserCredentials = {
@@ -215,6 +220,18 @@ export interface IStorage {
   removeTumblrConnection(id: string): Promise<void>;
   getTumblrConnectionByBloggerAccountId(bloggerAccountId: string): Promise<TumblrBloggerConnection | undefined>;
   getTumblrConnectionByTumblrBlogId(tumblrBlogId: string): Promise<TumblrBloggerConnection | undefined>;
+  
+  // X (Twitter) integration
+  getXAccounts(): Promise<XAccount[]>;
+  getXAccount(id: string): Promise<XAccount | undefined>;
+  addXAccount(account: InsertXAccount): Promise<XAccount>;
+  updateXAccount(id: string, updates: Partial<XAccount>): Promise<XAccount>;
+  removeXAccount(id: string): Promise<void>;
+  getXConnections(): Promise<XBloggerConnection[]>;
+  addXConnection(connection: Omit<XBloggerConnection, "id" | "createdAt">): Promise<XBloggerConnection>;
+  removeXConnection(id: string): Promise<void>;
+  getXConnectionByBloggerAccountId(bloggerAccountId: string): Promise<XBloggerConnection | undefined>;
+  getXConnectionsByXAccountId(xAccountId: string): Promise<XBloggerConnection[]>;
 }
 
 export class FileStorage implements IStorage {
@@ -901,6 +918,108 @@ export class FileStorage implements IStorage {
   async getTumblrConnectionByTumblrBlogId(tumblrBlogId: string): Promise<TumblrBloggerConnection | undefined> {
     const connections = await this.getTumblrConnections();
     return connections.find((c) => c.tumblrBlogId === tumblrBlogId);
+  }
+
+  // X (Twitter) integration methods
+  async getXAccounts(): Promise<XAccount[]> {
+    ensureStorageDirectoryExists();
+    try {
+      if (fs.existsSync(X_CONFIG_FILE)) {
+        const data = fs.readFileSync(X_CONFIG_FILE, "utf-8");
+        return JSON.parse(data) as XAccount[];
+      }
+    } catch (error) {
+      console.error(`Error reading ${X_CONFIG_FILE}:`, error);
+    }
+    return [];
+  }
+
+  async getXAccount(id: string): Promise<XAccount | undefined> {
+    const accounts = await this.getXAccounts();
+    return accounts.find((a) => a.id === id);
+  }
+
+  async addXAccount(accountData: InsertXAccount): Promise<XAccount> {
+    const accounts = await this.getXAccounts();
+    const account: XAccount = {
+      ...accountData,
+      id: randomUUID(),
+      createdAt: new Date().toISOString(),
+      isConnected: false,
+    };
+    accounts.push(account);
+    ensureStorageDirectoryExists();
+    fs.writeFileSync(X_CONFIG_FILE, JSON.stringify(accounts, null, 2), "utf-8");
+    return account;
+  }
+
+  async updateXAccount(id: string, updates: Partial<XAccount>): Promise<XAccount> {
+    const accounts = await this.getXAccounts();
+    const index = accounts.findIndex((a) => a.id === id);
+    if (index === -1) {
+      throw new Error("X account not found");
+    }
+    accounts[index] = { ...accounts[index], ...updates };
+    ensureStorageDirectoryExists();
+    fs.writeFileSync(X_CONFIG_FILE, JSON.stringify(accounts, null, 2), "utf-8");
+    return accounts[index];
+  }
+
+  async removeXAccount(id: string): Promise<void> {
+    const accounts = await this.getXAccounts();
+    const filtered = accounts.filter((a) => a.id !== id);
+    ensureStorageDirectoryExists();
+    fs.writeFileSync(X_CONFIG_FILE, JSON.stringify(filtered, null, 2), "utf-8");
+    
+    // Also remove any connections for this X account
+    const connections = await this.getXConnections();
+    const filteredConnections = connections.filter((c) => c.xAccountId !== id);
+    fs.writeFileSync(X_CONNECTIONS_FILE, JSON.stringify(filteredConnections, null, 2), "utf-8");
+  }
+
+  async getXConnections(): Promise<XBloggerConnection[]> {
+    return readJsonFile<XBloggerConnection[]>(X_CONNECTIONS_FILE, []);
+  }
+
+  async addXConnection(connection: Omit<XBloggerConnection, "id" | "createdAt">): Promise<XBloggerConnection> {
+    const connections = await this.getXConnections();
+    
+    // Check if connection already exists for this blogger account
+    const existingIndex = connections.findIndex(c => c.bloggerAccountId === connection.bloggerAccountId);
+    if (existingIndex !== -1) {
+      // Update existing connection
+      connections[existingIndex] = {
+        ...connections[existingIndex],
+        ...connection,
+      };
+      writeJsonFile(X_CONNECTIONS_FILE, connections);
+      return connections[existingIndex];
+    }
+    
+    const newConnection: XBloggerConnection = {
+      ...connection,
+      id: randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    connections.push(newConnection);
+    writeJsonFile(X_CONNECTIONS_FILE, connections);
+    return newConnection;
+  }
+
+  async removeXConnection(id: string): Promise<void> {
+    const connections = await this.getXConnections();
+    const filtered = connections.filter((c) => c.id !== id);
+    writeJsonFile(X_CONNECTIONS_FILE, filtered);
+  }
+
+  async getXConnectionByBloggerAccountId(bloggerAccountId: string): Promise<XBloggerConnection | undefined> {
+    const connections = await this.getXConnections();
+    return connections.find((c) => c.bloggerAccountId === bloggerAccountId);
+  }
+
+  async getXConnectionsByXAccountId(xAccountId: string): Promise<XBloggerConnection[]> {
+    const connections = await this.getXConnections();
+    return connections.filter((c) => c.xAccountId === xAccountId);
   }
 }
 

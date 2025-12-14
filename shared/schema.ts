@@ -350,3 +350,41 @@ export const tumblrBloggerConnectionSchema = z.object({
 });
 
 export type TumblrBloggerConnection = z.infer<typeof tumblrBloggerConnectionSchema>;
+
+// X (Twitter) Account schema
+export const xAccountSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  apiKey: z.string(),
+  apiSecret: z.string(),
+  accessToken: z.string(),
+  accessTokenSecret: z.string(),
+  isConnected: z.boolean().default(false),
+  username: z.string().optional(),
+  lastTestedAt: z.string().optional(),
+  createdAt: z.string(),
+});
+
+export type XAccount = z.infer<typeof xAccountSchema>;
+
+export const insertXAccountSchema = xAccountSchema.omit({ 
+  id: true, 
+  createdAt: true, 
+  isConnected: true,
+  username: true,
+  lastTestedAt: true,
+});
+export type InsertXAccount = z.infer<typeof insertXAccountSchema>;
+
+// X-Blogger connection schema (links X accounts to Blogger blogs)
+export const xBloggerConnectionSchema = z.object({
+  id: z.string(),
+  xAccountId: z.string(),
+  xAccountName: z.string(),
+  bloggerAccountId: z.string(),
+  bloggerAccountName: z.string(),
+  isActive: z.boolean().default(true),
+  createdAt: z.string(),
+});
+
+export type XBloggerConnection = z.infer<typeof xBloggerConnectionSchema>;
