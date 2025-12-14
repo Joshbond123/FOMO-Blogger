@@ -41,7 +41,7 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T22:34:03.744Z"
+      "lastUsed": "2025-12-14T12:20:05.915Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-11T23:50:08.244Z"
+      "lastUsed": "2025-12-14T12:20:17.187Z"
     }
   ],
   "serperApiKeys": [
@@ -360,7 +360,7 @@
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 5,
+  "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -427,7 +427,8 @@
     "ai-generated political videos are more about memes and ...",
     "the disturbing backyard scene points to murder... ...",
     "strange & offbeat news",
-    "trending: latest buzz in pop culture and news, photos & ..."
+    "trending: latest buzz in pop culture and news, photos & ...",
+    "these new “deep work” ai agents are going viral"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -454,7 +455,8 @@
       "revolutionizing workflows with ai-powered low-code automation: the future of productivity",
       "how google's recent acquisition of alter on february 15, 2023, will revolutionize ai-powered customer service chatbots with personalized conversational interfaces",
       "unlocking the potential of ai-driven cybersecurity: how microsoft's azure security center for iot, launched on march 1, 2023, is revolutionizing threat detection with machine learning algorithms and automation",
-      "ai-generated political videos are more about memes and ..."
+      "ai-generated political videos are more about memes and ...",
+      "these new “deep work” ai agents are going viral"
     ],
     "life-hacks": [
       "the sneaky supermarket scams: how to beat shrinkflation & skimpflation and save big on groceries",
