@@ -128,15 +128,16 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
         return;
       }
       
-      serperResearch = await searchTrendingTopicsSerper(nicheId as NicheId);
+      serperResearch = await searchTrendingTopicsSerper(nicheId as NicheId, accountId);
       console.log(`[Scheduler] Topic researched via Serper: ${serperResearch.topic}`);
-      console.log(`[Scheduler] Found ${serperResearch.sources.length} sources with key: ${serperResearch.serperKeyUsed}`);
+      console.log(`[Scheduler] Found ${serperResearch.totalSourcesFound} sources, ${serperResearch.topicCandidatesGenerated} candidates generated`);
+      console.log(`[Scheduler] Niche confirmed: ${serperResearch.nicheConfirmed ? "Yes" : "No"}, Key: ${serperResearch.serperKeyUsed}`);
       
       const researchLog: InsertTrendingResearch = {
         title: serperResearch.topic,
         shortDescription: serperResearch.summary.slice(0, 200),
         fullSummary: serperResearch.summary,
-        aiAnalysis: `Topic selected based on ${serperResearch.sources.length} sources found via Serper.dev search. Keywords: ${serperResearch.keywords.join(", ")}`,
+        aiAnalysis: `Topic selected from ${serperResearch.topicCandidatesGenerated} candidates based on ${serperResearch.totalSourcesFound} sources found via Serper.dev search. Niche confirmed: ${serperResearch.nicheConfirmed}. Keywords: ${serperResearch.keywords.join(", ")}`,
         nicheId: nicheId,
         nicheName: niche?.name || nicheId,
         bloggerAccountId: accountId,
