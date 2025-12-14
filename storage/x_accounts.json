@@ -1,14 +1,14 @@
 [
   {
     "name": "ShadowCase Files",
-    "apiKey": "LOX4WSXPrUYkeqc8M2TGre2ib",
-    "apiSecret": "Czq9yzdskvcNV7cF9QkFFBeQhtblRokDgQHJV0am11uqMucQSQ",
-    "accessToken": "2000189406536413184-XcZkWuw8d5nwBlORlHNMUMHPUIZXtt",
-    "accessTokenSecret": "XTFZ9pZN1tR34X5M54WkZvqLDHeZ2sL9op48ZKsR71xzE",
-    "id": "0137261c-43b4-462b-ac0a-4d19c6e65abb",
-    "createdAt": "2025-12-14T21:33:19.286Z",
+    "apiKey": "SUcZBLCudRP9nLVAplFXte4ro",
+    "apiSecret": "MRexj8xxtL4rsRCNDjmmNZuzHKSNCCnqC5xsjQ2Wkv2ldG119O",
+    "accessToken": "2000189406536413184-CSyUY3vZdu0fTI8qke4NNnifWQgSOL",
+    "accessTokenSecret": "x1fV0sRAbLtzRypiMPIPfuBA5dTLS5GmxHdgSOFVsVUtD",
+    "id": "963f3cc0-4143-4caa-8c6e-6554f9ecb6f8",
+    "createdAt": "2025-12-14T22:28:24.781Z",
     "isConnected": true,
     "username": "Shadowcasefiles",
-    "lastTestedAt": "2025-12-14T21:33:22.635Z"
+    "lastTestedAt": "2025-12-14T22:28:27.102Z"
   }
 ]

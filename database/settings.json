@@ -13,7 +13,7 @@
       "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
       "createdAt": "2025-12-07T00:33:52.645Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T20:40:15.960Z"
+      "lastUsed": "2025-12-14T22:05:16.786Z"
     },
     {
       "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
@@ -27,7 +27,7 @@
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:28:15.376Z"
+      "lastUsed": "2025-12-14T22:29:16.209Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:34:21.322Z"
+      "lastUsed": "2025-12-14T22:29:26.568Z"
     }
   ],
   "serperApiKeys": [
@@ -91,8 +91,8 @@
       "id": "57c3e8ac-a36f-4901-8893-ee766b73cdcd",
       "createdAt": "2025-12-14T21:26:50.699Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9k2JpMRlurPJNtak6Xv5c3FTjvNtnW-eBhVt4eCRSsEukbJFro3UcRk--yVsmMwhmtgD9toWS0-U3beMMO9PbSB6s6vPyI88yWTY9z3ZBeF5LgAXCeCUP2F1JERQovL5e2cvsjcrC3YRbac_fgTUxu-gUEfxtJgLriv-pHnVGWiKKpjGgmVHFEEwlDahaTdOQaCgYKAUkSARISFQHGX2MimAs_ChiyKSghbFLqVWUJdQ0206",
-      "tokenExpiry": "2025-12-14T22:26:49.698Z",
+      "accessToken": "ya29.a0Aa7pCA8BMpWS9K7o259iwELFf6FjgruhyMtB5Wiq173AqpLy8B4yQm3gCYrWpCL4gqcF97qDEpDsDe1RSnDbfPHZ8fyTGxDO21gY6U70v2XZW8OIEsRsutpg28QSFPmcp8EDJtyrTLTsFjF0-m3BwhY0oAd4d9Um1ZiVYOrLf6vGf6EVonLO_pFyv3AH9-MzAaxiG3kaCgYKAXUSARISFQHGX2Mi5OjA6ryHjno2E8LGrsM8_A0206",
+      "tokenExpiry": "2025-12-14T23:29:26.519Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/"
     }
@@ -111,10 +111,24 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "e4af7254-36b6-4ed9-94a7-5b30626d24a1",
+      "time": "23:05",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "9dd5347b-7a2b-4caf-ad01-8925572cb74c",
+      "time": "23:29",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 0,
+  "currentCerebrasKeyIndex": 4,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -191,7 +205,9 @@
     "17 life hacks so good people didn't want to share",
     "you won't believe this new mystery",
     "ohio's creepiest unsolved death revealed",
-    "mass shooting at bondi beach: what happened?"
+    "mass shooting at bondi beach: what happened?",
+    "millionaire couple found brutally murdered in desert",
+    "new clues in rebecca park murder case revealed"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -213,7 +229,9 @@
       "mass shooting at bondi beach: 12 killed, 29 injured",
       "you won't believe this new mystery",
       "ohio's creepiest unsolved death revealed",
-      "mass shooting at bondi beach: what happened?"
+      "mass shooting at bondi beach: what happened?",
+      "millionaire couple found brutally murdered in desert",
+      "new clues in rebecca park murder case revealed"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
