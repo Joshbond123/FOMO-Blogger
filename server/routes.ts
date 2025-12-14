@@ -1077,6 +1077,40 @@ export async function registerRoutes(
     }
   });
 
+  app.put("/api/x/accounts/:id", async (req: Request, res: Response) => {
+    try {
+      const { name, apiKey, apiSecret, accessToken, accessTokenSecret } = req.body;
+      
+      const existingAccount = await storage.getXAccount(req.params.id);
+      if (!existingAccount) {
+        return res.status(404).json({ error: "X account not found" });
+      }
+      
+      const updateData: Record<string, string> = {};
+      if (name) updateData.name = name;
+      if (apiKey) updateData.apiKey = apiKey;
+      if (apiSecret) updateData.apiSecret = apiSecret;
+      if (accessToken) updateData.accessToken = accessToken;
+      if (accessTokenSecret) updateData.accessTokenSecret = accessTokenSecret;
+      
+      const updated = await storage.updateXAccount(req.params.id, updateData);
+      
+      res.json({ 
+        success: true, 
+        data: updated ? {
+          ...updated,
+          apiKey: updated.apiKey.slice(0, 4) + "..." + updated.apiKey.slice(-4),
+          apiSecret: "••••••••",
+          accessToken: updated.accessToken.slice(0, 4) + "..." + updated.accessToken.slice(-4),
+          accessTokenSecret: "••••••••",
+        } : null
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update X account";
+      res.status(500).json({ error: message });
+    }
+  });
+
   app.post("/api/x/accounts/:id/test", async (req: Request, res: Response) => {
     try {
       const account = await storage.getXAccount(req.params.id);
