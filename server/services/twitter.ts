@@ -206,9 +206,16 @@ export async function postToX(
       if (response.status === 403) {
         const errorLower = errorText.toLowerCase();
         if (errorLower.includes("not permitted") || errorLower.includes("forbidden")) {
+          // Check if this might be a content length issue (tweets over 280 chars get 403)
+          if (text.length > 280) {
+            return {
+              success: false,
+              message: `X API error: Tweet is ${text.length} characters but X only allows 280 characters. The tweet was automatically truncated but may have exceeded the limit.`,
+            };
+          }
           return {
             success: false,
-            message: `X API permission error: Your X Developer App likely doesn't have "Read and Write" permissions. Go to developer.x.com -> Your App -> Settings -> User authentication settings -> Set permissions to "Read and Write", then REGENERATE your Access Token and Access Token Secret (old tokens won't work after permission changes).`,
+            message: `X API permission error: Your X Developer App may not have "Read and Write" permissions. Go to developer.x.com -> Your App -> Settings -> User authentication settings -> Set permissions to "Read and Write", then REGENERATE your Access Token and Access Token Secret (old tokens won't work after permission changes).`,
           };
         }
       }
@@ -264,7 +271,7 @@ export async function postToX(
 export function formatBlogPostForX(
   post: Post,
   blogUrl: string,
-  maxLength: number = 1000
+  maxLength: number = 280
 ): string {
   let excerpt = post.excerpt || post.content;
   
