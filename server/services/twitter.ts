@@ -157,6 +157,76 @@ export async function testXConnection(
   }
 }
 
+async function uploadMediaToX(
+  xAccount: XAccount,
+  imageUrl: string
+): Promise<{ success: boolean; mediaId?: string; error?: string }> {
+  try {
+    console.log("[X Media] Downloading image from:", imageUrl);
+    
+    // Download the image
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+      return { success: false, error: `Failed to download image: ${imageResponse.status}` };
+    }
+    
+    const imageBuffer = await imageResponse.arrayBuffer();
+    const base64Image = Buffer.from(imageBuffer).toString("base64");
+    
+    // Determine media type from URL or content-type
+    const contentType = imageResponse.headers.get("content-type") || "image/jpeg";
+    const mediaType = contentType.includes("png") ? "image/png" : 
+                      contentType.includes("gif") ? "image/gif" : "image/jpeg";
+    
+    console.log("[X Media] Image size:", imageBuffer.byteLength, "bytes, type:", mediaType);
+    
+    // Upload to X media endpoint (v1.1 API)
+    const uploadUrl = "https://upload.twitter.com/1.1/media/upload.json";
+    
+    // Create form data for media upload
+    const formData = new URLSearchParams();
+    formData.append("media_data", base64Image);
+    
+    const authHeader = generateAuthHeader(
+      "POST",
+      uploadUrl,
+      xAccount.apiKey,
+      xAccount.apiSecret,
+      xAccount.accessToken,
+      xAccount.accessTokenSecret,
+      { media_data: base64Image }
+    );
+    
+    const uploadResponse = await fetch(uploadUrl, {
+      method: "POST",
+      headers: {
+        Authorization: authHeader,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    });
+    
+    if (!uploadResponse.ok) {
+      const errorText = await uploadResponse.text();
+      console.error("[X Media] Upload failed:", errorText);
+      return { success: false, error: `Media upload failed: ${uploadResponse.status} - ${errorText}` };
+    }
+    
+    const uploadData = await uploadResponse.json() as { media_id_string?: string };
+    
+    if (uploadData.media_id_string) {
+      console.log("[X Media] Upload successful, media_id:", uploadData.media_id_string);
+      return { success: true, mediaId: uploadData.media_id_string };
+    }
+    
+    return { success: false, error: "No media_id returned from upload" };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("[X Media] Upload error:", message);
+    return { success: false, error: message };
+  }
+}
+
 export async function postToX(
   xAccount: XAccount,
   text: string,
@@ -165,13 +235,27 @@ export async function postToX(
   try {
     const url = "https://api.twitter.com/2/tweets";
     
-    const tweetBody: { text: string } = { text };
+    // Build tweet body with optional media
+    const tweetBody: { text: string; media?: { media_ids: string[] } } = { text };
+    
+    // Upload media if provided
+    if (mediaUrl) {
+      console.log("[X Post] Uploading media:", mediaUrl);
+      const mediaResult = await uploadMediaToX(xAccount, mediaUrl);
+      
+      if (mediaResult.success && mediaResult.mediaId) {
+        tweetBody.media = { media_ids: [mediaResult.mediaId] };
+        console.log("[X Post] Media attached to tweet");
+      } else {
+        console.warn("[X Post] Media upload failed, posting without image:", mediaResult.error);
+      }
+    }
     
     // Debug logging
     console.log("[X Post] Tweet text:", {
       textLength: text?.length,
       textPreview: text?.slice(0, 200),
-      fullText: text
+      hasMedia: !!tweetBody.media
     });
     console.log("[X Post] Using credentials:", {
       apiKey: xAccount.apiKey?.slice(0, 8) + "...",
