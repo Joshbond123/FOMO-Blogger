@@ -6,7 +6,7 @@
       "key": "csk-ejhhrnrhnhkxk2vx8eyyy2wdk2v8xypy2t685ffpyekhdm56",
       "createdAt": "2025-12-07T00:33:46.901Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:25:19.743Z"
+      "lastUsed": "2025-12-14T23:47:15.741Z"
     },
     {
       "id": "52a78ee6-501a-441a-a6e3-4b7e7c2fb767",
@@ -20,7 +20,7 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:33:57.035Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:28:14.543Z"
+      "lastUsed": "2025-12-15T11:32:18.322Z"
     },
     {
       "id": "b68be842-283b-4c83-b832-d9e593218dd3",
@@ -41,7 +41,7 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:34:12.387Z"
+      "lastUsed": "2025-12-14T23:19:16.790Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T22:29:26.568Z"
+      "lastUsed": "2025-12-15T11:32:20.558Z"
     }
   ],
   "serperApiKeys": [
@@ -91,8 +91,8 @@
       "id": "57c3e8ac-a36f-4901-8893-ee766b73cdcd",
       "createdAt": "2025-12-14T21:26:50.699Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8BMpWS9K7o259iwELFf6FjgruhyMtB5Wiq173AqpLy8B4yQm3gCYrWpCL4gqcF97qDEpDsDe1RSnDbfPHZ8fyTGxDO21gY6U70v2XZW8OIEsRsutpg28QSFPmcp8EDJtyrTLTsFjF0-m3BwhY0oAd4d9Um1ZiVYOrLf6vGf6EVonLO_pFyv3AH9-MzAaxiG3kaCgYKAXUSARISFQHGX2Mi5OjA6ryHjno2E8LGrsM8_A0206",
-      "tokenExpiry": "2025-12-14T23:29:26.519Z",
+      "accessToken": "ya29.a0Aa7pCA9bBjaZb7HJuqkTTvXWDGE4fmVWWHkGMJNRsKZ8R3t4yJSVmIydhiyKQIV3i5-6SITZXv_El6YE9ILKjUagFHWtpd-8qY463rLA9Ll6HRkoZEXJ9bKaLXFZ5T5M8wbhKA_-G_k02PICV_PWUnZ_9HtdVxEcGjMccTkNIEZEVykdo09XhKcZC1gSKiJpf8l2cKJzaCgYKAUwSARISFQHGX2Miag0ovxEYMNbyfeH55sjXLQ0207",
+      "tokenExpiry": "2025-12-15T12:32:20.620Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/"
     }
@@ -125,10 +125,31 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "e7295e94-013b-4a15-b815-ddfcd3604ad8",
+      "time": "00:19",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "10f7c55d-c0a3-41c4-ac46-7f061623fa8e",
+      "time": "00:47",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "be78fe39-427e-4fd9-be19-e1b5cfe4af0c",
+      "time": "12:32",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 4,
+  "currentCerebrasKeyIndex": 3,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -207,7 +228,10 @@
     "ohio's creepiest unsolved death revealed",
     "mass shooting at bondi beach: what happened?",
     "millionaire couple found brutally murdered in desert",
-    "new clues in rebecca park murder case revealed"
+    "new clues in rebecca park murder case revealed",
+    "serial killer caught 30 years later",
+    "girl shot and hidden in barrel: what happened?",
+    "killer exposed by own google searches"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -231,7 +255,10 @@
       "ohio's creepiest unsolved death revealed",
       "mass shooting at bondi beach: what happened?",
       "millionaire couple found brutally murdered in desert",
-      "new clues in rebecca park murder case revealed"
+      "new clues in rebecca park murder case revealed",
+      "serial killer caught 30 years later",
+      "girl shot and hidden in barrel: what happened?",
+      "killer exposed by own google searches"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
