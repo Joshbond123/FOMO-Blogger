@@ -446,6 +446,9 @@ STRUCTURE:
    - Mix paragraphs with bullet points and numbered lists for easy reading
    - Every section dives deeper into "${topic}" - no topic switching allowed
 4. CONCLUSION: Strong finish about "${topic}" only - summarize key points, leave readers thinking
+   - End with a FRIENDLY CALL-TO-ACTION that invites readers to share their thoughts, experiences, or opinions in the comments
+   - Make readers feel valued and welcomed to join the conversation (e.g., "What's your experience with...?", "I'd love to hear your thoughts...", "Have you ever...? Share your story below!")
+   - Keep the CTA warm, genuine, and conversational - not pushy or generic
 5. FORMAT: HTML tags (<h2>, <p>, <ul>, <li>, <ol>, <strong>, <em>)
 
 LENGTH: 1,200-1,800 words of high-quality, valuable content.
