@@ -34,7 +34,7 @@
       "key": "csk-rxhxrdvcjw4kthcvcdr4pdv54k3jky9neh84wcp2pdnkvd6e",
       "createdAt": "2025-12-07T00:34:05.032Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:00:15.931Z"
+      "lastUsed": "2025-12-16T06:28:14.276Z"
     },
     {
       "id": "668ba3bd-807e-4e3c-a634-a42c7c0a886c",
@@ -66,7 +66,7 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-15T11:32:20.558Z"
+      "lastUsed": "2025-12-16T06:28:23.364Z"
     }
   ],
   "serperApiKeys": [
@@ -91,8 +91,8 @@
       "id": "57c3e8ac-a36f-4901-8893-ee766b73cdcd",
       "createdAt": "2025-12-14T21:26:50.699Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9bBjaZb7HJuqkTTvXWDGE4fmVWWHkGMJNRsKZ8R3t4yJSVmIydhiyKQIV3i5-6SITZXv_El6YE9ILKjUagFHWtpd-8qY463rLA9Ll6HRkoZEXJ9bKaLXFZ5T5M8wbhKA_-G_k02PICV_PWUnZ_9HtdVxEcGjMccTkNIEZEVykdo09XhKcZC1gSKiJpf8l2cKJzaCgYKAUwSARISFQHGX2Miag0ovxEYMNbyfeH55sjXLQ0207",
-      "tokenExpiry": "2025-12-15T12:32:20.620Z",
+      "accessToken": "ya29.a0Aa7pCA8INfP9zggMMNsE3U3JQ8bYxyRrCyQSkSFS2PYuOGqoj6xE5bAPYHGkPft2ozSkfGyVN0EM1gd0Lc11ht6w8TAfDtUigwygLdXymuyH6YJr6t2K3C04newsXhvMFak5Yu_ONwFC2jwGyRIeaVp89XYy8A8GoKw_UmpQLFwOgC3iarcozD-5XXqUE-NQ3V-fyrhQaCgYKAUoSARISFQHGX2MiorF_yZelBRFc2OFz3ElYoA0207",
+      "tokenExpiry": "2025-12-16T07:28:23.330Z",
       "blogName": "ShadowCase Files",
       "blogUrl": "http://shadowcasefile.blogspot.com/"
     }
@@ -146,10 +146,24 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "39c1e8ed-8947-4fe8-9136-b10ba96adfe5",
+      "time": "07:27",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "b26d1ace-b671-42bb-9080-8558496afded",
+      "time": "07:28",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 3,
+  "currentCerebrasKeyIndex": 5,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
   "currentSerperKeyIndex": 0,
@@ -231,7 +245,8 @@
     "new clues in rebecca park murder case revealed",
     "serial killer caught 30 years later",
     "girl shot and hidden in barrel: what happened?",
-    "killer exposed by own google searches"
+    "killer exposed by own google searches",
+    "rob reiner's son arrested for parents' murder"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -258,7 +273,8 @@
       "new clues in rebecca park murder case revealed",
       "serial killer caught 30 years later",
       "girl shot and hidden in barrel: what happened?",
-      "killer exposed by own google searches"
+      "killer exposed by own google searches",
+      "rob reiner's son arrested for parents' murder"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
