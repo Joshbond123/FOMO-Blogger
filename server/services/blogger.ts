@@ -5,59 +5,87 @@ const BLOGGER_API_BASE = "https://www.googleapis.com/blogger/v3";
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 
 function injectAds(content: string, account: BloggerAccount): string {
-  const bannerAdsCode = account.bannerAdsCode?.trim();
+  const adsterraBannerCode = account.bannerAdsCode?.trim();
   const popunderAdsCode = account.popunderAdsCode?.trim();
+  const adverticaBannerCode = account.adverticaBannerAdsCode?.trim();
 
-  if (!bannerAdsCode && !popunderAdsCode) {
+  if (!adsterraBannerCode && !popunderAdsCode && !adverticaBannerCode) {
     return content;
   }
-
-  const adStartBanner = bannerAdsCode ? `<div class="ad-placement ad-start" style="margin: 20px 0; text-align: center;">${bannerAdsCode}</div>` : '';
-  const adAfterP2Banner = bannerAdsCode ? `<div class="ad-placement ad-after-p2" style="margin: 20px 0; text-align: center;">${bannerAdsCode}</div>` : '';
-  const adMiddleBanner = bannerAdsCode ? `<div class="ad-placement ad-middle" style="margin: 20px 0; text-align: center;">${bannerAdsCode}</div>` : '';
-  const adEndPopunder = popunderAdsCode ? `\n${popunderAdsCode}` : '';
 
   const paragraphRegex = /<p[^>]*>[\s\S]*?<\/p>/gi;
   const paragraphs = content.match(paragraphRegex) || [];
   
   if (paragraphs.length === 0) {
     let result = content;
-    if (bannerAdsCode) {
-      result = adStartBanner + '\n' + result;
+    if (adsterraBannerCode) {
+      result = `<div class="ad-placement ad-adsterra-1" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>\n` + result;
+    }
+    if (adverticaBannerCode) {
+      result = result + `\n<div class="ad-placement ad-advertica-1" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`;
     }
     if (popunderAdsCode) {
-      result = result + '\n' + adEndPopunder;
+      result = result + '\n' + popunderAdsCode;
     }
     return result;
   }
 
   let result = content;
+  let insertions: { position: number; html: string }[] = [];
 
-  if (bannerAdsCode) {
-    const firstParagraphIndex = result.indexOf(paragraphs[0]);
-    if (firstParagraphIndex !== -1) {
-      result = result.slice(0, firstParagraphIndex) + adStartBanner + '\n' + result.slice(firstParagraphIndex);
+  // Find paragraph positions in original content
+  let paragraphPositions: { start: number; end: number }[] = [];
+  let searchStart = 0;
+  for (const p of paragraphs) {
+    const idx = result.indexOf(p, searchStart);
+    if (idx !== -1) {
+      paragraphPositions.push({ start: idx, end: idx + p.length });
+      searchStart = idx + p.length;
     }
   }
 
-  if (bannerAdsCode && paragraphs.length >= 3) {
-    const p2End = result.indexOf(paragraphs[1]) + paragraphs[1].length;
-    if (p2End > 0) {
-      result = result.slice(0, p2End) + '\n' + adAfterP2Banner + result.slice(p2End);
-    }
+  // Adsterra Banner 1: After paragraph 1
+  if (adsterraBannerCode && paragraphPositions.length >= 1) {
+    insertions.push({
+      position: paragraphPositions[0].end,
+      html: `<div class="ad-placement ad-adsterra-1" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>`
+    });
   }
 
-  if (bannerAdsCode && paragraphs.length >= 6) {
-    const middleIndex = Math.floor(paragraphs.length / 2);
-    const middleParagraph = paragraphs[middleIndex];
-    const middlePEnd = result.lastIndexOf(middleParagraph) + middleParagraph.length;
-    if (middlePEnd > 0) {
-      result = result.slice(0, middlePEnd) + '\n' + adMiddleBanner + result.slice(middlePEnd);
-    }
+  // Advertica Banner 1: After paragraph 2
+  if (adverticaBannerCode && paragraphPositions.length >= 2) {
+    insertions.push({
+      position: paragraphPositions[1].end,
+      html: `<div class="ad-placement ad-advertica-1" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`
+    });
   }
 
+  // Adsterra Banner 2: After paragraph 4 (or middle if less paragraphs)
+  if (adsterraBannerCode && paragraphPositions.length >= 4) {
+    insertions.push({
+      position: paragraphPositions[3].end,
+      html: `<div class="ad-placement ad-adsterra-2" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>`
+    });
+  }
+
+  // Advertica Banner 2: After paragraph 5 (or near end if less paragraphs)
+  if (adverticaBannerCode && paragraphPositions.length >= 5) {
+    insertions.push({
+      position: paragraphPositions[4].end,
+      html: `<div class="ad-placement ad-advertica-2" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`
+    });
+  }
+
+  // Sort insertions by position descending to insert from end to start
+  insertions.sort((a, b) => b.position - a.position);
+
+  for (const insertion of insertions) {
+    result = result.slice(0, insertion.position) + '\n' + insertion.html + result.slice(insertion.position);
+  }
+
+  // Add popunder at the end
   if (popunderAdsCode) {
-    result = result + '\n' + adEndPopunder;
+    result = result + '\n' + popunderAdsCode;
   }
 
   return result;

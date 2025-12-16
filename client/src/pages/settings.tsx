@@ -73,6 +73,7 @@ export default function Settings() {
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
   const [bannerAdsCode, setBannerAdsCode] = useState("");
   const [popunderAdsCode, setPopunderAdsCode] = useState("");
+  const [adverticaBannerAdsCode, setAdverticaBannerAdsCode] = useState("");
   
   const [tumblrConsumerKey, setTumblrConsumerKey] = useState("");
   const [tumblrConsumerSecret, setTumblrConsumerSecret] = useState("");
@@ -305,13 +306,14 @@ export default function Settings() {
   });
 
   const saveAdSettings = useMutation({
-    mutationFn: async ({ accountId, bannerAdsCode, popunderAdsCode }: { accountId: string; bannerAdsCode: string; popunderAdsCode: string }) => {
-      return apiRequest("PATCH", `/api/accounts/${accountId}`, { bannerAdsCode, popunderAdsCode });
+    mutationFn: async ({ accountId, bannerAdsCode, popunderAdsCode, adverticaBannerAdsCode }: { accountId: string; bannerAdsCode: string; popunderAdsCode: string; adverticaBannerAdsCode: string }) => {
+      return apiRequest("PATCH", `/api/accounts/${accountId}`, { bannerAdsCode, popunderAdsCode, adverticaBannerAdsCode });
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["/api/accounts"] });
       setBannerAdsCode(variables.bannerAdsCode);
       setPopunderAdsCode(variables.popunderAdsCode);
+      setAdverticaBannerAdsCode(variables.adverticaBannerAdsCode);
       toast({ title: "Ad settings saved successfully" });
     },
     onError: (error: Error) => {
@@ -356,6 +358,7 @@ export default function Settings() {
     setSelectedAccountId(account.id);
     setBannerAdsCode(account.bannerAdsCode || "");
     setPopunderAdsCode(account.popunderAdsCode || "");
+    setAdverticaBannerAdsCode(account.adverticaBannerAdsCode || "");
   };
 
   const handleSaveAdSettings = () => {
@@ -367,6 +370,7 @@ export default function Settings() {
       accountId: selectedAccountId,
       bannerAdsCode: bannerAdsCode.trim(),
       popunderAdsCode: popunderAdsCode.trim(),
+      adverticaBannerAdsCode: adverticaBannerAdsCode.trim(),
     });
   };
 
@@ -1241,7 +1245,7 @@ export default function Settings() {
                                 <p className="text-sm text-muted-foreground truncate">{account.blogUrl}</p>
                               )}
                             </div>
-                            {(account.bannerAdsCode || account.popunderAdsCode) && (
+                            {(account.bannerAdsCode || account.popunderAdsCode || account.adverticaBannerAdsCode) && (
                               <Badge variant="secondary" size="sm">Ads configured</Badge>
                             )}
                           </div>
@@ -1264,7 +1268,7 @@ export default function Settings() {
                             data-testid="input-banner-ads-code"
                           />
                           <p className="text-xs text-muted-foreground">
-                            This code will be inserted at the start, after paragraph 2, and in the middle of posts.
+                            This Adsterra banner code will be inserted after paragraph 1 and paragraph 4.
                           </p>
                         </div>
 
@@ -1280,6 +1284,23 @@ export default function Settings() {
                           />
                           <p className="text-xs text-muted-foreground">
                             This code will be inserted at the end of posts.
+                          </p>
+                        </div>
+
+                        <Separator className="my-4" />
+
+                        <div className="space-y-2">
+                          <Label htmlFor="advertica-banner-ads-code">Banner Ads Code (Advertica)</Label>
+                          <Textarea
+                            id="advertica-banner-ads-code"
+                            placeholder="Paste your Advertica banner ad code here..."
+                            value={adverticaBannerAdsCode}
+                            onChange={(e) => setAdverticaBannerAdsCode(e.target.value)}
+                            className="min-h-[120px] font-mono text-sm"
+                            data-testid="input-advertica-banner-ads-code"
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            This Advertica banner code will be inserted after paragraph 2 and paragraph 5.
                           </p>
                         </div>
 
@@ -1311,10 +1332,11 @@ export default function Settings() {
               <div className="p-4 rounded-lg bg-muted/50">
                 <h4 className="text-sm font-medium mb-2">How ads are injected:</h4>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>Banner ad at the start of the post</li>
-                  <li>Banner ad after paragraph 2</li>
-                  <li>Banner ad in the middle of the post</li>
-                  <li>Popunder ad at the end of the post</li>
+                  <li><strong>Adsterra Banner 1:</strong> After paragraph 1</li>
+                  <li><strong>Advertica Banner 1:</strong> After paragraph 2</li>
+                  <li><strong>Adsterra Banner 2:</strong> After paragraph 4</li>
+                  <li><strong>Advertica Banner 2:</strong> After paragraph 5</li>
+                  <li><strong>Popunder:</strong> At the end of the post</li>
                 </ul>
                 <p className="text-xs text-muted-foreground mt-2">
                   If no ad codes are configured for an account, posts will be published without ads.

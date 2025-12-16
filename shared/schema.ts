@@ -105,6 +105,8 @@ export const bloggerAccountSchema = z.object({
   // Adsterra ad settings
   bannerAdsCode: z.string().optional(),
   popunderAdsCode: z.string().optional(),
+  // Advertica ad settings
+  adverticaBannerAdsCode: z.string().optional(),
 });
 
 export type BloggerAccount = z.infer<typeof bloggerAccountSchema>;
