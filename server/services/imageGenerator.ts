@@ -1,3 +1,4 @@
+import { uploadImageToFreeImageHost } from "./freeimagehost";
 import { uploadImageToImgbb } from "./imgbb";
 
 const POLLINATIONS_API_URL = "https://image.pollinations.ai/prompt/";
@@ -74,7 +75,7 @@ export async function generateImage(prompt: string): Promise<string | null> {
         return hostedUrl;
       }
       
-      console.log("[ImageGenerator] ImgBB upload failed, using direct Pollinations URL");
+      console.log("[ImageGenerator] Image hosting upload failed, using direct Pollinations URL");
       return imageUrl;
     }
     
@@ -99,10 +100,17 @@ async function saveImageFromResponse(response: Response): Promise<string | null>
     
     console.log("[ImageGenerator] Image converted to base64 (length:", dataUrl.length, ")");
     
-    const hostedUrl = await uploadImageToImgbb(dataUrl);
-    if (hostedUrl) {
-      console.log("[ImageGenerator] Image uploaded to ImgBB:", hostedUrl);
-      return hostedUrl;
+    const freeImageHostUrl = await uploadImageToFreeImageHost(dataUrl);
+    if (freeImageHostUrl) {
+      console.log("[ImageGenerator] Image uploaded to FreeImage.host:", freeImageHostUrl);
+      return freeImageHostUrl;
+    }
+    
+    console.log("[ImageGenerator] FreeImage.host failed, trying ImgBB...");
+    const imgbbUrl = await uploadImageToImgbb(dataUrl);
+    if (imgbbUrl) {
+      console.log("[ImageGenerator] Image uploaded to ImgBB:", imgbbUrl);
+      return imgbbUrl;
     }
     
     return null;

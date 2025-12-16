@@ -127,6 +127,7 @@ const defaultSettings: AppSettings = {
   cerebrasApiKeys: [],
   huggingfaceApiKeys: [],
   imgbbApiKeys: [],
+  freeImageHostApiKeys: [],
   serperApiKeys: [],
   blogger: { isConnected: false },
   bloggerAccounts: [],
@@ -135,6 +136,7 @@ const defaultSettings: AppSettings = {
   currentCerebrasKeyIndex: 0,
   currentHuggingfaceKeyIndex: 0,
   currentImgbbKeyIndex: 0,
+  currentFreeImageHostKeyIndex: 0,
   currentSerperKeyIndex: 0,
   usedTopics: [],
   usedTopicsByNiche: {},
@@ -163,6 +165,10 @@ export interface IStorage {
   addImgbbKey(key: string, name?: string): Promise<ApiKey>;
   removeImgbbKey(id: string): Promise<void>;
   getNextImgbbKey(): Promise<ApiKey | null>;
+  
+  addFreeImageHostKey(key: string, name?: string): Promise<ApiKey>;
+  removeFreeImageHostKey(id: string): Promise<void>;
+  getNextFreeImageHostKey(): Promise<ApiKey | null>;
   
   addSerperKey(key: string, name?: string): Promise<ApiKey>;
   removeSerperKey(id: string): Promise<void>;
@@ -246,6 +252,8 @@ export class FileStorage implements IStorage {
       currentCerebrasKeyIndex: settings.currentCerebrasKeyIndex || 0,
       imgbbApiKeys: settings.imgbbApiKeys || [],
       currentImgbbKeyIndex: settings.currentImgbbKeyIndex || 0,
+      freeImageHostApiKeys: settings.freeImageHostApiKeys || [],
+      currentFreeImageHostKeyIndex: settings.currentFreeImageHostKeyIndex || 0,
       serperApiKeys: settings.serperApiKeys || [],
       currentSerperKeyIndex: settings.currentSerperKeyIndex || 0,
     };
@@ -450,6 +458,57 @@ export class FileStorage implements IStorage {
     }
 
     settings.currentImgbbKeyIndex = (currentIndex + 1) % activeKeys.length;
+    await this.saveSettings(settings);
+
+    return key;
+  }
+
+  async addFreeImageHostKey(key: string, name?: string): Promise<ApiKey> {
+    const settings = await this.getSettings();
+    const newKey: ApiKey = {
+      id: randomUUID(),
+      key,
+      name,
+      createdAt: new Date().toISOString(),
+      isActive: true,
+    };
+    if (!settings.freeImageHostApiKeys) {
+      settings.freeImageHostApiKeys = [];
+    }
+    settings.freeImageHostApiKeys.push(newKey);
+    await this.saveSettings(settings);
+    return newKey;
+  }
+
+  async removeFreeImageHostKey(id: string): Promise<void> {
+    const settings = await this.getSettings();
+    if (!settings.freeImageHostApiKeys) {
+      settings.freeImageHostApiKeys = [];
+    }
+    settings.freeImageHostApiKeys = settings.freeImageHostApiKeys.filter((k) => k.id !== id);
+    if ((settings.currentFreeImageHostKeyIndex || 0) >= settings.freeImageHostApiKeys.length) {
+      settings.currentFreeImageHostKeyIndex = 0;
+    }
+    await this.saveSettings(settings);
+  }
+
+  async getNextFreeImageHostKey(): Promise<ApiKey | null> {
+    const settings = await this.getSettings();
+    if (!settings.freeImageHostApiKeys) {
+      settings.freeImageHostApiKeys = [];
+    }
+    const activeKeys = settings.freeImageHostApiKeys.filter((k) => k.isActive);
+    if (activeKeys.length === 0) return null;
+
+    const currentIndex = (settings.currentFreeImageHostKeyIndex || 0) % activeKeys.length;
+    const key = activeKeys[currentIndex];
+
+    const keyIndex = settings.freeImageHostApiKeys.findIndex((k) => k.id === key.id);
+    if (keyIndex !== -1) {
+      settings.freeImageHostApiKeys[keyIndex].lastUsed = new Date().toISOString();
+    }
+
+    settings.currentFreeImageHostKeyIndex = (currentIndex + 1) % activeKeys.length;
     await this.saveSettings(settings);
 
     return key;

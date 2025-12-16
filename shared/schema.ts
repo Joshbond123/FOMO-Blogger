@@ -195,6 +195,7 @@ export const appSettingsSchema = z.object({
   cerebrasApiKeys: z.array(apiKeySchema).default([]), // New Cerebras keys
   huggingfaceApiKeys: z.array(apiKeySchema).default([]),
   imgbbApiKeys: z.array(apiKeySchema).default([]),
+  freeImageHostApiKeys: z.array(apiKeySchema).default([]), // FreeImage.host API keys
   serperApiKeys: z.array(apiKeySchema).default([]), // Serper.dev API keys for web search
   blogger: bloggerSettingsSchema.default({}),
   bloggerAccounts: z.array(bloggerAccountSchema).default([]),
@@ -203,6 +204,7 @@ export const appSettingsSchema = z.object({
   currentCerebrasKeyIndex: z.number().default(0), // New Cerebras key rotation index
   currentHuggingfaceKeyIndex: z.number().default(0),
   currentImgbbKeyIndex: z.number().default(0),
+  currentFreeImageHostKeyIndex: z.number().default(0), // FreeImage.host key rotation index
   currentSerperKeyIndex: z.number().default(0), // Serper key rotation index
   usedTopics: z.array(z.string()).default([]),
   usedTopicsByNiche: z.record(z.string(), z.array(z.string())).default({}),

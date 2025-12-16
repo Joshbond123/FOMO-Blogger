@@ -60,6 +60,8 @@ export default function Settings() {
   const [newCerebrasKeyName, setNewCerebrasKeyName] = useState("");
   const [newImgbbKey, setNewImgbbKey] = useState("");
   const [newImgbbKeyName, setNewImgbbKeyName] = useState("");
+  const [newFreeImageHostKey, setNewFreeImageHostKey] = useState("");
+  const [newFreeImageHostKeyName, setNewFreeImageHostKeyName] = useState("");
   const [newSerperKey, setNewSerperKey] = useState("");
   const [newSerperKeyName, setNewSerperKeyName] = useState("");
   const [showCredentials, setShowCredentials] = useState(false);
@@ -139,6 +141,34 @@ export default function Settings() {
   const removeImgbbKey = useMutation({
     mutationFn: async (id: string) => {
       return apiRequest("DELETE", `/api/settings/imgbb-keys/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
+      toast({ title: "API key removed" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to remove key", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const addFreeImageHostKey = useMutation({
+    mutationFn: async ({ key, name }: { key: string; name?: string }) => {
+      return apiRequest("POST", "/api/settings/freeimagehost-keys", { key, name });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
+      toast({ title: "FreeImage.host API key added successfully" });
+      setNewFreeImageHostKey("");
+      setNewFreeImageHostKeyName("");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to add key", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const removeFreeImageHostKey = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest("DELETE", `/api/settings/freeimagehost-keys/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
@@ -258,6 +288,22 @@ export default function Settings() {
     },
   });
 
+  const testFreeImageHost = useMutation({
+    mutationFn: async () => {
+      return apiRequest("POST", "/api/test/freeimagehost");
+    },
+    onSuccess: (data: any) => {
+      toast({ 
+        title: data.success ? "Connection successful" : "Connection failed",
+        description: data.message,
+        variant: data.success ? "default" : "destructive"
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Test failed", description: error.message, variant: "destructive" });
+    },
+  });
+
   const saveAdSettings = useMutation({
     mutationFn: async ({ accountId, bannerAdsCode, popunderAdsCode }: { accountId: string; bannerAdsCode: string; popunderAdsCode: string }) => {
       return apiRequest("PATCH", `/api/accounts/${accountId}`, { bannerAdsCode, popunderAdsCode });
@@ -338,6 +384,14 @@ export default function Settings() {
       return;
     }
     addImgbbKey.mutate({ key: newImgbbKey.trim(), name: newImgbbKeyName.trim() || undefined });
+  };
+
+  const handleAddFreeImageHostKey = () => {
+    if (!newFreeImageHostKey.trim()) {
+      toast({ title: "Please enter an API key", variant: "destructive" });
+      return;
+    }
+    addFreeImageHostKey.mutate({ key: newFreeImageHostKey.trim(), name: newFreeImageHostKeyName.trim() || undefined });
   };
 
   const handleAddSerperKey = () => {
@@ -651,6 +705,113 @@ export default function Settings() {
                       data-testid="button-test-imgbb"
                     >
                       <RefreshCw className={`h-4 w-4 mr-2 ${testImgbb.isPending ? "animate-spin" : ""}`} />
+                      Test
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                      <Image className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">FreeImage.host</CardTitle>
+                      <CardDescription>Primary image hosting (recommended)</CardDescription>
+                    </div>
+                  </div>
+                  <Badge variant={settings?.freeImageHostApiKeys?.length ? "secondary" : "outline"}>
+                    {settings?.freeImageHostApiKeys?.length || 0} keys
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 rounded-md bg-green-500/10 border border-green-500/20">
+                  <div className="flex items-start gap-3">
+                    <Image className="h-5 w-5 text-green-600 mt-0.5" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium">Reliable Image Hosting for Blogger</p>
+                      <p className="text-xs text-muted-foreground">
+                        FreeImage.host is preferred for Blogger as images display permanently without issues.
+                        Get your free API key at freeimage.host/page/api
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {settings?.freeImageHostApiKeys && settings.freeImageHostApiKeys.length > 0 && (
+                  <ScrollArea className="max-h-48">
+                    <div className="space-y-2">
+                      {settings.freeImageHostApiKeys.map((key, index) => (
+                        <div 
+                          key={key.id} 
+                          className="flex items-center justify-between gap-2 p-3 rounded-md bg-muted/50"
+                          data-testid={`freeimagehost-key-${index}`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <Badge variant="outline">#{index + 1}</Badge>
+                            <span className="text-sm font-mono truncate">{key.key}</span>
+                            {key.name && <span className="text-xs text-muted-foreground">({key.name})</span>}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeFreeImageHostKey.mutate(key.id)}
+                            data-testid={`button-remove-freeimagehost-key-${index}`}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                )}
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="freeimagehost-key-name">Key Name (optional)</Label>
+                    <Input
+                      id="freeimagehost-key-name"
+                      placeholder="e.g., Primary Key"
+                      value={newFreeImageHostKeyName}
+                      onChange={(e) => setNewFreeImageHostKeyName(e.target.value)}
+                      data-testid="input-freeimagehost-key-name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="freeimagehost-key">API Key</Label>
+                    <Input
+                      id="freeimagehost-key"
+                      type="password"
+                      placeholder="Enter FreeImage.host API key"
+                      value={newFreeImageHostKey}
+                      onChange={(e) => setNewFreeImageHostKey(e.target.value)}
+                      data-testid="input-freeimagehost-key"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={handleAddFreeImageHostKey}
+                      disabled={addFreeImageHostKey.isPending}
+                      className="flex-1"
+                      data-testid="button-add-freeimagehost-key"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Key
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => testFreeImageHost.mutate()}
+                      disabled={testFreeImageHost.isPending || !settings?.freeImageHostApiKeys?.length}
+                      data-testid="button-test-freeimagehost"
+                    >
+                      <RefreshCw className={`h-4 w-4 mr-2 ${testFreeImageHost.isPending ? "animate-spin" : ""}`} />
                       Test
                     </Button>
                   </div>

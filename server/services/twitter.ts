@@ -373,7 +373,7 @@ export function formatBlogPostForX(
     excerpt = excerpt.substring(0, availableLength - 3).trim() + "...";
   }
   
-  return excerpt + hashtagText + linkText;
+  return excerpt + linkText + hashtagText;
 }
 
 function generateHashtagsFromLabels(labels: string[]): string[] {

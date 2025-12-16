@@ -4,6 +4,7 @@ import { storage, getImagePath } from "./storage";
 import { testCerebrasConnection, generateTrendingTopic, generateBlogPost, generateTrendingResearch } from "./services/cerebras";
 import { testImageGeneratorConnection, generateBlogImage } from "./services/imageGenerator";
 import { testImgbbConnection } from "./services/imgbb";
+import { testFreeImageHostConnection } from "./services/freeimagehost";
 import { testSerperConnection, searchTrendingTopicsSerper, researchTopicWithSerper } from "./services/serper";
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
 import { testTumblrConnection, getTumblrBlogs, publishToTumblr } from "./services/tumblr";
@@ -166,6 +167,10 @@ export async function registerRoutes(
           ...k,
           key: k.key.slice(0, 4) + "..." + k.key.slice(-4),
         })),
+        freeImageHostApiKeys: (settings.freeImageHostApiKeys || []).map((k) => ({
+          ...k,
+          key: k.key.slice(0, 4) + "..." + k.key.slice(-4),
+        })),
         blogger: {
           ...settings.blogger,
           accessToken: settings.blogger.accessToken ? "***" : undefined,
@@ -253,6 +258,31 @@ export async function registerRoutes(
   app.delete("/api/settings/imgbb-keys/:id", async (req: Request, res: Response) => {
     try {
       await storage.removeImgbbKey(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to remove API key" });
+    }
+  });
+
+  app.post("/api/settings/freeimagehost-keys", async (req: Request, res: Response) => {
+    try {
+      const { key, name } = req.body;
+      if (!key || typeof key !== "string") {
+        return res.status(400).json({ error: "API key is required" });
+      }
+      const newKey = await storage.addFreeImageHostKey(key, name);
+      res.json({
+        success: true,
+        data: { ...newKey, key: newKey.key.slice(0, 4) + "..." + newKey.key.slice(-4) },
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to add API key" });
+    }
+  });
+
+  app.delete("/api/settings/freeimagehost-keys/:id", async (req: Request, res: Response) => {
+    try {
+      await storage.removeFreeImageHostKey(req.params.id);
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: "Failed to remove API key" });
@@ -515,6 +545,16 @@ export async function registerRoutes(
   app.post("/api/test/imgbb", async (_req: Request, res: Response) => {
     try {
       const result = await testImgbbConnection();
+      res.json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.json({ success: false, message });
+    }
+  });
+
+  app.post("/api/test/freeimagehost", async (_req: Request, res: Response) => {
+    try {
+      const result = await testFreeImageHostConnection();
       res.json(result);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
