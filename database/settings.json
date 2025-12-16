@@ -13,7 +13,7 @@
       "key": "csk-jfrvk3yett9fjhvkx94p8pmd8re8e4ndn9pc4ke64p536fce",
       "createdAt": "2025-12-07T00:33:52.645Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T22:05:16.786Z"
+      "lastUsed": "2025-12-16T19:59:16.857Z"
     },
     {
       "id": "ac199d56-09c8-4dc1-8865-8c4b0e675d46",
@@ -27,7 +27,7 @@
       "key": "csk-mmycwekhehx2ermcv83re8x29jp23yd8vkwmyxp2dxe5r36w",
       "createdAt": "2025-12-07T00:34:01.357Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T22:29:16.209Z"
+      "lastUsed": "2025-12-16T21:34:17.898Z"
     },
     {
       "id": "6a15c2a8-e5f6-46d8-82b9-71c30dcf6d31",
@@ -41,14 +41,14 @@
       "key": "csk-3n4yh5vt2x2c39fjt24tc4nkt38ypk8d4wfr639m26tyvcct",
       "createdAt": "2025-12-07T00:34:33.690Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T23:19:16.790Z"
+      "lastUsed": "2025-12-16T22:29:19.161Z"
     },
     {
       "id": "7823b2bf-d18f-4060-ab4c-cef276270fea",
       "key": "csk-dehtjvd8h5chrm5xeet4hc5hxj3d68h36cvkmnvvtx3vmp5t",
       "createdAt": "2025-12-07T00:35:10.597Z",
       "isActive": true,
-      "lastUsed": "2025-12-14T21:34:13.247Z"
+      "lastUsed": "2025-12-16T19:36:16.579Z"
     }
   ],
   "huggingfaceApiKeys": [
@@ -66,9 +66,10 @@
       "key": "8a253fbc3d3fe346b4bbac4b664345c3",
       "createdAt": "2025-12-06T10:00:47.887Z",
       "isActive": true,
-      "lastUsed": "2025-12-16T06:28:23.364Z"
+      "lastUsed": "2025-12-16T22:29:21.164Z"
     }
   ],
+  "freeImageHostApiKeys": [],
   "serperApiKeys": [
     {
       "id": "8aacdaaf-44f4-46e0-85b9-7d4f7a5fa16b",
@@ -91,10 +92,13 @@
       "id": "57c3e8ac-a36f-4901-8893-ee766b73cdcd",
       "createdAt": "2025-12-14T21:26:50.699Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA8INfP9zggMMNsE3U3JQ8bYxyRrCyQSkSFS2PYuOGqoj6xE5bAPYHGkPft2ozSkfGyVN0EM1gd0Lc11ht6w8TAfDtUigwygLdXymuyH6YJr6t2K3C04newsXhvMFak5Yu_ONwFC2jwGyRIeaVp89XYy8A8GoKw_UmpQLFwOgC3iarcozD-5XXqUE-NQ3V-fyrhQaCgYKAUoSARISFQHGX2MiorF_yZelBRFc2OFz3ElYoA0207",
-      "tokenExpiry": "2025-12-16T07:28:23.330Z",
+      "accessToken": "ya29.a0Aa7pCA9gDWx35fiDXd3hJhReZWCz8lTsJLMVwHYDztIfc4tLNNVHj9F5Gb4ML8uL6E1ZuNY1mm4JtK7q4kY8oPMyp85YPtuUn3pNCU8s_a0NHxcwdLQwVWSbhbDyC09GpZVur7NnAmIx3uxhWWir4dQ4XaLuXlC3855rMKPnv8RoulVoCq1fRvtAwotwZqyj4y92trAqaCgYKAe4SARISFQHGX2Mi8XY9YbvMPXHhV2GMgOsJXA0207",
+      "tokenExpiry": "2025-12-16T22:34:27.821Z",
       "blogName": "ShadowCase Files",
-      "blogUrl": "http://shadowcasefile.blogspot.com/"
+      "blogUrl": "http://shadowcasefile.blogspot.com/",
+      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"https://prototypesorting.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
+      "popunderAdsCode": "",
+      "adverticaBannerAdsCode": "<ins style=\"width: 300px;height:250px\" data-width=\"300\" data-height=\"250\" class=\"m5542ef6a73\" data-domain=\"//data527.click\" data-affquery=\"/b15e52307a0a2b029566/5542ef6a73/?placementName=default\"><script src=\"//data527.click/js/responsive.js\" async></script></ins>"
     }
   ],
   "schedules": [
@@ -160,12 +164,27 @@
       "timezone": "Africa/Lagos",
       "isActive": true,
       "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "84508ad5-fc6e-4dba-8bcb-6c029b232a11",
+      "time": "20:36",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
+    },
+    {
+      "id": "764be1ae-7d27-4023-8c58-4ef5b248ad76",
+      "time": "20:59",
+      "timezone": "Africa/Lagos",
+      "isActive": true,
+      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
     }
   ],
   "currentGeminiKeyIndex": 0,
-  "currentCerebrasKeyIndex": 5,
+  "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
   "currentImgbbKeyIndex": 0,
+  "currentFreeImageHostKeyIndex": 0,
   "currentSerperKeyIndex": 0,
   "usedTopics": [
     "the autonomous ai agent revolution: stop prompting, start automating your entire workflow",
@@ -246,7 +265,10 @@
     "serial killer caught 30 years later",
     "girl shot and hidden in barrel: what happened?",
     "killer exposed by own google searches",
-    "rob reiner's son arrested for parents' murder"
+    "rob reiner's son arrested for parents' murder",
+    "new clues in jonbenét ramsey murder case revealed",
+    "killing spree: 17 lives lost in 3 weeks",
+    "new clue found in jonbenet ramsey murder case"
   ],
   "usedTopicsByNiche": {
     "scary-mysterious": [
@@ -274,7 +296,10 @@
       "serial killer caught 30 years later",
       "girl shot and hidden in barrel: what happened?",
       "killer exposed by own google searches",
-      "rob reiner's son arrested for parents' murder"
+      "rob reiner's son arrested for parents' murder",
+      "new clues in jonbenét ramsey murder case revealed",
+      "killing spree: 17 lives lost in 3 weeks",
+      "new clue found in jonbenet ramsey murder case"
     ],
     "ai-tools": [
       "the on-device ai revolution: why your next productivity powerhouse needs a neural processing unit (npu)",
