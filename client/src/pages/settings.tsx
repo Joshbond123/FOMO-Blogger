@@ -1268,7 +1268,7 @@ export default function Settings() {
                             data-testid="input-banner-ads-code"
                           />
                           <p className="text-xs text-muted-foreground">
-                            This Adsterra banner code will be inserted after paragraph 1 and paragraph 4.
+                            Adsterra Ad 1: After introduction. Adsterra Ad 2: Between major sections.
                           </p>
                         </div>
 
@@ -1300,7 +1300,7 @@ export default function Settings() {
                             data-testid="input-advertica-banner-ads-code"
                           />
                           <p className="text-xs text-muted-foreground">
-                            This Advertica banner code will be inserted after paragraph 2 and paragraph 5.
+                            Advertica Ad 1: After first H2 section. Advertica Ad 2: Before conclusion.
                           </p>
                         </div>
 
@@ -1332,14 +1332,14 @@ export default function Settings() {
               <div className="p-4 rounded-lg bg-muted/50">
                 <h4 className="text-sm font-medium mb-2">How ads are injected:</h4>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                  <li><strong>Adsterra Banner 1:</strong> After paragraph 1</li>
-                  <li><strong>Advertica Banner 1:</strong> After paragraph 2</li>
-                  <li><strong>Adsterra Banner 2:</strong> After paragraph 4</li>
-                  <li><strong>Advertica Banner 2:</strong> After paragraph 5</li>
-                  <li><strong>Popunder:</strong> At the end of the post</li>
+                  <li><strong>Adsterra Ad 1:</strong> After introduction (below 1st or 2nd paragraph)</li>
+                  <li><strong>Advertica Ad 1:</strong> After the first main section (H2)</li>
+                  <li><strong>Adsterra Ad 2:</strong> In the middle of the article (between major sections)</li>
+                  <li><strong>Advertica Ad 2:</strong> Near the end, just before the conclusion</li>
+                  <li><strong>Popunder:</strong> At the very end of the post</li>
                 </ul>
                 <p className="text-xs text-muted-foreground mt-2">
-                  If no ad codes are configured for an account, posts will be published without ads.
+                  Ads are centered, responsive, and properly spaced. They never appear inside paragraphs or headings.
                 </p>
               </div>
             </CardContent>

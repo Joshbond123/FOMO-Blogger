@@ -13,16 +13,25 @@ function injectAds(content: string, account: BloggerAccount): string {
     return content;
   }
 
-  const paragraphRegex = /<p[^>]*>[\s\S]*?<\/p>/gi;
-  const paragraphs = content.match(paragraphRegex) || [];
+  // Responsive, centered ad wrapper with proper spacing
+  const createAdWrapper = (adCode: string, className: string) => 
+    `<div class="ad-placement ${className}" style="margin: 30px auto; padding: 15px 0; text-align: center; max-width: 100%; clear: both; display: block;">${adCode}</div>`;
+
+  // Find all H2 headings and their positions
+  const h2Regex = /<h2[^>]*>[\s\S]*?<\/h2>/gi;
+  const h2Matches = Array.from(content.matchAll(h2Regex));
   
-  if (paragraphs.length === 0) {
+  // Find all paragraphs
+  const paragraphRegex = /<p[^>]*>[\s\S]*?<\/p>/gi;
+  const paragraphMatches = Array.from(content.matchAll(paragraphRegex));
+
+  if (h2Matches.length === 0 && paragraphMatches.length === 0) {
     let result = content;
     if (adsterraBannerCode) {
-      result = `<div class="ad-placement ad-adsterra-1" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>\n` + result;
+      result = createAdWrapper(adsterraBannerCode, 'ad-adsterra-1') + '\n' + result;
     }
     if (adverticaBannerCode) {
-      result = result + `\n<div class="ad-placement ad-advertica-1" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`;
+      result = result + '\n' + createAdWrapper(adverticaBannerCode, 'ad-advertica-1');
     }
     if (popunderAdsCode) {
       result = result + '\n' + popunderAdsCode;
@@ -31,59 +40,130 @@ function injectAds(content: string, account: BloggerAccount): string {
   }
 
   let result = content;
-  let insertions: { position: number; html: string }[] = [];
+  let insertions: { position: number; html: string; priority: number }[] = [];
 
-  // Find paragraph positions in original content
-  let paragraphPositions: { start: number; end: number }[] = [];
-  let searchStart = 0;
-  for (const p of paragraphs) {
-    const idx = result.indexOf(p, searchStart);
-    if (idx !== -1) {
-      paragraphPositions.push({ start: idx, end: idx + p.length });
-      searchStart = idx + p.length;
+  // Get H2 positions
+  const h2Positions = h2Matches.map(m => ({
+    start: m.index!,
+    end: m.index! + m[0].length,
+    text: m[0]
+  }));
+
+  // Get paragraph positions
+  const paragraphPositions = paragraphMatches.map(m => ({
+    start: m.index!,
+    end: m.index! + m[0].length,
+    text: m[0]
+  }));
+
+  // Find paragraphs before the first H2 (introduction paragraphs)
+  const firstH2Position = h2Positions.length > 0 ? h2Positions[0].start : content.length;
+  const introParagraphs = paragraphPositions.filter(p => p.end < firstH2Position);
+
+  // 1. Adsterra Ad #1: After introduction (after 1st or 2nd paragraph, before first H2)
+  if (adsterraBannerCode) {
+    if (introParagraphs.length >= 2) {
+      // Place after 2nd intro paragraph
+      insertions.push({
+        position: introParagraphs[1].end,
+        html: createAdWrapper(adsterraBannerCode, 'ad-adsterra-1'),
+        priority: 1
+      });
+    } else if (introParagraphs.length >= 1) {
+      // Place after 1st intro paragraph
+      insertions.push({
+        position: introParagraphs[0].end,
+        html: createAdWrapper(adsterraBannerCode, 'ad-adsterra-1'),
+        priority: 1
+      });
+    } else if (h2Positions.length > 0) {
+      // No intro paragraphs, place before first H2
+      insertions.push({
+        position: h2Positions[0].start,
+        html: createAdWrapper(adsterraBannerCode, 'ad-adsterra-1'),
+        priority: 1
+      });
     }
   }
 
-  // Adsterra Banner 1: After paragraph 1
-  if (adsterraBannerCode && paragraphPositions.length >= 1) {
+  // 2. Advertica Ad #1: After the first H2 section (after paragraphs following first H2)
+  if (adverticaBannerCode && h2Positions.length >= 1) {
+    // Find the position just before the second H2, or after paragraphs of first section
+    if (h2Positions.length >= 2) {
+      // Place just before the second H2
+      insertions.push({
+        position: h2Positions[1].start,
+        html: createAdWrapper(adverticaBannerCode, 'ad-advertica-1'),
+        priority: 2
+      });
+    } else {
+      // Only one H2, place after paragraphs that follow it
+      const paragraphsAfterH2 = paragraphPositions.filter(p => p.start > h2Positions[0].end);
+      if (paragraphsAfterH2.length >= 2) {
+        insertions.push({
+          position: paragraphsAfterH2[1].end,
+          html: createAdWrapper(adverticaBannerCode, 'ad-advertica-1'),
+          priority: 2
+        });
+      } else if (paragraphsAfterH2.length >= 1) {
+        insertions.push({
+          position: paragraphsAfterH2[0].end,
+          html: createAdWrapper(adverticaBannerCode, 'ad-advertica-1'),
+          priority: 2
+        });
+      }
+    }
+  }
+
+  // 3. Adsterra Ad #2: In the middle of the article, between two major sections
+  if (adsterraBannerCode && h2Positions.length >= 3) {
+    const middleIndex = Math.floor(h2Positions.length / 2);
+    // Place just before the middle H2
     insertions.push({
-      position: paragraphPositions[0].end,
-      html: `<div class="ad-placement ad-adsterra-1" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>`
+      position: h2Positions[middleIndex].start,
+      html: createAdWrapper(adsterraBannerCode, 'ad-adsterra-2'),
+      priority: 3
+    });
+  } else if (adsterraBannerCode && paragraphPositions.length >= 6) {
+    // Fallback: place in middle of paragraphs if not enough H2s
+    const middleIndex = Math.floor(paragraphPositions.length / 2);
+    insertions.push({
+      position: paragraphPositions[middleIndex].end,
+      html: createAdWrapper(adsterraBannerCode, 'ad-adsterra-2'),
+      priority: 3
     });
   }
 
-  // Advertica Banner 1: After paragraph 2
-  if (adverticaBannerCode && paragraphPositions.length >= 2) {
+  // 4. Advertica Ad #2: Near the end, just before the conclusion (last H2)
+  if (adverticaBannerCode && h2Positions.length >= 2) {
+    // Place just before the last H2 (which is typically the conclusion)
+    const lastH2Index = h2Positions.length - 1;
     insertions.push({
-      position: paragraphPositions[1].end,
-      html: `<div class="ad-placement ad-advertica-1" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`
+      position: h2Positions[lastH2Index].start,
+      html: createAdWrapper(adverticaBannerCode, 'ad-advertica-2'),
+      priority: 4
+    });
+  } else if (adverticaBannerCode && paragraphPositions.length >= 4) {
+    // Fallback: place before last 2 paragraphs
+    const nearEndIndex = paragraphPositions.length - 2;
+    insertions.push({
+      position: paragraphPositions[nearEndIndex].start,
+      html: createAdWrapper(adverticaBannerCode, 'ad-advertica-2'),
+      priority: 4
     });
   }
 
-  // Adsterra Banner 2: After paragraph 4 (or middle if less paragraphs)
-  if (adsterraBannerCode && paragraphPositions.length >= 4) {
-    insertions.push({
-      position: paragraphPositions[3].end,
-      html: `<div class="ad-placement ad-adsterra-2" style="margin: 20px 0; text-align: center;">${adsterraBannerCode}</div>`
-    });
+  // Remove duplicate positions and sort by position descending to insert from end to start
+  const uniqueInsertions = insertions.filter((item, index, self) =>
+    index === self.findIndex(t => Math.abs(t.position - item.position) < 10)
+  );
+  uniqueInsertions.sort((a, b) => b.position - a.position);
+
+  for (const insertion of uniqueInsertions) {
+    result = result.slice(0, insertion.position) + '\n' + insertion.html + '\n' + result.slice(insertion.position);
   }
 
-  // Advertica Banner 2: After paragraph 5 (or near end if less paragraphs)
-  if (adverticaBannerCode && paragraphPositions.length >= 5) {
-    insertions.push({
-      position: paragraphPositions[4].end,
-      html: `<div class="ad-placement ad-advertica-2" style="margin: 20px 0; text-align: center;">${adverticaBannerCode}</div>`
-    });
-  }
-
-  // Sort insertions by position descending to insert from end to start
-  insertions.sort((a, b) => b.position - a.position);
-
-  for (const insertion of insertions) {
-    result = result.slice(0, insertion.position) + '\n' + insertion.html + result.slice(insertion.position);
-  }
-
-  // Add popunder at the end
+  // Add popunder at the very end
   if (popunderAdsCode) {
     result = result + '\n' + popunderAdsCode;
   }
