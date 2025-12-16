@@ -364,14 +364,32 @@ export function formatBlogPostForX(
     .replace(/\s+/g, " ")
     .trim();
   
+  const hashtags = generateHashtagsFromLabels(post.labels || []);
+  const hashtagText = hashtags.length > 0 ? `\n\n${hashtags.join(" ")}` : "";
   const linkText = `\n\nRead more: ${blogUrl}`;
-  const availableLength = maxLength - linkText.length;
+  const availableLength = maxLength - linkText.length - hashtagText.length;
   
   if (excerpt.length > availableLength) {
     excerpt = excerpt.substring(0, availableLength - 3).trim() + "...";
   }
   
-  return excerpt + linkText;
+  return excerpt + hashtagText + linkText;
+}
+
+function generateHashtagsFromLabels(labels: string[]): string[] {
+  if (!labels || labels.length === 0) return [];
+  
+  return labels
+    .slice(0, 3)
+    .map(label => {
+      const cleaned = label
+        .replace(/[^a-zA-Z0-9\s]/g, "")
+        .split(/\s+/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join("");
+      return cleaned ? `#${cleaned}` : null;
+    })
+    .filter((tag): tag is string => tag !== null && tag.length > 1);
 }
 
 export async function postBlogToX(
