@@ -166,6 +166,15 @@ npm run build   # Build for production
 
 ## Recent Updates
 
+### December 17, 2025 - WhatsApp Notifications via CallMeBot
+- **CallMeBot Integration**: Added WhatsApp notifications using the free CallMeBot API
+- **Instant Failure Alerts**: Get notified immediately when a scheduled blog post fails to publish
+- **Daily Reports at 11:59 PM**: Receive automated daily activity summaries via WhatsApp
+- **User-Friendly Setup Guide**: Comprehensive step-by-step instructions for CallMeBot activation
+- **New WhatsApp Page**: Dedicated settings page with connection status, credentials management, and test functions
+- **API Endpoints**: GET/POST `/api/whatsapp/settings`, POST `/api/whatsapp/test`, POST `/api/whatsapp/send-daily-report`
+- **Storage**: WhatsApp settings stored in database/settings.json following existing pattern
+
 ### December 11, 2025 - Serper.dev Integration (Primary Research Tool)
 - **Serper.dev API Integration**: All web research now uses Serper.dev exclusively instead of Gemini web search
 - **Unlimited Serper API Keys**: Add multiple rotating Serper API keys with automatic rotation and failure handling
