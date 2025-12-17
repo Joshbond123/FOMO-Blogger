@@ -6,6 +6,7 @@ import { publishToBlogger, publishToBloggerWithAccount } from "./blogger";
 import { publishToTumblr } from "./tumblr";
 import { postBlogToX } from "./twitter";
 import { searchTrendingTopicsSerper, researchTopicWithSerper } from "./serper";
+import { notifyPublishFailure, sendDailyReport } from "./whatsapp";
 import type { Schedule, BloggerAccount, NicheId, Post, InsertTrendingResearch } from "@shared/schema";
 import { NICHES } from "@shared/schema";
 
@@ -324,6 +325,9 @@ async function executeScheduledPost(schedule?: Schedule): Promise<void> {
         errorMessage: result.message,
       });
       console.error(`[Scheduler] FAILED: ${result.message}`);
+      
+      await notifyPublishFailure(post.title, result.message, account?.name);
+      
       console.log(`[Scheduler] ========================================`);
     }
   } catch (error) {
@@ -418,4 +422,39 @@ export async function executeManualPost(nicheId?: string, accountId?: string): P
     nicheId,
     accountId,
   });
+}
+
+let dailyReportJob: ScheduledTask | null = null;
+
+export async function startDailyReportScheduler(): Promise<void> {
+  if (dailyReportJob) {
+    dailyReportJob.stop();
+    dailyReportJob = null;
+  }
+  
+  const cronExpression = "59 23 * * *";
+  
+  dailyReportJob = cron.schedule(cronExpression, async () => {
+    console.log("[WhatsApp] ========================================");
+    console.log("[WhatsApp] Daily report triggered at 11:59 PM");
+    console.log(`[WhatsApp] Time: ${new Date().toISOString()}`);
+    
+    try {
+      const result = await sendDailyReport();
+      if (result.success) {
+        console.log("[WhatsApp] Daily report sent successfully");
+      } else {
+        console.log(`[WhatsApp] Daily report skipped or failed: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("[WhatsApp] Error sending daily report:", error);
+    }
+    
+    console.log("[WhatsApp] ========================================");
+  }, {
+    timezone: "UTC"
+  });
+  
+  dailyReportJob.start();
+  console.log("[WhatsApp] Daily report scheduler started (11:59 PM UTC daily)");
 }

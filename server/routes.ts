@@ -9,7 +9,8 @@ import { testSerperConnection, searchTrendingTopicsSerper, researchTopicWithSerp
 import { validateBloggerConnection, publishToBlogger, publishToBloggerWithAccount, validateAndConnectAccount, validateAccountCredentials } from "./services/blogger";
 import { testTumblrConnection, getTumblrBlogs, publishToTumblr } from "./services/tumblr";
 import { testXConnection, postToX, postBlogToX } from "./services/twitter";
-import { startScheduler, refreshSchedules } from "./services/scheduler";
+import { testWhatsAppConnection, sendWhatsAppMessage, sendDailyReport, getWhatsAppStatus } from "./services/whatsapp";
+import { startScheduler, refreshSchedules, startDailyReportScheduler } from "./services/scheduler";
 import type { Post, NicheId } from "@shared/schema";
 import { NICHES } from "@shared/schema";
 import path from "path";
@@ -1307,6 +1308,85 @@ export async function registerRoutes(
       res.status(500).json({ error: message });
     }
   });
+
+  app.get("/api/whatsapp/settings", async (_req: Request, res: Response) => {
+    try {
+      const settings = await storage.getWhatsAppSettings();
+      const safeSettings = {
+        ...settings,
+        apiKey: settings.apiKey ? "***" : undefined,
+      };
+      res.json(safeSettings);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get WhatsApp settings" });
+    }
+  });
+
+  app.post("/api/whatsapp/settings", async (req: Request, res: Response) => {
+    try {
+      const { phoneNumber, apiKey, isEnabled, notifyOnFailure, sendDailyReport } = req.body;
+      
+      const updates: any = {};
+      if (phoneNumber !== undefined) updates.phoneNumber = phoneNumber;
+      if (apiKey !== undefined) updates.apiKey = apiKey;
+      if (isEnabled !== undefined) updates.isEnabled = isEnabled;
+      if (notifyOnFailure !== undefined) updates.notifyOnFailure = notifyOnFailure;
+      if (sendDailyReport !== undefined) updates.sendDailyReport = sendDailyReport;
+      
+      const settings = await storage.updateWhatsAppSettings(updates);
+      
+      res.json({ 
+        success: true, 
+        data: {
+          ...settings,
+          apiKey: settings.apiKey ? "***" : undefined,
+        },
+        message: "WhatsApp settings saved successfully" 
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to save settings";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.post("/api/whatsapp/test", async (_req: Request, res: Response) => {
+    try {
+      const result = await testWhatsAppConnection();
+      if (result.success) {
+        res.json({ success: true, message: result.message });
+      } else {
+        res.status(400).json({ success: false, error: result.message });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Test failed";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  app.get("/api/whatsapp/status", async (_req: Request, res: Response) => {
+    try {
+      const status = await getWhatsAppStatus();
+      res.json(status);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get status" });
+    }
+  });
+
+  app.post("/api/whatsapp/send-daily-report", async (_req: Request, res: Response) => {
+    try {
+      const result = await sendDailyReport();
+      if (result.success) {
+        res.json({ success: true, message: result.message });
+      } else {
+        res.status(400).json({ success: false, error: result.message });
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to send report";
+      res.status(500).json({ error: message });
+    }
+  });
+
+  await startDailyReportScheduler();
 
   return httpServer;
 }
