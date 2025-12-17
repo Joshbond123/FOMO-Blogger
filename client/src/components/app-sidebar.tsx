@@ -19,9 +19,10 @@ import {
   FileText,
   Database,
   Search,
-  Share2
+  Share2,
+  MessageCircle
 } from "lucide-react";
-import { SiTumblr, SiX } from "react-icons/si";
+import { SiTumblr, SiX, SiWhatsapp } from "react-icons/si";
 
 const menuItems = [
   {
@@ -53,6 +54,11 @@ const menuItems = [
     title: "X Integration",
     url: "/x-integration",
     icon: SiX,
+  },
+  {
+    title: "WhatsApp",
+    url: "/whatsapp",
+    icon: SiWhatsapp,
   },
   {
     title: "Settings",

@@ -14,6 +14,7 @@ import Research from "@/pages/research";
 import Settings from "@/pages/settings";
 import TumblrBlogs from "@/pages/tumblr-blogs";
 import XIntegration from "@/pages/x-integration";
+import WhatsApp from "@/pages/whatsapp";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/research" component={Research} />
       <Route path="/tumblr-blogs" component={TumblrBlogs} />
       <Route path="/x-integration" component={XIntegration} />
+      <Route path="/whatsapp" component={WhatsApp} />
       <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
