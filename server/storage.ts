@@ -20,6 +20,7 @@ import type {
   XAccount,
   InsertXAccount,
   XBloggerConnection,
+  WhatsAppSettings,
 } from "@shared/schema";
 
 const DATABASE_DIR = path.join(process.cwd(), "database");
@@ -35,6 +36,7 @@ const TUMBLR_CONFIG_FILE = path.join(STORAGE_DIR, "tumblr_config.json");
 const TUMBLR_CONNECTIONS_FILE = path.join(DATABASE_DIR, "tumblr_connections.json");
 const X_CONFIG_FILE = path.join(STORAGE_DIR, "x_accounts.json");
 const X_CONNECTIONS_FILE = path.join(DATABASE_DIR, "x_connections.json");
+const WHATSAPP_CONFIG_FILE = path.join(STORAGE_DIR, "whatsapp_config.json");
 const IMAGES_DIR = path.join(STORAGE_DIR, "images");
 
 const defaultUserCredentials: UserCredentials = {
@@ -54,6 +56,14 @@ const defaultTumblrCredentials: TumblrCredentials = {
   consumer_secret: "",
   token: "",
   token_secret: "",
+};
+
+const defaultWhatsAppSettings: WhatsAppSettings = {
+  phoneNumber: "",
+  apiKey: "",
+  isEnabled: false,
+  notifyOnFailure: true,
+  sendDailyReport: true,
 };
 
 function ensureStorageDirectoryExists() {
@@ -1079,6 +1089,23 @@ export class FileStorage implements IStorage {
   async getXConnectionsByXAccountId(xAccountId: string): Promise<XBloggerConnection[]> {
     const connections = await this.getXConnections();
     return connections.filter((c) => c.xAccountId === xAccountId);
+  }
+
+  async getWhatsAppSettings(): Promise<WhatsAppSettings> {
+    ensureStorageDirectoryExists();
+    return readJsonFile<WhatsAppSettings>(WHATSAPP_CONFIG_FILE, defaultWhatsAppSettings);
+  }
+
+  async saveWhatsAppSettings(settings: WhatsAppSettings): Promise<WhatsAppSettings> {
+    ensureStorageDirectoryExists();
+    writeJsonFile(WHATSAPP_CONFIG_FILE, settings);
+    return settings;
+  }
+
+  async updateWhatsAppSettings(updates: Partial<WhatsAppSettings>): Promise<WhatsAppSettings> {
+    const current = await this.getWhatsAppSettings();
+    const updated = { ...current, ...updates };
+    return this.saveWhatsAppSettings(updated);
   }
 }
 

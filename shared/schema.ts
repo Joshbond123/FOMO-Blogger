@@ -392,3 +392,19 @@ export const xBloggerConnectionSchema = z.object({
 });
 
 export type XBloggerConnection = z.infer<typeof xBloggerConnectionSchema>;
+
+// WhatsApp CallMeBot settings schema
+export const whatsappSettingsSchema = z.object({
+  phoneNumber: z.string().optional(),
+  apiKey: z.string().optional(),
+  isEnabled: z.boolean().default(false),
+  notifyOnFailure: z.boolean().default(true),
+  sendDailyReport: z.boolean().default(true),
+  lastTestAt: z.string().optional(),
+  lastTestSuccess: z.boolean().optional(),
+});
+
+export type WhatsAppSettings = z.infer<typeof whatsappSettingsSchema>;
+
+export const insertWhatsappSettingsSchema = whatsappSettingsSchema;
+export type InsertWhatsAppSettings = z.infer<typeof insertWhatsappSettingsSchema>;

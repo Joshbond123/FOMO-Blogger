@@ -83,103 +83,22 @@
   },
   "bloggerAccounts": [
     {
-      "name": "ShadowCase Files",
-      "blogId": "891743545610802329",
-      "nicheId": "scary-mysterious",
-      "clientId": "677480586495-p7sfvrcuvgv7m5um2cjpbu0tc0kvij5a.apps.googleusercontent.com",
-      "clientSecret": "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",
-      "refreshToken": "1//04p4IKOvHTmFhCgYIARAAGAQSNwF-L9IrZE1UX0traxCQWgCT-LIQNeBhO0RUql-4j8wtDWQOX0wroipTmt7k7TCKX1dci3P-CRY",
-      "id": "57c3e8ac-a36f-4901-8893-ee766b73cdcd",
-      "createdAt": "2025-12-14T21:26:50.699Z",
+      "name": "Wellness Smart Tips",
+      "blogId": "6671383758215908821",
+      "nicheId": "health-hacks",
+      "clientId": "158217424816-okr72fd6rqtmdo0flc3an9nstcdvmgrb.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//04E6F_PLYdqzeCgYIARAAGAQSNwF-L9Ir2KuOwjM87v94LW5HKQEWI2zQocn2k4X4hOp4IRN5GIPXFLyPf-y4PbqMZG0E0VZivfg",
+      "id": "84387cda-3717-419a-9641-d5f141bb4935",
+      "createdAt": "2025-12-17T00:18:15.621Z",
       "isConnected": true,
-      "accessToken": "ya29.a0Aa7pCA9gDWx35fiDXd3hJhReZWCz8lTsJLMVwHYDztIfc4tLNNVHj9F5Gb4ML8uL6E1ZuNY1mm4JtK7q4kY8oPMyp85YPtuUn3pNCU8s_a0NHxcwdLQwVWSbhbDyC09GpZVur7NnAmIx3uxhWWir4dQ4XaLuXlC3855rMKPnv8RoulVoCq1fRvtAwotwZqyj4y92trAqaCgYKAe4SARISFQHGX2Mi8XY9YbvMPXHhV2GMgOsJXA0207",
-      "tokenExpiry": "2025-12-16T22:34:27.821Z",
-      "blogName": "ShadowCase Files",
-      "blogUrl": "http://shadowcasefile.blogspot.com/",
-      "bannerAdsCode": "<script type=\"text/javascript\">\n  atOptions = {\n  \t'key' : 'af00aaa10f5500bdb1e0ac7eb4c0f267',\n  \t'format' : 'iframe',\n  \t'height' : 250,\n  \t'width' : 300,\n  \t'params' : {}\n  };\n</script>\n<script\n  type=\"text/javascript\"\n  src=\"https://prototypesorting.com/af00aaa10f5500bdb1e0ac7eb4c0f267/invoke.js\"\n></script>",
-      "popunderAdsCode": "",
-      "adverticaBannerAdsCode": "<ins style=\"width: 300px;height:250px\" data-width=\"300\" data-height=\"250\" class=\"m5542ef6a73\" data-domain=\"//data527.click\" data-affquery=\"/b15e52307a0a2b029566/5542ef6a73/?placementName=default\"><script src=\"//data527.click/js/responsive.js\" async></script></ins>"
+      "accessToken": "ya29.a0Aa7pCA_6YBO4JVgwXS3oGLiRFwUdX7eDI8TYZCocXa08sZzyMPfzoeuB-GGC0MloTxT80tjDlpBz_7taLzJ96gJt_98F7MIXMo23pdpQSE2ZAR7zu2txyJszFFoLblJmXfNROYzl-7cg0nrO8DfpLqfrWvw3VtMZLDs0madpwAVTHWZkeVdcYWaarsQISTKsrKn-1aQaCgYKAZcSARASFQHGX2MiCg_5F8eUSkYrtcYFGmCD4w0206",
+      "tokenExpiry": "2025-12-17T01:18:14.620Z",
+      "blogName": "Wellness Smart Tips",
+      "blogUrl": "http://wellnesssmarttips.blogspot.com/"
     }
   ],
-  "schedules": [
-    {
-      "id": "34c37754-abfa-4156-900b-cc32cb8a3152",
-      "time": "22:28",
-      "timezone": "Africa/Lagos",
-      "isActive": false,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "e90eab58-5f08-4cd3-b8f4-0236881a53ca",
-      "time": "22:34",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "e4af7254-36b6-4ed9-94a7-5b30626d24a1",
-      "time": "23:05",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "9dd5347b-7a2b-4caf-ad01-8925572cb74c",
-      "time": "23:29",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "e7295e94-013b-4a15-b815-ddfcd3604ad8",
-      "time": "00:19",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "10f7c55d-c0a3-41c4-ac46-7f061623fa8e",
-      "time": "00:47",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "be78fe39-427e-4fd9-be19-e1b5cfe4af0c",
-      "time": "12:32",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "39c1e8ed-8947-4fe8-9136-b10ba96adfe5",
-      "time": "07:27",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "b26d1ace-b671-42bb-9080-8558496afded",
-      "time": "07:28",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "84508ad5-fc6e-4dba-8bcb-6c029b232a11",
-      "time": "20:36",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    },
-    {
-      "id": "764be1ae-7d27-4023-8c58-4ef5b248ad76",
-      "time": "20:59",
-      "timezone": "Africa/Lagos",
-      "isActive": true,
-      "accountId": "57c3e8ac-a36f-4901-8893-ee766b73cdcd"
-    }
-  ],
+  "schedules": [],
   "currentGeminiKeyIndex": 0,
   "currentCerebrasKeyIndex": 6,
   "currentHuggingfaceKeyIndex": 0,
